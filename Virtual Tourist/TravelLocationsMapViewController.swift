@@ -1,25 +1,26 @@
 //
-//  TravelLocationsViewController..swift
+//  TravelLocationsMapViewController..swift
 //  Virtual Tourist
 //
 //  Created by Luciano Schillagi on 12/5/17.
 //  Copyright © 2017 luko. All rights reserved.
 //
 
-import UIKit
-import MapKit
-import CoreData
+import UIKit // interfaz de usuario
+import MapKit // mapa
+import CoreData // persistencia
 
 /* Controller */
 
-class TravelLocationsViewController: UIViewController  {
+class TravelLocationsMapViewController: UIViewController  {
 	
-	// MARK: Propertie
+	// MARK: Properties
 	var editMode: Bool = false // por defecto la vista del mapa NO está en modo edición
+	@IBOutlet weak var deletePinsMessage: UILabel!
 	
 	// Outlets
 	@IBOutlet weak var mapView: MKMapView! // un objeto que representa el mapa
-	@IBOutlet weak var deletePinsMessage: UILabel!
+	
 	
 	// ..representa la vista que aparece cuando el usuario presiona el botón 'Edit'
 	
@@ -57,7 +58,6 @@ class TravelLocationsViewController: UIViewController  {
 		
 	}
 
-	
 	// Edit-Done Button
 	/**
 	Al tapear sobre el botón 'edit-done' aparece la vista-mensaje 'Tap Pins To Delete' y el vc entra en modo edición. Se podrán entonces borrar los pins que estén colocados sobre el mapa pero no se podrán agregar nuevos.
@@ -80,7 +80,7 @@ class TravelLocationsViewController: UIViewController  {
 }  // end VC
 
 // MARK: Extensions
-extension TravelLocationsViewController: MKMapViewDelegate {
+extension TravelLocationsMapViewController: MKMapViewDelegate {
 	/**
 	TODO:
 	

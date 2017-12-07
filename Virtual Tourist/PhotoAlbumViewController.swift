@@ -31,5 +31,4 @@ class PhotoAlbumViewController: UIViewController {
 	}
 	
 	
-	
 } // end VC

@@ -13,7 +13,7 @@
         <!--Virtual Tourist-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="TravelLocationsViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TravelLocationsMapViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,8 +43,8 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="zaP-H0-SGI"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="deletePinsMessage" destination="Ab2-Jn-MBt" id="BPV-rt-z8O"/>
-                        <outlet property="mapView" destination="t0T-HT-dQp" id="TXR-Ea-iCE"/>
+                        <outlet property="deletePinsMessage" destination="Ab2-Jn-MBt" id="Q0y-0O-Wsa"/>
+                        <outlet property="mapView" destination="t0T-HT-dQp" id="ubR-dd-afO"/>
                         <segue destination="kma-Tp-5g4" kind="show" identifier="PinPhotos" id="wC7-9r-z9d"/>
                     </connections>
                 </viewController>
@@ -55,7 +55,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="475.36231884057975" y="132.88043478260872"/>
+            <point key="canvasLocation" x="543" y="134"/>
         </scene>
         <!--Photo Album View Controller-->
         <scene sceneID="Pg3-xS-eIF">
