@@ -18,6 +18,7 @@ class PhotoAlbumViewController: UIViewController {
 	
 	// Properties
 	@IBOutlet weak var mapFragment: MKMapView!
+	@IBOutlet weak var filckrPhoto: UIImageView!
 	
 	// Life Cycle
 	override func viewDidLoad() {

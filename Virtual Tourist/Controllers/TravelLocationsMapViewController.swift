@@ -36,6 +36,20 @@ class TravelLocationsMapViewController: UIViewController  {
 	}
 	
 	// MARK: Actions
+	
+	// TODO: VER ESTO-----------------
+	func resignIfFirstResponder(_ mapView: MKMapView) {
+		if mapView.isFirstResponder {
+			mapView.resignFirstResponder()
+		}
+	}
+	
+	@IBAction func userDidTapView(_ sender: AnyObject) {
+		resignIfFirstResponder(mapView)
+
+	}
+	// HASTA ACÁ--------------------------
+	
 	/**
 	Reconoce el tap largo del usuario sobre un punto del mapa, y sobre ese punto añade un PIN.
 	

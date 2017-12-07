@@ -51,7 +51,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="MnV-ql-3Q8">
                     <connections>
-                        <action selector="tapPin:" destination="BYZ-38-t0r" id="XYb-rC-sEg"/>
+                        <action selector="tapPin:" destination="BYZ-38-t0r" id="bh5-bi-q4A"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
@@ -80,11 +80,16 @@
                                     <action selector="newCollection:" destination="kma-Tp-5g4" eventType="touchUpInside" id="ipb-VP-W24"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ue6-NY-gCw">
+                                <rect key="frame" x="0.0" y="232" width="414" height="457"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="xa7-Qy-aBq"/>
                     </view>
                     <connections>
+                        <outlet property="filckrPhoto" destination="ue6-NY-gCw" id="QKa-w4-LOq"/>
                         <outlet property="mapFragment" destination="mSz-0a-hzd" id="nFU-Jy-ES8"/>
                     </connections>
                 </viewController>
