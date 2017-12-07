@@ -8,24 +8,28 @@
 
 import UIKit
 
-import UIKit
-import MapKit
-import CoreData
+import UIKit // interfaz de usuario
+import MapKit // mapa
+import CoreData // persistir datos
 
 /* Controller */
 
 class PhotoAlbumViewController: UIViewController {
 	
+	// Properties
+	@IBOutlet weak var mapFragment: MKMapView!
+	
+	// Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Do any additional setup after loading the view.
+		self.navigationItem.backBarButtonItem?.title = "OK"
 	}
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
+	// Actions
+	@IBAction func newCollection(_ sender: UIButton) {
+		// TODO: recargar las fotos de las celdas de la colección
 	}
+	
 	
 	
 } // end VC

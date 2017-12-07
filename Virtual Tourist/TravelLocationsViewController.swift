@@ -7,8 +7,6 @@
 //
 
 import UIKit
-
-import UIKit
 import MapKit
 import CoreData
 
@@ -16,13 +14,14 @@ import CoreData
 
 class TravelLocationsViewController: UIViewController  {
 	
-	// MARK: Properties
-	// por defecto la vista del mapa NO está en modo edición
-	var editMode: Bool = false
+	// MARK: Propertie
+	var editMode: Bool = false // por defecto la vista del mapa NO está en modo edición
 	
 	// Outlets
 	@IBOutlet weak var mapView: MKMapView! // un objeto que representa el mapa
-	@IBOutlet weak var deletePinsMessage: UIView! // ..representa la vista que aparece cuando el usuario presiona el botón 'Edit'
+	@IBOutlet weak var deletePinsMessage: UILabel!
+	
+	// ..representa la vista que aparece cuando el usuario presiona el botón 'Edit'
 	
 	// MARK: Life Cycle
 	override func viewDidLoad() {
@@ -36,13 +35,13 @@ class TravelLocationsViewController: UIViewController  {
 	}
 	
 	// MARK: Actions
-	
 	/**
-	Reconoce el tap del usuario sobre un punto del mapa, y sobre ese punto añade un PIN.
+	Reconoce el tap largo del usuario sobre un punto del mapa, y sobre ese punto añade un PIN.
 	
-	- parameter sender: el tap del usuario sobre el mapa .
+	- parameter sender: el tap largo del usuario sobre el mapa .
 	*/
-	@IBAction func tapPin(_ sender: UITapGestureRecognizer) {
+	@IBAction func tapPin(_ sender: UILongPressGestureRecognizer) {
+		
 		// las coordenadas del tapeo sobre el mapa
 		let gestureTouchLocation: CGPoint = sender.location(in: mapView)
 		// convierto las coordenadas en una coordenada de mapa
@@ -55,7 +54,9 @@ class TravelLocationsViewController: UIViewController  {
 		mapView.addAnnotation(annotation)
 		// guardo el pin
 		//addCoreData(of: annotation)
+		
 	}
+
 	
 	// Edit-Done Button
 	/**
