@@ -20,37 +20,45 @@ import Foundation
 //	nojsoncallback=1
 
 
+import UIKit
+
 // MARK: - Constants
 
 struct Constants {
-
+	
 	// MARK: Flickr
 	struct Flickr {
-		static let endpoint = "https://api.flickr.com/services/rest/"
+		static let APIScheme = "https"
+		static let APIHost = "api.flickr.com"
+		static let APIPath = "/services/rest"
 	}
-
+	
 	// MARK: Flickr Parameter Keys
 	struct FlickrParameterKeys {
-		static let method = "method"
-		static let apiKey = "api_key"
-		static let userID = "user_id"
-		static let lat = "lat"
-		static let lon = "lon"
-		static let format = "format"
-		static let noJsonCallback = "nojsoncallback"
+		static let Method = "method"
+		static let APIKey = "api_key"
+		static let GalleryID = "gallery_id"
+		static let Extras = "extras"
+		static let Format = "format"
+		static let NoJSONCallback = "nojsoncallback"
+		static let SafeSearch = "safe_search"
+		static let Text = "text"
+		static let BoundingBox = "bbox"
+		static let Page = "page"
 	}
-
+	
 	// MARK: Flickr Parameter Values
 	struct FlickrParameterValues {
-		static let searchMethod = "flickr.photos.search"
-		static let apiKey = "cfc2e1656f2fe02c4c7ada0a635b9813"
-		static let userID = "146417271%40N05&"
-		static let lat = "1" /* 1 means "yes" */ // CORREGIR ESTE VALOR
-		static let lon = "flickr.galleries.getPhotos" // CORREGIR ESTE VALOR
-		static let format = "json"
-		static let noJsonCallback = "1"
+		static let SearchMethod = "flickr.photos.search"
+		static let APIKey = "200778b8a74284c35e9cf41905e84d39"
+		static let ResponseFormat = "json"
+		static let DisableJSONCallback = "1" /* 1 means "yes" */
+		static let GalleryPhotosMethod = "flickr.galleries.getPhotos"
+		static let GalleryID = "5704-72157622566655097"
+		static let MediumURL = "url_m"
+		static let UseSafeSearch = "1"
 	}
-
+	
 	// MARK: Flickr Response Keys
 	struct FlickrResponseKeys {
 		static let Status = "stat"
@@ -58,12 +66,23 @@ struct Constants {
 		static let Photo = "photo"
 		static let Title = "title"
 		static let MediumURL = "url_m"
+		static let Pages = "pages"
 		static let Total = "total"
 	}
-
+	
 	// MARK: Flickr Response Values
 	struct FlickrResponseValues {
 		static let OKStatus = "ok"
 	}
-
+	
+	// FIX: As of Swift 2.2, using strings for selectors has been deprecated. Instead, #selector(methodName) should be used.
+	/*
+	// MARK: Selectors
+	struct Selectors {
+	static let KeyboardWillShow: Selector = "keyboardWillShow:"
+	static let KeyboardWillHide: Selector = "keyboardWillHide:"
+	static let KeyboardDidShow: Selector = "keyboardDidShow:"
+	static let KeyboardDidHide: Selector = "keyboardDidHide:"
+	}
+	*/
 }

@@ -16,9 +16,9 @@ class TravelLocationsMapViewController: UIViewController  {
 	
 	// MARK: Properties
 	var editMode: Bool = false // por defecto la vista del mapa NO está en modo edición
-	@IBOutlet weak var deletePinsMessage: UILabel!
 	
 	// Outlets
+	@IBOutlet weak var deletePinsMessage: UILabel!
 	@IBOutlet weak var mapView: MKMapView! // un objeto que representa el mapa
 	
 	
@@ -58,7 +58,7 @@ class TravelLocationsMapViewController: UIViewController  {
 	@IBAction func tapPin(_ sender: UILongPressGestureRecognizer) {
 		
 		// las coordenadas del tapeo sobre el mapa
-		let gestureTouchLocation: CGPoint = sender.location(in: mapView)
+		let gestureTouchLocation = sender.location(in: mapView)
 		// convierto las coordenadas en una coordenada de mapa
 		let coordToAdd = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
 		// un pin sobre el mapa
@@ -70,6 +70,10 @@ class TravelLocationsMapViewController: UIViewController  {
 		// guardo el pin
 		//addCoreData(of: annotation)
 		
+		// debug
+		print(coordToAdd)
+		
+		//displayImageFromFlickrBySearch
 	}
 
 	// Edit-Done Button
@@ -104,7 +108,6 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 		// si NO está en modo edición
 		if !editMode {
-			
 			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
 			mapView.deselectAnnotation(view.annotation, animated: false)
 			// si está en modo edición

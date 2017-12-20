@@ -17,6 +17,7 @@
 		A661D9381FD771FB004CF5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A661D9371FD771FB004CF5B8 /* Assets.xcassets */; };
 		A68F2CE61FD772E8005D4342 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68F2CE51FD772E8005D4342 /* PhotoAlbumViewController.swift */; };
 		A68F2CF61FD773EF005D4342 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = A68F2CF51FD773EF005D4342 /* Contents.json */; };
+		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		A661D93C1FD771FB004CF5B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A68F2CE51FD772E8005D4342 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		A68F2CF51FD773EF005D4342 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
+		A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDBlackBox.swift; path = "Virtual Tourist/GCDBlackBox.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				A661D9301FD771FB004CF5B8 /* AppDelegate.swift */,
+				A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */,
 				A65EC8141FD9A2E50034B379 /* Model */,
 				A65EC8131FD9A2A60034B379 /* Controllers */,
 				A65EC8121FD9A2990034B379 /* Networking */,
@@ -190,6 +193,7 @@
 				A661D9311FD771FB004CF5B8 /* AppDelegate.swift in Sources */,
 				A68F2CE61FD772E8005D4342 /* PhotoAlbumViewController.swift in Sources */,
 				A65EC8071FD988400034B379 /* Model.xcdatamodeld in Sources */,
+				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
