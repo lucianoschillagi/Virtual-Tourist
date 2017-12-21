@@ -36,9 +36,9 @@ extension FlickrClient {
 	// MARK: Flickr Parameter Keys
 	struct ParameterKeys {
 		static let Method = "method"
-		static let APIKey = "api_key"
-		static let GalleryID = "gallery_id"
-		static let Extras = "extras"
+		static let ApiKey = "api_key"
+		static let Lat = "lat"
+		static let Lon = "lon"
 		static let Format = "format"
 		static let NoJSONCallback = "nojsoncallback"
 		static let SafeSearch = "safe_search"
@@ -50,7 +50,7 @@ extension FlickrClient {
 	// MARK: Flickr Parameter Values
 	struct ParameterValues {
 		static let SearchMethod = "flickr.photos.search"
-		static let APIKey = "200778b8a74284c35e9cf41905e84d39"
+		static let ApiKey = "200778b8a74284c35e9cf41905e84d39"
 		static let ResponseFormat = "json"
 		static let DisableJSONCallback = "1" /* 1 means "yes" */
 		static let GalleryPhotosMethod = "flickr.galleries.getPhotos"
@@ -58,18 +58,6 @@ extension FlickrClient {
 		static let MediumURL = "url_m"
 		static let UseSafeSearch = "1"
 	}
-	
-//		{
-//		"id": "38213620655",
-//		"owner": "46689459@N02",
-//		"secret": "c803a6140c",
-//		"server": "4679",
-//		"farm": 5,
-//		"title": "Araña Saltarina",
-//		"ispublic": 1,
-//		"isfriend": 0,
-//		"isfamily": 0
-//		},
 		
 	// MARK: Flickr Response Keys
 	struct ResponseKeys {
@@ -90,6 +78,5 @@ extension FlickrClient {
 	struct ResponseValues {
 		static let OKStatus = "ok"
 	}
-
-	}
+}
 

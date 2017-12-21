@@ -71,10 +71,11 @@ class TravelLocationsMapViewController: UIViewController  {
 		//addCoreData(of: annotation)
 		
 		// debug
-		print(coordToAdd)
-		
+		print(coordToAdd.latitude)
+		print(coordToAdd.longitude)
 		//displayImageFromFlickrBySearch
 	}
+	
 
 	// Edit-Done Button
 	/**
