@@ -24,17 +24,17 @@ import UIKit
 
 // MARK: - Constants
 
-struct Constants {
+extension FlickrClient {
 	
 	// MARK: Flickr
-	struct Flickr {
-		static let APIScheme = "https"
-		static let APIHost = "api.flickr.com"
-		static let APIPath = "/services/rest"
+	struct Constants {
+		static let ApiScheme = "https"
+		static let ApiHost = "api.flickr.com"
+		static let ApiPath = "/services/rest"
 	}
 	
 	// MARK: Flickr Parameter Keys
-	struct FlickrParameterKeys {
+	struct ParameterKeys {
 		static let Method = "method"
 		static let APIKey = "api_key"
 		static let GalleryID = "gallery_id"
@@ -48,7 +48,7 @@ struct Constants {
 	}
 	
 	// MARK: Flickr Parameter Values
-	struct FlickrParameterValues {
+	struct ParameterValues {
 		static let SearchMethod = "flickr.photos.search"
 		static let APIKey = "200778b8a74284c35e9cf41905e84d39"
 		static let ResponseFormat = "json"
@@ -59,11 +59,27 @@ struct Constants {
 		static let UseSafeSearch = "1"
 	}
 	
+//		{
+//		"id": "38213620655",
+//		"owner": "46689459@N02",
+//		"secret": "c803a6140c",
+//		"server": "4679",
+//		"farm": 5,
+//		"title": "Araña Saltarina",
+//		"ispublic": 1,
+//		"isfriend": 0,
+//		"isfamily": 0
+//		},
+		
 	// MARK: Flickr Response Keys
-	struct FlickrResponseKeys {
+	struct ResponseKeys {
 		static let Status = "stat"
 		static let Photos = "photos"
 		static let Photo = "photo"
+		static let Id = "id"
+		static let Secret = "secret"
+		static let Server = "server"
+		static let Farm = "farm"
 		static let Title = "title"
 		static let MediumURL = "url_m"
 		static let Pages = "pages"
@@ -71,18 +87,9 @@ struct Constants {
 	}
 	
 	// MARK: Flickr Response Values
-	struct FlickrResponseValues {
+	struct ResponseValues {
 		static let OKStatus = "ok"
 	}
-	
-	// FIX: As of Swift 2.2, using strings for selectors has been deprecated. Instead, #selector(methodName) should be used.
-	/*
-	// MARK: Selectors
-	struct Selectors {
-	static let KeyboardWillShow: Selector = "keyboardWillShow:"
-	static let KeyboardWillHide: Selector = "keyboardWillHide:"
-	static let KeyboardDidShow: Selector = "keyboardDidShow:"
-	static let KeyboardDidHide: Selector = "keyboardDidHide:"
+
 	}
-	*/
-}
+
