@@ -28,6 +28,7 @@ extension FlickrClient {
 	
 	// MARK: Flickr
 	struct Constants {
+		static let URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=200778b8a74284c35e9cf41905e84d39&lat=-32.944243&lon=-60.650539&format=json&nojsoncallback=1"
 		static let ApiScheme = "https"
 		static let ApiHost = "api.flickr.com"
 		static let ApiPath = "/services/rest"
