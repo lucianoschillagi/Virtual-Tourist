@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,28 +62,23 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mSz-0a-hzd">
                                 <rect key="frame" x="0.0" y="64" width="375" height="171"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Chv-Qr-LdE">
-                                <rect key="frame" x="0.0" y="688" width="414" height="48"/>
-                                <color key="backgroundColor" red="0.0078431372550000003" green="0.70196078429999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfY-j0-XuY">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.60479987157534243" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="i1s-NW-cGD"/>
+                                    <constraint firstAttribute="height" constant="50" id="LCg-rJ-vat"/>
                                 </constraints>
-                                <state key="normal" title="New Collection">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="newCollection:" destination="kma-Tp-5g4" eventType="touchUpInside" id="ipb-VP-W24"/>
-                                </connections>
+                                <state key="normal" title="New Collection"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xa7-Qy-aBq" firstAttribute="bottom" secondItem="mSz-0a-hzd" secondAttribute="bottom" constant="432" id="2dZ-hK-CDU"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Chv-Qr-LdE" secondAttribute="bottom" constant="-69" id="5LX-7s-sLG"/>
-                            <constraint firstItem="mSz-0a-hzd" firstAttribute="leading" secondItem="Chv-Qr-LdE" secondAttribute="leading" id="FNU-Kj-lQN"/>
+                            <constraint firstItem="cfY-j0-XuY" firstAttribute="trailing" secondItem="mSz-0a-hzd" secondAttribute="trailing" id="KSN-zh-Qcy"/>
                             <constraint firstItem="xa7-Qy-aBq" firstAttribute="trailing" secondItem="mSz-0a-hzd" secondAttribute="trailing" id="LNT-Dc-8s5"/>
+                            <constraint firstItem="cfY-j0-XuY" firstAttribute="bottom" secondItem="xa7-Qy-aBq" secondAttribute="bottom" id="VUp-MW-gMD"/>
                             <constraint firstItem="mSz-0a-hzd" firstAttribute="leading" secondItem="xa7-Qy-aBq" secondAttribute="leading" id="aDA-2l-b1N"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Chv-Qr-LdE" secondAttribute="trailing" constant="-55" id="rKP-qO-WmC"/>
+                            <constraint firstItem="cfY-j0-XuY" firstAttribute="leading" secondItem="mSz-0a-hzd" secondAttribute="leading" id="bfm-zZ-iIE"/>
                             <constraint firstItem="mSz-0a-hzd" firstAttribute="top" secondItem="xa7-Qy-aBq" secondAttribute="top" id="wBM-nk-6eW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xa7-Qy-aBq"/>

@@ -12,9 +12,6 @@ class TravelLocationsMapViewController: UIViewController  {
 	// Outlets
 	@IBOutlet weak var mapView: MKMapView! // un objeto que representa el mapa
 	
-	
-	// ..representa la vista que aparece cuando el usuario presiona el botón 'Edit'
-	
 	// MARK: Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
