@@ -36,7 +36,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Virtual Tourist" id="VmD-gZ-3aO"/>
+                    <navigationItem key="navigationItem" title="Virtual Tourist" id="VmD-gZ-3aO">
+                        <barButtonItem key="backBarButtonItem" title="OK" id="jRq-Df-Cj4"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="t0T-HT-dQp" id="ubR-dd-afO"/>
                         <segue destination="kma-Tp-5g4" kind="show" identifier="PinPhotos" id="wC7-9r-z9d"/>
@@ -94,7 +96,7 @@
         <!--Navigation Controller-->
         <scene sceneID="K3c-Bu-wmc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UwQ-Ur-XMC" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" id="UwQ-Ur-XMC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DJc-Es-NHZ">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
