@@ -7,12 +7,10 @@ import CoreData // persistencia
 
 class TravelLocationsMapViewController: UIViewController  {
 	
-	// MARK: - Properties
-	
-	// Outlets
+	// MARK: - Outlets
 	@IBOutlet weak var mapView: MKMapView! // un objeto que representa el mapa
 	
-	// MARK: Life Cycle
+	// MARK: - View Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
@@ -41,7 +39,7 @@ class TravelLocationsMapViewController: UIViewController  {
 		
 		// las coordenadas del tapeo sobre el mapa
 		let gestureTouchLocation = sender.location(in: mapView)
-		// convierto las coordenadas en una coordenada de mapa
+		// convierte las coordenadas en unas coordenadas de mapa (latitud y longitud)
 		let coordToAdd = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
 		// un pin sobre el mapa
 		let annotation = MKPointAnnotation()
@@ -60,21 +58,18 @@ class TravelLocationsMapViewController: UIViewController  {
 	
 }  // end VC
 
-// MARK: Extensions
+// MARK: - Extensions
 extension TravelLocationsMapViewController: MKMapViewDelegate {
 	/**
-	TODO:
-	
-	- parameter sender: el tap del usuario sobre el mapa .
+	Le dice al delegado que una de sus pins (vistas de anotación) ha sido seleccionado.
+	- parameter mapView: la vista del mapa.
+	- parameter view: el pin.
 	*/
-	// Delegate Methods (Map View)
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-		// si NO está en modo edición
-		
-			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
+			// pasa el id del segue y el objeto que ha sido seleccionado
+			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate) // la vista del pin y sus coordenadas
+			// deselecciona un pin específico y su callout view
 			mapView.deselectAnnotation(view.annotation, animated: false)
-			// si está en modo edición
-		
 	}
 	
 } // end VC
