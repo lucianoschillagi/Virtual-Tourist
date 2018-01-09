@@ -8,7 +8,7 @@
 
 /* Model */
 
-// MARK: - FlickrPhoto
+// MARK: - Flickr Photo
 
 import Foundation
 /*
@@ -24,24 +24,24 @@ struct FlickrPhoto { // named type
 	let server: String
 	let farm: Int
 	
-	// MARK: Initializers
-	
+	// MARK: Initializer
 	// construyo un objeto 'FlickrImage' del resultado de la petición
 	// en formato JSON (JSON Object) de tipo diccionario [String:AnyObject]
 	init(dictionary: [String:AnyObject]) {
-		id = dictionary[FlickrClient.ResponseKeys.Id] as! String // extraigo el valor del JSON y lo almaceno en esta propiedad de un objeto Foundation
-		title = dictionary[FlickrClient.ResponseKeys.Title] as! String
-		secret = dictionary[FlickrClient.ResponseKeys.Secret] as! String
-		server = dictionary[FlickrClient.ResponseKeys.Server] as! String
-		farm = dictionary[FlickrClient.ResponseKeys.Farm] as! Int
+		id = dictionary[Flickr.ResponseKeys.Id] as! String // extraigo el valor del JSON y lo almaceno en esta propiedad de un objeto Foundation
+		title = dictionary[Flickr.ResponseKeys.Title] as! String
+		secret = dictionary[Flickr.ResponseKeys.Secret] as! String
+		server = dictionary[Flickr.ResponseKeys.Server] as! String
+		farm = dictionary[Flickr.ResponseKeys.Farm] as! Int
 	}
 	
+	// MARK: Methods
 	/**
 	Convierte un array de diccionarios en un array de estructuras.
 	
 	- parameter results: obtenidos de la petición (un array de fotos) representadas en formato [[String:AnyObject]]
 	
-	- returns: el array de fotos convertidos en un array de estructuras.
+	- returns: el array de fotos convertidos en un array de la estructura 'FlickrPhoto'
 	*/
 	static func flickrPhotosFromResults(_ results: [[String:AnyObject]]) -> [FlickrPhoto] {
 		// pone en la variable 'photos' un array de la estructura 'FlickrPhoto'
@@ -55,4 +55,5 @@ struct FlickrPhoto { // named type
 		return photos
 	}
 }
+
 

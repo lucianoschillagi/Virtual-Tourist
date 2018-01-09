@@ -24,11 +24,11 @@ import UIKit
 
 // MARK: - Constants
 
-extension FlickrClient {
+struct Flickr {
 	
 	// MARK: Flickr
 	struct Constants {
-		static let URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=200778b8a74284c35e9cf41905e84d39&lat=-32.944243&lon=-60.650539&format=json&nojsoncallback=1"
+		static let ApiBaseUrl = "https://api.flickr.com/services/rest/"
 		static let ApiScheme = "https"
 		static let ApiHost = "api.flickr.com"
 		static let ApiPath = "/services/rest"
@@ -51,7 +51,7 @@ extension FlickrClient {
 	// MARK: Flickr Parameter Values
 	struct ParameterValues {
 		static let SearchMethod = "flickr.photos.search"
-		static let ApiKey = "200778b8a74284c35e9cf41905e84d39"
+		static let ApiKey = "eb2465c83afa11a7771c10c2856a8bb6"
 		static let ResponseFormat = "json"
 		static let DisableJSONCallback = "1" /* 1 means "yes" */
 		static let GalleryPhotosMethod = "flickr.galleries.getPhotos"

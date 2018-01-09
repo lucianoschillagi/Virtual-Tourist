@@ -19,7 +19,6 @@
 		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
 		A6BAA42E1FEB454A00160AF7 /* FlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42D1FEB454A00160AF7 /* FlickrPhoto.swift */; };
 		A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */; };
-		A6E041291FF42F2000ECFF32 /* FlickrClientRW.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E041281FF42F2000ECFF32 /* FlickrClientRW.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +37,6 @@
 		A69FCEA11FEA14A8006327C5 /* Pasos.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Pasos.md; sourceTree = "<group>"; };
 		A6BAA42D1FEB454A00160AF7 /* FlickrPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhoto.swift; sourceTree = "<group>"; };
 		A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
-		A6E041281FF42F2000ECFF32 /* FlickrClientRW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClientRW.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */,
-				A6E041281FF42F2000ECFF32 /* FlickrClientRW.swift */,
 				A65EC8101FD9A27D0034B379 /* FlickrConstants.swift */,
 			);
 			path = Networking;
@@ -202,7 +199,6 @@
 				A68F2CE61FD772E8005D4342 /* PhotoAlbumViewController.swift in Sources */,
 				A65EC8071FD988400034B379 /* Model.xcdatamodeld in Sources */,
 				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,
-				A6E041291FF42F2000ECFF32 /* FlickrClientRW.swift in Sources */,
 				A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
