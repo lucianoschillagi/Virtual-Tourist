@@ -46,12 +46,13 @@ struct Flickr {
 		static let Text = "text"
 		static let BoundingBox = "bbox"
 		static let Page = "page"
+		static let Extras = "extras"
 	}
 	
 	// MARK: Flickr Parameter Values
 	struct ParameterValues {
 		static let SearchMethod = "flickr.photos.search"
-		static let ApiKey = "eb2465c83afa11a7771c10c2856a8bb6"
+		static let ApiKey = "a0a4dea38c341f52543ef6be07d85281"
 		static let ResponseFormat = "json"
 		static let DisableJSONCallback = "1" /* 1 means "yes" */
 		static let GalleryPhotosMethod = "flickr.galleries.getPhotos"

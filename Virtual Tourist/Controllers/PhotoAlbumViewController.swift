@@ -12,6 +12,7 @@ class PhotoAlbumViewController: UIViewController {
 		, "9 🐸", "10 🐛", "11 🎹", "12 🏄🏼‍♀️"] // end model
 	
 	// MARK: - Stored Properties
+	var flickrPhoto: [FlickrPhoto] = [FlickrPhoto]()
 	let regionRadius: CLLocationDistance = 1000
 	
 	// MARK: - Outlets
@@ -34,116 +35,19 @@ class PhotoAlbumViewController: UIViewController {
 		centerMapOnLocation(location: initialLocation)
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		//TODO: llamar al método
+		// networking
+		FlickrClient.sharedInstance().getImagesFromFlickr()
+	}
+	
 	// MARK: - Map, Helper Method
 	func centerMapOnLocation(location: CLLocation) {
-		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-																															regionRadius, regionRadius)
+		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius, regionRadius)
 		mapFragment.setRegion(coordinateRegion, animated: true)
-		
-		// networking
-		getImageFromFlickr()
 	}
 	
-	// MARK: - Make Network Request
-	/**
-	Mediante este método (obtener una imagen desde Flickr) creo una solicitud web conectándome con la API de Flickr. Le voy a solicitar datos. Un recurso específico que en este caso serán imágenes de galerías alojadas en Flickr. Este es un método que no toma ni devuelve nada, sólo ejecuta, al ser llamado, lo que contiene su cuerpo.
-	*/
-	func getImageFromFlickr() {
 	
-		let session = URLSession.shared // luego mover esta linea
-		
-		/* 1. Set the parameters */
-		let methodParameters = [
-			Flickr.ParameterKeys.Method: Flickr.ParameterValues.SearchMethod,
-			Flickr.ParameterKeys.ApiKey: Flickr.ParameterValues.ApiKey,
-			Flickr.ParameterKeys.Lat: "-32.944243",
-			Flickr.ParameterKeys.Lon: "-60.650539",
-			Flickr.ParameterKeys.Format: Flickr.ParameterValues.ResponseFormat,
-			Flickr.ParameterKeys.NoJSONCallback: Flickr.ParameterValues.DisableJSONCallback
-		]
-		
-		/* 2/3. Build the URL, Configure the request */
-		let request = URLRequest(url: flickrURLFromParameters(methodParameters as [String:AnyObject]))
-		
-		/* 4. Make the request */
-		let task = session.dataTask(with: request) { (data, response, error) in
-			
-			// if an error occurs, print it and re-enable the UI
-			func displayError(_ error: String) {
-				print(error)
-				//print("URL at time of error: \(url)")
-				performUIUpdatesOnMain {
-					//self.setUIEnabled(true)
-				}
-			}
-			
-			/* GUARD: Was there an error? */
-			guard (error == nil) else {
-				displayError("There was an error with your request: \(error!)")
-				return
-			}
-			
-			/* GUARD: Did we get a successful 2XX response? */
-			guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-				displayError("Your request returned a status code other than 2xx!")
-				return
-			}
-			
-			/* GUARD: Was there any data returned? */
-			guard let data = data else {
-				displayError("No data was returned by the request!")
-				return
-			}
-			
-			// parse the data
-			let parsedResult: [String:AnyObject]!
-			do {
-				parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-			} catch {
-				displayError("Could not parse the data as JSON: '\(data)'")
-				return
-			}
-			
-			print(parsedResult)
-			/* GUARD: Did Flickr return an error (stat != ok)? */
-			guard let stat = parsedResult[Flickr.ResponseKeys.Status] as? String, stat == Flickr.ResponseValues.OKStatus else {
-				displayError("Flickr API returned an error. See error code and message in \(parsedResult)")
-				return
-			}
-			
-			/* GUARD: Are the "photos" and "photo" keys in our result? */
-			guard let photosDictionary = parsedResult[Flickr.ResponseKeys.Photos] as? [String:AnyObject], let photoArray = photosDictionary[Flickr.ResponseKeys.Photo] as? [[String:AnyObject]] else {
-				displayError("Cannot find keys '\(Flickr.ResponseKeys.Photos)' and '\(Flickr.ResponseKeys.Photo)' in \(parsedResult)")
-				return
-			}
-			
-			// select a random photo
-			let randomPhotoIndex = Int(arc4random_uniform(UInt32(photoArray.count)))
-			let photoDictionary = photoArray[randomPhotoIndex] as [String:AnyObject]
-			let photoTitle = photoDictionary[Flickr.ResponseKeys.Title] as? String
-			
-			/* GUARD: Does our photo have a key for 'url_m'? */
-			guard let imageUrlString = photoDictionary[Flickr.ResponseKeys.MediumURL] as? String else {
-				displayError("Cannot find key '\(Flickr.ResponseKeys.MediumURL)' in \(photoDictionary)")
-				return
-			}
-			
-			// if an image exists at the url, set the image and title
-			let imageURL = URL(string: imageUrlString)
-			if let imageData = try? Data(contentsOf: imageURL!) {
-				performUIUpdatesOnMain {
-					//self.setUIEnabled(true)
-					//self.photoImageView.image = UIImage(data: imageData)
-					//self.photoTitleLabel.text = photoTitle ?? "(Untitled)"
-				}
-			} else {
-				displayError("Image does not exist at \(imageURL!)")
-			}
-		}
-		
-		// start the task!
-		task.resume()
-	}
 	
 //	 MARK: - URL from parameters
 		/**
@@ -168,7 +72,6 @@ class PhotoAlbumViewController: UIViewController {
 	
 			return components.url!
 		}
-	
 	
 } // end VC
 

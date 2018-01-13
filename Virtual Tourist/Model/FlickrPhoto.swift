@@ -23,6 +23,7 @@ struct FlickrPhoto { // named type
 	let secret: String
 	let server: String
 	let farm: Int
+	let mediumURL : String // la url para construir la imagen!
 	
 	// MARK: Initializer
 	// construyo un objeto 'FlickrImage' del resultado de la petición
@@ -33,6 +34,7 @@ struct FlickrPhoto { // named type
 		secret = dictionary[Flickr.ResponseKeys.Secret] as! String
 		server = dictionary[Flickr.ResponseKeys.Server] as! String
 		farm = dictionary[Flickr.ResponseKeys.Farm] as! Int
+		mediumURL = dictionary[Flickr.ResponseKeys.MediumURL] as! String
 	}
 	
 	// MARK: Methods
