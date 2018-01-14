@@ -7,6 +7,9 @@ import CoreData // persistencia
 
 class TravelLocationsMapViewController: UIViewController  {
 	
+	// MARK: - Properties
+	 var coordinateSelected:CLLocationCoordinate2D! // (debora)
+	
 	// MARK: - Outlets
 	@IBOutlet weak var mapView: MKMapView! // un objeto que representa el mapa
 	
@@ -38,23 +41,20 @@ class TravelLocationsMapViewController: UIViewController  {
 	@IBAction func tapPin(_ sender: UILongPressGestureRecognizer) {
 		
 		// las coordenadas del tapeo sobre el mapa
-		let gestureTouchLocation = sender.location(in: mapView)
+		let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
 		// convierte las coordenadas en unas coordenadas de mapa (latitud y longitud)
-		let coordToAdd = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
+		let coordToAdd: CLLocationCoordinate2D = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
 		// un pin sobre el mapa
-		let annotation = MKPointAnnotation()
+		let annotation: MKPointAnnotation = MKPointAnnotation()
 		// ese pin ubicado en las coordenadas del mapa
-		annotation.coordinate = coordToAdd
+		annotation.coordinate = coordToAdd // CLLocationCoordinate2D
 		// agrego el pin correspondiente a esa coordenada en la vista del mapa
-		mapView.addAnnotation(annotation)
+		mapView.addAnnotation(annotation) // MKPointAnnotation
 		// guardo el pin
 		//addCoreData(of: annotation)
-		
-		// debug
-		print(coordToAdd.latitude)
-		print(coordToAdd.longitude)
-		//displayImageFromFlickrBySearch
+
 	}
+	
 	
 }  // end VC
 

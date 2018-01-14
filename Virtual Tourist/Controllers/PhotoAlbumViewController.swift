@@ -38,7 +38,6 @@ class PhotoAlbumViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		//TODO: llamar al método
 		// networking
-		FlickrClient.sharedInstance().getImagesFromFlickr()
 	}
 	
 	// MARK: - Map, Helper Method
@@ -46,32 +45,6 @@ class PhotoAlbumViewController: UIViewController {
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius, regionRadius)
 		mapFragment.setRegion(coordinateRegion, animated: true)
 	}
-	
-	
-	
-//	 MARK: - URL from parameters
-		/**
-		Crea una URL con los parámetros necesarios para obtener los datos buscados.
-	
-		- parameter parameters: los parámetros necesarios para realizar la petición.
-	
-		- returns: la URL completa para realizar la petición.
-		*/
-		private func flickrURLFromParameters(_ parameters: [String:AnyObject]) -> URL {
-			// los componentes (piezas) de la URL
-			var components = URLComponents()
-			components.scheme = Flickr.Constants.ApiScheme
-			components.host = Flickr.Constants.ApiHost
-			components.path = Flickr.Constants.ApiPath
-			components.queryItems = [URLQueryItem]()
-			// itera los parámetros de la solicitud
-			for (key, value) in parameters {
-				let queryItem = URLQueryItem(name: key, value: "\(value)")
-				components.queryItems!.append(queryItem)
-			}
-	
-			return components.url!
-		}
 	
 } // end VC
 
