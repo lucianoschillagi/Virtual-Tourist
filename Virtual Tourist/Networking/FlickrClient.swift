@@ -32,8 +32,8 @@ class FlickrClient: NSObject {
 			FlickrConstants.ParameterKeys.Method: FlickrConstants.ParameterValues.SearchMethod,
 			FlickrConstants.ParameterKeys.ApiKey: FlickrConstants.ParameterValues.ApiKey,
 			FlickrConstants.ParameterKeys.Format: FlickrConstants.ParameterValues.ResponseFormat,
-			FlickrConstants.ParameterKeys.Lat: lat,//"35.689487",
-			FlickrConstants.ParameterKeys.Lon: lon, //"139.691706",
+			FlickrConstants.ParameterKeys.Lat: "35.689487", // lat
+			FlickrConstants.ParameterKeys.Lon: "139.691706", // lon
 			FlickrConstants.ParameterKeys.NoJSONCallback:FlickrConstants.ParameterValues.DisableJSONCallback,
 			FlickrConstants.ParameterKeys.SafeSearch: FlickrConstants.ParameterValues.UseSafeSearch,
 			FlickrConstants.ParameterKeys.Extras: FlickrConstants.ParameterValues.MediumURL,
@@ -104,7 +104,6 @@ class FlickrClient: NSObject {
 
 		task.resume()
 	}
-	
 	
 	// create a URL from parameters
 	/**

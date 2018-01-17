@@ -14,17 +14,44 @@ Un objeto que contiene:
 
 class PhotoAlbumViewController: UIViewController {
 	
+	// MARK: - Outlets
+	@IBOutlet weak var mapFragment: MKMapView!
+	@IBOutlet weak var collectionView: UICollectionView!
+	@IBOutlet weak var newCollectionButton: UIButton!
+
+	// MARK: - Stored Properties
+	// la coordenada seleccionada
+	var coordinateSelected: CLLocationCoordinate2D!
+	// las imágenes guardadas (core data)
+	var savedImages:[Photo] = []
+	
+	var flickrImage: [FlickrImage] = [FlickrImage]()
+	let regionRadius: CLLocationDistance = 1000
+	
+	var selectedToDelete:[Int] = [] {
+		didSet {
+			if selectedToDelete.count > 0 {
+				newCollectionButton.setTitle("Remove Selected Pictures", for: .normal)
+			} else {
+				newCollectionButton.setTitle("New Collection", for: .normal)
+			}
+		}
+	} // end computed property
+	
+	
+	
+	
+	
 	// MARK: - Model
 	var collectionData = ["1 🤡", "2 👄", "3 👴🏽", "4 👩🏼‍🚀", "5 🐊", "6 🦏", "7 🐆", "8 🐿"
 		, "9 🐸", "10 🐛", "11 🎹", "12 🏄🏼‍♀️"] // end model
 	
-	// MARK: - Stored Properties
-	var flickrPhoto: [FlickrImage] = [FlickrImage]()
-	let regionRadius: CLLocationDistance = 1000
-	
-	// MARK: - Outlets
-	@IBOutlet weak var mapFragment: MKMapView!
-	@IBOutlet weak var collectionView: UICollectionView!
+	// MARK: - Core Data
+	func getCoreDataStack() -> CoreDataStack {
+		
+		let delegate = UIApplication.shared.delegate as! AppDelegate
+		return delegate.stack
+	}
 	
 	// MARK: - View Life Cycle
 	override func viewDidLoad() {
@@ -64,7 +91,10 @@ class PhotoAlbumViewController: UIViewController {
 	
 } // end VC
 
+
+
 extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+	// MARK: - Collection View Methods
 	/**
 	Pregunta al 'data source object' por el número de items en una sección específica.
 	
@@ -94,6 +124,35 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
 		}
 		return cell
 	}
+	
+	
+	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
+		
+		var selected: [Int] = []
+		
+		for indexPath in indexPathArray {
+			selected.append(indexPath.row)
+		}
+		print(selected)
+		return selected
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		
+		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+		let cell = collectionView.cellForItem(at: indexPath)
+		
+		DispatchQueue.main.async {
+			//cell?.contentView.alpha = 0.3
+			cell?.contentView.backgroundColor = UIColor.cyan
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 } // end extension
 	

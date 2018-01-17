@@ -21,6 +21,13 @@ class TravelLocationsMapViewController: UIViewController  {
 		super.viewDidLoad()
 	}
 	
+	// MARK: - Core Data
+	func getCoreDataStack() -> CoreDataStack {
+		
+		let delegate = UIApplication.shared.delegate as! AppDelegate
+		return delegate.stack
+	}
+	
 	// MARK: - Actions
 	
 	// TODO: VER ESTO-----------------

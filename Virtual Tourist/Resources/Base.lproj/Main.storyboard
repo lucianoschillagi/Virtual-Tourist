@@ -149,6 +149,7 @@
                     <connections>
                         <outlet property="collectionView" destination="HC6-Q7-zmz" id="lSL-9s-8va"/>
                         <outlet property="mapFragment" destination="mSz-0a-hzd" id="nFU-Jy-ES8"/>
+                        <outlet property="newCollectionButton" destination="cfY-j0-XuY" id="ITh-MF-dBc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WV1-b2-MyD" userLabel="First Responder" sceneMemberID="firstResponder"/>
