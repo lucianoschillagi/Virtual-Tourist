@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	
+	// Core Data
+	
+	let stack = CoreDataStack(modelName: "Model")!
+	
 	// MARK: UIApplicationDelegate
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {

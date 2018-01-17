@@ -5,6 +5,13 @@ import UIKit // interfaz de usuario
 import MapKit // mapa
 import CoreData // persistir datos
 
+/* Abstract:
+Un objeto que contiene:
+-un fragmento de mapa con un zoom a la ubicación seleccionada
+-una colección de vistas con imágenes relacionadas con esa ubicación
+-un botón para actualizar la colección de imágenes
+*/
+
 class PhotoAlbumViewController: UIViewController {
 	
 	// MARK: - Model
@@ -12,7 +19,7 @@ class PhotoAlbumViewController: UIViewController {
 		, "9 🐸", "10 🐛", "11 🎹", "12 🏄🏼‍♀️"] // end model
 	
 	// MARK: - Stored Properties
-	var flickrPhoto: [FlickrPhoto] = [FlickrPhoto]()
+	var flickrPhoto: [FlickrImage] = [FlickrImage]()
 	let regionRadius: CLLocationDistance = 1000
 	
 	// MARK: - Outlets
@@ -38,6 +45,15 @@ class PhotoAlbumViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		//TODO: llamar al método
 		// networking
+		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: 21.282778, lon:-157.829444) { (success, errorString) in
+			performUIUpdatesOnMain {
+				if success {
+					//self.completeLogin()
+				} else {
+					print(errorString ?? "")
+				}
+			}
+		}
 	}
 	
 	// MARK: - Map, Helper Method
@@ -74,6 +90,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
 		if let label = cell.viewWithTag(100) as? UILabel {
 			label.text = collectionData[indexPath.row]
+
 		}
 		return cell
 	}

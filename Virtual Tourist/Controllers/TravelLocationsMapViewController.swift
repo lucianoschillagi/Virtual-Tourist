@@ -1,9 +1,12 @@
+/* Controller */
 
 import UIKit // interfaz de usuario
 import MapKit // mapa
 import CoreData // persistencia
 
-/* Controller */
+/* Abstract:
+Un objeto que representa el mapa donde el usuario interactúa añadiendo ubicaciones a través de pins.
+*/
 
 class TravelLocationsMapViewController: UIViewController  {
 	

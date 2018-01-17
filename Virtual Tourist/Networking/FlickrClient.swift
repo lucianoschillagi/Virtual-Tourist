@@ -9,7 +9,9 @@
 
 import Foundation
 
-// MARK: - FlickrClient: NSObject
+/* Abstract:
+Un objeto que solicita fotos a Flickr tomando como parámetros las coordenadas del pin seleccionado.
+*/
 
 class FlickrClient: NSObject {
 	
@@ -23,7 +25,7 @@ class FlickrClient: NSObject {
 	
 	// MARK: - Networking
 	
-	func getPhotosFromFlickr(lat: Double, lon: Double, completion: @escaping (_ success: Bool, _ flickrPhotos: [FlickrPhoto]?) -> Void) {
+	func getPhotosFromFlickr(lat: Double, lon: Double, completion: @escaping (_ success: Bool, _ flickrPhotos: [FlickrImage]?) -> Void) {
 		
 		/* 1. Set the parameters */
 		let methodParameters: [String : Any] = [
@@ -50,6 +52,7 @@ class FlickrClient: NSObject {
 				print(error)
 				completion(false, nil)
 			}
+			print(response ?? "")
 			
 			/* GUARD: Was there an error? */
 			guard (error == nil) else {
@@ -68,21 +71,26 @@ class FlickrClient: NSObject {
 				displayError("No data was returned by the request!")
 				return
 			}
+			print(data)
 			
 			/* 5. Parse the data */
 			if let json = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
 				let photosMeta = json?[FlickrConstants.ResponseKeys.Photos] as? [String:Any],
 				let photos = photosMeta[FlickrConstants.ResponseKeys.Photo] as? [Any] {
 				
-				var flickrPhotos: [FlickrPhoto] = [] // un array fotos de flickr
+				print(photos)
+				
+				var flickrPhotos: [FlickrImage] = [] // un array fotos de flickr
 				
 				for photo in photos {
 					
 					if let flickrPhoto = photo as? [String:Any],
 						let photoURL = flickrPhoto[FlickrConstants.ResponseKeys.MediumURL] as? String {
 						
-						flickrPhotos.append(FlickrPhoto(mediumURL: photoURL))
+						flickrPhotos.append(FlickrImage(mediumURL: photoURL))
+						print(photoURL)
 					}
+					
 				}
 				
 				completion(true, flickrPhotos)
@@ -93,6 +101,7 @@ class FlickrClient: NSObject {
 			}
 		}
 		
+
 		task.resume()
 	}
 	
@@ -127,7 +136,8 @@ class FlickrClient: NSObject {
 		}
 		return Singleton.sharedInstance
 	}
-}
+
+} // end class
 
 
 

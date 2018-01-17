@@ -19,8 +19,9 @@ import Foundation
 //	format=json&
 //	nojsoncallback=1
 
-
-import UIKit
+/* Abstract:
+Un objeto que contiene los datos constantes requeridos para confeccionar la solicitud web.
+*/
 
 // MARK: - Constants
 
@@ -48,7 +49,7 @@ struct FlickrConstants {
 	// MARK: Flickr Parameter Values
 	struct ParameterValues {
 		static let SearchMethod = "flickr.photos.search"
-		static let ApiKey = "10364d5f032a81f9ffdd29ac0d123c88"
+		static let ApiKey = "f27a220c68cac0df96cdf65e89085dee"
 		static let ResponseFormat = "json"
 		static let DisableJSONCallback = "1" /* 1 means "yes" */
 		static let MediumURL = "url_m"
