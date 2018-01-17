@@ -95,26 +95,34 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="7uA-vL-biS">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="7uA-vL-biS" customClass="CollectionViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                         <rect key="frame" x="87.5" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYT-YB-KIv">
-                                                    <rect key="frame" x="79" y="90" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ozj-XH-AO8">
+                                                    <rect key="frame" x="-1" y="0.0" width="200" height="200"/>
+                                                </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ZzA-oU-La1">
+                                                    <rect key="frame" x="90" y="90" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.0" green="0.36680772569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="HYT-YB-KIv" firstAttribute="centerX" secondItem="7uA-vL-biS" secondAttribute="centerX" id="LX0-Yd-EYM"/>
-                                            <constraint firstItem="HYT-YB-KIv" firstAttribute="centerY" secondItem="7uA-vL-biS" secondAttribute="centerY" id="SJC-dQ-g4x"/>
+                                            <constraint firstItem="Ozj-XH-AO8" firstAttribute="top" secondItem="7uA-vL-biS" secondAttribute="top" id="DdE-Vk-5TH"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ozj-XH-AO8" secondAttribute="bottom" id="HIQ-JG-Wt0"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ozj-XH-AO8" secondAttribute="trailing" constant="0.5" id="N15-l1-yIt"/>
+                                            <constraint firstItem="Ozj-XH-AO8" firstAttribute="leading" secondItem="7uA-vL-biS" secondAttribute="leading" constant="-0.5" id="fEH-xF-TN1"/>
+                                            <constraint firstItem="ZzA-oU-La1" firstAttribute="centerX" secondItem="7uA-vL-biS" secondAttribute="centerX" id="kR3-gt-7k3"/>
+                                            <constraint firstItem="ZzA-oU-La1" firstAttribute="centerY" secondItem="Ozj-XH-AO8" secondAttribute="centerY" id="lxO-gm-s1R"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="ZzA-oU-La1" id="45L-0X-ySO"/>
+                                            <outlet property="imageViewCell" destination="Ozj-XH-AO8" id="P0b-fM-0J2"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

@@ -24,6 +24,7 @@
 		A6D863D5200FD72500A92F9F /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863D3200FD72500A92F9F /* Pin+CoreDataProperties.swift */; };
 		A6D863D8200FD73F00A92F9F /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863D6200FD73F00A92F9F /* Photo+CoreDataClass.swift */; };
 		A6D863D9200FD73F00A92F9F /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863D7200FD73F00A92F9F /* Photo+CoreDataProperties.swift */; };
+		A6D863DE200FD98700A92F9F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		A6D863D3200FD72500A92F9F /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A6D863D6200FD73F00A92F9F /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A6D863D7200FD73F00A92F9F /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = "Virtual Tourist/Networking/CollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,11 +129,20 @@
 				A661D9301FD771FB004CF5B8 /* AppDelegate.swift */,
 				A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */,
 				A65EC8141FD9A2E50034B379 /* Model */,
+				A6D863DB200FD94000A92F9F /* View */,
 				A65EC8131FD9A2A60034B379 /* Controllers */,
 				A65EC8121FD9A2990034B379 /* Networking */,
 				A65EC8151FD9A2F90034B379 /* Resources */,
 			);
 			path = "Virtual Tourist";
+			sourceTree = "<group>";
+		};
+		A6D863DB200FD94000A92F9F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +228,7 @@
 				A6D863D8200FD73F00A92F9F /* Photo+CoreDataClass.swift in Sources */,
 				A68F2CE61FD772E8005D4342 /* PhotoAlbumViewController.swift in Sources */,
 				A6D863D1200FD5FD00A92F9F /* Model.xcdatamodeld in Sources */,
+				A6D863DE200FD98700A92F9F /* CollectionViewCell.swift in Sources */,
 				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,
 				A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */,
 				A6D863AC200FCCB500A92F9F /* CoreDataStack.swift in Sources */,
