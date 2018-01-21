@@ -1,9 +1,9 @@
-////
-////  FlickrClient.swift
-////  Virtual Tourist
-////
-////  Created by Luciano Schillagi on 12/20/17.
-////  Copyright © 2017 luko. All rights reserved.
+//
+//  FlickrClient.swift
+//  Virtual Tourist
+//
+//  Created by Luciano Schillagi on 12/20/17.
+//  Copyright © 2017 luko. All rights reserved.
 
 /* Networking */
 
@@ -32,8 +32,8 @@ class FlickrClient: NSObject {
 			FlickrConstants.ParameterKeys.Method: FlickrConstants.ParameterValues.SearchMethod,
 			FlickrConstants.ParameterKeys.ApiKey: FlickrConstants.ParameterValues.ApiKey,
 			FlickrConstants.ParameterKeys.Format: FlickrConstants.ParameterValues.ResponseFormat,
-			FlickrConstants.ParameterKeys.Lat: "35.689487", // lat
-			FlickrConstants.ParameterKeys.Lon: "139.691706", // lon
+			FlickrConstants.ParameterKeys.Lat: lat,
+			FlickrConstants.ParameterKeys.Lon: lon,
 			FlickrConstants.ParameterKeys.NoJSONCallback:FlickrConstants.ParameterValues.DisableJSONCallback,
 			FlickrConstants.ParameterKeys.SafeSearch: FlickrConstants.ParameterValues.UseSafeSearch,
 			FlickrConstants.ParameterKeys.Extras: FlickrConstants.ParameterValues.MediumURL,
