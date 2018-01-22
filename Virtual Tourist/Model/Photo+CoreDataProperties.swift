@@ -11,6 +11,7 @@ import Foundation
 import CoreData
 
 // Managed Object: Photo
+// NO ESCRIBIR ESTE ARCHIVO!
 extension Photo {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Photo> {

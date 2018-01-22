@@ -11,6 +11,7 @@ import Foundation
 import CoreData
 
 // Managed Object: Pin
+// NO ESCRIBIR ESTE ARCHIVO!
 extension Pin {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Pin> {
@@ -20,7 +21,6 @@ extension Pin {
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
     @NSManaged public var pinToPhoto: NSSet?
-
 }
 
 // MARK: Generated accessors for pinToPhoto
