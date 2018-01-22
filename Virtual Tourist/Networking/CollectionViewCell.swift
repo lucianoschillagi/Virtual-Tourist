@@ -61,7 +61,7 @@ class CollectionViewCell: UICollectionViewCell {
 			let delegate = UIApplication.shared.delegate as! AppDelegate
 			let stack = delegate.stack
 			
-			try stack.save()
+			try stack.saveContext()
 			
 		} catch {
 			print("Saving Photo imageData Failed")

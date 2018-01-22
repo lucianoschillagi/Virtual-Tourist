@@ -92,7 +92,7 @@ class TravelLocationsMapViewController: UIViewController  {
 			let coord = of.coordinate
 			let pin = Pin(latitude: coord.latitude, longitude: coord.longitude, context: getCoreDataStack().context)
 			
-			try getCoreDataStack().save()
+			try getCoreDataStack().saveContext()
 			currentPins.append(pin)
 		
 		} catch {
@@ -112,7 +112,7 @@ class TravelLocationsMapViewController: UIViewController  {
 				do {
 					
 					getCoreDataStack().context.delete(pin)
-					try getCoreDataStack().save()
+					try getCoreDataStack().saveContext()
 					
 				} catch {
 					

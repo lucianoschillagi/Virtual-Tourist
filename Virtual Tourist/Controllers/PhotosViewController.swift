@@ -19,7 +19,7 @@ Un objeto que contiene:
 -un botón para actualizar la colección de imágenes
 */
 
-class PhotoAlbumViewController: UIViewController {
+class PhotoAlbumViewController: CoreDataCollectionViewController {
 	
 	// MARK: - Outlets
 	@IBOutlet weak var mapFragment: MKMapView!
@@ -167,8 +167,8 @@ class PhotoAlbumViewController: UIViewController {
 				let delegate = UIApplication.shared.delegate as! AppDelegate
 				let stack = delegate.stack
 				let photo = Photo(index: flickrImages.index {$0 === image}!, imageURL: image.imageURLString(), imageData: nil, context: stack.context)
-				photo.pin = coreDataPin
-				try stack.save()
+				photo.photoToPin = coreDataPin
+				try stack.saveContext()
 			
 			} catch {
 				
