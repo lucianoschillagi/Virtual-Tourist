@@ -21,8 +21,7 @@
 		A661D9381FD771FB004CF5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A661D9371FD771FB004CF5B8 /* Assets.xcassets */; };
 		A68F2CE61FD772E8005D4342 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68F2CE51FD772E8005D4342 /* PhotosViewController.swift */; };
 		A68F2CF61FD773EF005D4342 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = A68F2CF51FD773EF005D4342 /* Contents.json */; };
-		A696B1C8201417240073AB60 /* CoreDataMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696B1C7201417240073AB60 /* CoreDataMapViewController.swift */; };
-		A696B1CA2014173B0073AB60 /* CoreDataCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696B1C92014173B0073AB60 /* CoreDataCollectionViewController.swift */; };
+		A696B1C8201417240073AB60 /* CoreDataMapAndCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696B1C7201417240073AB60 /* CoreDataMapAndCollectionViewController.swift */; };
 		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
 		A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */; };
 		A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */; };
@@ -49,8 +48,7 @@
 		A661D93C1FD771FB004CF5B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A68F2CE51FD772E8005D4342 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		A68F2CF51FD773EF005D4342 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
-		A696B1C7201417240073AB60 /* CoreDataMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMapViewController.swift; sourceTree = "<group>"; };
-		A696B1C92014173B0073AB60 /* CoreDataCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCollectionViewController.swift; sourceTree = "<group>"; };
+		A696B1C7201417240073AB60 /* CoreDataMapAndCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMapAndCollectionViewController.swift; sourceTree = "<group>"; };
 		A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDBlackBox.swift; path = "Virtual Tourist/GCDBlackBox.swift"; sourceTree = SOURCE_ROOT; };
 		A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImage.swift; sourceTree = "<group>"; };
 		A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
@@ -91,9 +89,8 @@
 		A65EC8131FD9A2A60034B379 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A696B1C7201417240073AB60 /* CoreDataMapViewController.swift */,
+				A696B1C7201417240073AB60 /* CoreDataMapAndCollectionViewController.swift */,
 				A661D9321FD771FB004CF5B8 /* MapViewController.swift */,
-				A696B1C92014173B0073AB60 /* CoreDataCollectionViewController.swift */,
 				A68F2CE51FD772E8005D4342 /* PhotosViewController.swift */,
 			);
 			path = Controllers;
@@ -252,9 +249,8 @@
 				A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */,
 				A661D9311FD771FB004CF5B8 /* AppDelegate.swift in Sources */,
 				A68F2CE61FD772E8005D4342 /* PhotosViewController.swift in Sources */,
-				A696B1C8201417240073AB60 /* CoreDataMapViewController.swift in Sources */,
+				A696B1C8201417240073AB60 /* CoreDataMapAndCollectionViewController.swift in Sources */,
 				A6D863DE200FD98700A92F9F /* CollectionViewCell.swift in Sources */,
-				A696B1CA2014173B0073AB60 /* CoreDataCollectionViewController.swift in Sources */,
 				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,
 				A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */,
 				A6D863AC200FCCB500A92F9F /* CoreDataStack.swift in Sources */,
