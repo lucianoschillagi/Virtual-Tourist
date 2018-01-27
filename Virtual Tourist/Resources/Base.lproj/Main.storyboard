@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UwQ-Ur-XMC">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,31 +16,55 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="t0T-HT-dQp">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="24" width="414" height="754"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Mhe-ZX-OuB"/>
                                     <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="FvZ-ls-ZW8"/>
                                 </connections>
                             </mapView>
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VBn-bo-nS1">
+                                <rect key="frame" x="0.0" y="664" width="414" height="72"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap Pins to Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaB-tX-cMd">
+                                        <rect key="frame" x="138" y="26" width="138" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="4gQ-DC-2SG"/>
                             <constraint firstItem="t0T-HT-dQp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5ap-sB-b2b"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="t0T-HT-dQp" secondAttribute="top" constant="64" id="KIG-9x-Fh4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="t0T-HT-dQp" secondAttribute="bottom" id="QJa-AE-Gpu"/>
+                            <constraint firstItem="t0T-HT-dQp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-40" id="Bph-d2-TGB"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="t0T-HT-dQp" secondAttribute="bottom" constant="-42" id="Lh1-vK-MWu"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="VmA-TH-ydS"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="600" id="imq-zM-dQF"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="leading" secondItem="t0T-HT-dQp" secondAttribute="leading" id="rAs-2W-Wx6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="xs2-iw-xuN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="VmD-gZ-3aO">
                         <barButtonItem key="backBarButtonItem" title="OK" id="jRq-Df-Cj4"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Hbb-jg-mJ2">
+                            <connections>
+                                <action selector="editMode:" destination="BYZ-38-t0r" id="Slu-5y-Fnd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deletePins" destination="VBn-bo-nS1" id="ZGO-u8-RUd"/>
+                        <outlet property="editButton" destination="Hbb-jg-mJ2" id="yah-rp-6DM"/>
                         <outlet property="mapView" destination="t0T-HT-dQp" id="ubR-dd-afO"/>
                         <segue destination="kma-Tp-5g4" kind="show" identifier="PinPhotos" id="wC7-9r-z9d"/>
                     </connections>
@@ -43,22 +72,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="MnV-ql-3Q8">
                     <connections>
-                        <action selector="tapPin:" destination="BYZ-38-t0r" id="bh5-bi-q4A"/>
+                        <action selector="addPin:" destination="BYZ-38-t0r" id="ECK-FA-SRS"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="541.60000000000002" y="133.5832083958021"/>
+            <point key="canvasLocation" x="533.33333333333337" y="132.88043478260872"/>
         </scene>
         <!--Photos View Controller-->
         <scene sceneID="Pg3-xS-eIF">
             <objects>
                 <viewController id="kma-Tp-5g4" customClass="PhotosViewController" customModule="Virtual_Tourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fIl-Q7-btg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mSz-0a-hzd">
-                                <rect key="frame" x="0.0" y="64" width="600" height="133"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="133"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="133" id="Qdg-p8-OfQ"/>
                                 </constraints>
@@ -66,16 +95,8 @@
                                     <outlet property="delegate" destination="kma-Tp-5g4" id="TAr-Uy-zzL"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfY-j0-XuY">
-                                <rect key="frame" x="0.0" y="547" width="600" height="53"/>
-                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.60479987157534243" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="53" id="rZr-Ik-8u8"/>
-                                </constraints>
-                                <state key="normal" title="New Collection"/>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HC6-Q7-zmz">
-                                <rect key="frame" x="0.0" y="197" width="600" height="350"/>
+                                <rect key="frame" x="0.0" y="197" width="414" height="486"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ss1-fp-lnl">
                                     <size key="itemSize" width="200" height="200"/>
@@ -119,6 +140,14 @@
                                     <outlet property="delegate" destination="kma-Tp-5g4" id="rzK-13-7PL"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfY-j0-XuY">
+                                <rect key="frame" x="0.0" y="683" width="414" height="53"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.60479987157534243" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="rZr-Ik-8u8"/>
+                                </constraints>
+                                <state key="normal" title="New Collection"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -151,7 +180,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" id="UwQ-Ur-XMC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DJc-Es-NHZ">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
