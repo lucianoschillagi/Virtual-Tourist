@@ -8,15 +8,15 @@
 
 /* Controller */
 
-import UIKit // interfaz de usuario
-import MapKit // mapa
-import CoreData // persistencia
+import UIKit
+import MapKit
+import CoreData
 
 /* Abstract:
 Un objeto que representa el mapa donde el usuario interactúa añadiendo ubicaciones a través de pins.
 */
 
-class MapViewController: CoreDataMapAndCollectionViewController  {
+class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecognizerDelegate, MKMapViewDelegate  {
 	
 	// MARK: - Outlets
 	@IBOutlet weak var mapView: MKMapView!
@@ -25,6 +25,7 @@ class MapViewController: CoreDataMapAndCollectionViewController  {
 	
 	// MARK: - Properties
 	var editMode: Bool = false
+//	var gestureBegin: Bool = false
 //	var currentPins: [Pin] = [] // los pins actuales
 //	var coordinateSelected:CLLocationCoordinate2D!
 	
@@ -32,12 +33,37 @@ class MapViewController: CoreDataMapAndCollectionViewController  {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setEditDoneButton()
+		//autolayoutMapView()
 		
 	}
 	
-	// Edit-Done Button
 	func setEditDoneButton() {
 		self.navigationItem.rightBarButtonItem = self.editButtonItem
+	}
+	
+	//Gesture Recognizer
+	
+//	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//
+//		gestureBegin = true
+//		print("reconoce el gesto")
+//		return true
+//	}
+	
+	// Edit Mode View
+	
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		
+		super.setEditing(editing, animated: animated)
+		
+		deletePins.isHidden = !editing
+		editMode = editing
+		
+		if editing {
+			print("está en modo de edición")
+		} else {
+			print("NO está en modo de edición")
+		}
 	}
 	
 	// MARK: - Actions
@@ -57,65 +83,42 @@ class MapViewController: CoreDataMapAndCollectionViewController  {
 		mapView.addAnnotation(annotation) // MKPointAnnotation
 		// guardo el pin
 		//addCoreData(of: annotation)
-
+		// pone 'gestureBegin' nuevamente a 'false'
+//		gestureBegin = false
+		print("Add Pin")
+//		print(gestureBegin)
 	}
 	
-	@IBAction func deletePin(_ sender: UITapGestureRecognizer) {
-		
-		// TODO: cuando el usuario tapea sobre el pin, el pin se borra
-	}
+	//Map View Function
 	
-	// Edit Mode View
-	
-	override func setEditing(_ editing: Bool, animated: Bool) {
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 		
-		super.setEditing(editing, animated: animated)
+		if !editMode { // si NO está en modo edición...
+			print("NO estoy en modo edición y he sido seleccionado")
+			//performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
+			
+			mapView.deselectAnnotation(view.annotation, animated: false)
+//			//mapView.removeAnnotation(view.annotation!)
+//			print("pero no deselecciona el pin") // es true
 		
-		deletePins.isHidden = !editing
-		editMode = editing
-		
-		if editing {
-			print("está en modo de edición")
-		} else {
-			print("NO está en modo de edición")
+		} else { // si está en modo edición...
+			
+			//removeCoreData(of: view.annotation!)
+			
+			mapView.removeAnnotation(view.annotation!)
+			print("Estoy en modo edición y he sido seleccionado")
+			print("Y el pin se remueve con un tap!") // es true
 		}
 	}
+	
 
-	// MARK: - Map View
-	func addAnnotationToMap(fromCoord: CLLocationCoordinate2D) {
-		
-		let annotation = MKPointAnnotation()
-		annotation.coordinate = fromCoord
-		mapView.addAnnotation(annotation)
-	}
-	
-	
-	
 	
 	// MARK: - Navigation
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		
 	}
-	
-	/**
-	Le dice al delegado que una de sus pins (vistas de anotación) ha sido seleccionado.
-	- parameter mapView: la vista del mapa.
-	- parameter view: el pin.
-	*/
-	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-		// pasa el id del segue y el objeto que ha sido seleccionado
-		performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate) // la vista del pin y sus coordenadas
-		// deselecciona un pin específico y su callout view
-		mapView.deselectAnnotation(view.annotation, animated: false)
-	}
-	
-	
-	
 
-	
-	
-	
 	
 }  // end VC
 

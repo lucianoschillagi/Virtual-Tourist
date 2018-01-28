@@ -10,19 +10,16 @@
 import UIKit
 import CoreData
 
-// MARK: - CoreDataMapAndCollectionViewController: UICollectionViewController
-
 class CoreDataMapAndCollectionViewController: UIViewController {
 	
 	// MARK: Properties (fetchedResultsController)
 	
 	var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
-		didSet {
-			// Whenever the frc changes, we execute the search and
-			// reload the table
+		didSet { // observer...
+			// cada vez que el Modelo cambia
+			// realizar una búsqueda (para saber qué datos del modelo han cambiado)
 			fetchedResultsController?.delegate = self
 			executeSearch()
-			//tableView.reloadData()
 		}
 	}
 	
@@ -38,77 +35,7 @@ class CoreDataMapAndCollectionViewController: UIViewController {
 	}
 }
 
-
-// MARK: - CoreDataMapAndCollectionViewController (Collection Data Source)
-
-//extension CoreDataMapAndCollectionViewController: UICollectionViewDataSource {
-//
-//	/**
-//	Pregunta al 'data source object' por el número de items en una sección específica.
-//
-//	- parameter collectionView: la collection view que solicita esta información.
-//	- parameter section: Un número de índice que identifica una sección en collectionView. Este valor de índice está basado en 0.
-//
-//	- returns: El número de filas en la sección.
-//	*/
-//	// UICollectionViewDataSource
-//	// Collection View Functions
-//	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//
-//		return 0
-//	}
-//
-//	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
-//
-//		return cell
-//	}
-//
-//
-////	override func numberOfSections(in tableView: UITableView) -> Int {
-////		if let fc = fetchedResultsController {
-////			return (fc.sections?.count)!
-////		} else {
-////			return 0
-////		}
-////	}
-//
-////	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-////		if let fc = fetchedResultsController {
-////			return fc.sections![section].numberOfObjects
-////		} else {
-////			return 0
-////		}
-////	}
-//
-////	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-////		if let fc = fetchedResultsController {
-////			return fc.sections![section].name
-////		} else {
-////			return nil
-////		}
-////	}
-//
-////	override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-////		if let fc = fetchedResultsController {
-////			return fc.section(forSectionIndexTitle: title, at: index)
-////		} else {
-////			return 0
-////		}
-////	}
-//
-////	override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-////		if let fc = fetchedResultsController {
-////			return fc.sectionIndexTitles
-////		} else {
-////			return nil
-////		}
-////	}
-//
-//}
-
-// MARK: - CoreDataMapAndCollectionViewController (Fetches)
+	// MARK: - Fetches
 
 extension CoreDataMapAndCollectionViewController {
 
@@ -123,7 +50,7 @@ extension CoreDataMapAndCollectionViewController {
 	}
 }
 
-// MARK: - CoreDataMapAndCollectionViewController (Results)
+	// MARK: - Results
 
 extension CoreDataMapAndCollectionViewController: NSFetchedResultsControllerDelegate {
 

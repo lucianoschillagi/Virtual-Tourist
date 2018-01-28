@@ -20,14 +20,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="t0T-HT-dQp">
-                                <rect key="frame" x="0.0" y="24" width="414" height="754"/>
+                                <rect key="frame" x="0.0" y="24" width="414" height="712"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Mhe-ZX-OuB"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Gcf-hN-hwP"/>
                                     <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="FvZ-ls-ZW8"/>
                                 </connections>
                             </mapView>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VBn-bo-nS1">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VBn-bo-nS1">
                                 <rect key="frame" x="0.0" y="664" width="414" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap Pins to Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaB-tX-cMd">
@@ -43,14 +43,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="4gQ-DC-2SG"/>
-                            <constraint firstItem="t0T-HT-dQp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5ap-sB-b2b"/>
-                            <constraint firstItem="t0T-HT-dQp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-40" id="Bph-d2-TGB"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="t0T-HT-dQp" secondAttribute="bottom" constant="-42" id="Lh1-vK-MWu"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="VmA-TH-ydS"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="600" id="imq-zM-dQF"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="leading" secondItem="t0T-HT-dQp" secondAttribute="leading" id="rAs-2W-Wx6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="xs2-iw-xuN"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="bottom" secondItem="t0T-HT-dQp" secondAttribute="bottom" id="3BF-U4-6bi"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="600" id="6Vs-Lc-W7z"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="Ili-Di-gVa"/>
+                            <constraint firstItem="t0T-HT-dQp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SEl-tn-8mr"/>
+                            <constraint firstItem="t0T-HT-dQp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-40" id="SM1-Gy-Xkh"/>
+                            <constraint firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="ShH-r2-puh"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="a6z-SN-3J1"/>
+                            <constraint firstItem="VBn-bo-nS1" firstAttribute="leading" secondItem="t0T-HT-dQp" secondAttribute="leading" id="wvM-c6-9jA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
