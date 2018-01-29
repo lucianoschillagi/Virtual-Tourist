@@ -21,6 +21,7 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	//*****************************************************************
 	// MARK: - IBOutles
 	//*****************************************************************
+	
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var deletePins: UIView!
 	@IBOutlet weak var editButton: UIBarButtonItem!
@@ -28,12 +29,16 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
+	
 	var editMode: Bool = false
 //	var gestureBegin: Bool = false
 //	var currentPins: [Pin] = [] // los pins actuales
 //	var coordinateSelected:CLLocationCoordinate2D!
 	
+	//*****************************************************************
 	// MARK: - View Life Cycle
+	//*****************************************************************
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setEditDoneButton()
@@ -118,7 +123,9 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	}
 	
 	
-	// MARK: - Navigation
+	//*****************************************************************
+	// MARK: - Navigation (Segue)
+	//*****************************************************************
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		

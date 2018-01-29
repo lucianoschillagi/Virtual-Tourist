@@ -24,6 +24,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	//*****************************************************************
 	// MARK: - IBOutles
 	//*****************************************************************
+	
 	@IBOutlet weak var mapFragment: MKMapView!
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var newCollectionButton: UIButton!
@@ -31,6 +32,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
+	
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	
 	var savedImages:[Photo] = [] // las imágenes guardadas (core data)
@@ -50,10 +52,10 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	} // end computed property
 	
-	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
