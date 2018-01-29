@@ -7,9 +7,10 @@
 //
 //
 
+/* Model */
+
 import Foundation
 import CoreData
-
 
 extension Photo {
 

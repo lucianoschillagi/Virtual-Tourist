@@ -6,6 +6,8 @@
 //  Copyright © 2017 luko. All rights reserved.
 //
 
+/* Dispatch */
+
 import Foundation
 
 func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {

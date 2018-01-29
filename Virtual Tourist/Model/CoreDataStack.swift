@@ -6,9 +6,9 @@
 //  Copyright © 2018 luko. All rights reserved.
 //
 
-import CoreData
+/* Model */
 
-// MARK: - CoreDataStack
+import CoreData
 
 struct CoreDataStack {
 	

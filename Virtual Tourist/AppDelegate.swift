@@ -6,19 +6,27 @@
 //  Copyright © 2017 luko. All rights reserved.
 //
 
+/* App */
+
 import UIKit
 
+//*****************************************************************
 // MARK: - AppDelegate: UIResponder, UIApplicationDelegate
+//*****************************************************************
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
-	// MARK: Properties
+	//*****************************************************************
+	// MARK: - Properties
+	//*****************************************************************s
 	
 	var window: UIWindow?
 	let stack = CoreDataStack(modelName: "Model")!
 	
-	// MARK: Preload Data
+	//*****************************************************************
+	// MARK: - Preload Data
+	//*****************************************************************
 	
 	func preloadData() {
 		
@@ -79,7 +87,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Search
 	}
 	
-	// MARK: UIApplicationDelegate
+	//*****************************************************************
+	// MARK: - UIApplication Delegate
+	//*****************************************************************
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Load some notebooks and notes.

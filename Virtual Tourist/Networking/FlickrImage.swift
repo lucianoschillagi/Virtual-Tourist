@@ -8,11 +8,11 @@
 
 /* Model */
 
+import Foundation
+
 /* Abstract:
 Un objeto que representa una imagen obtenida desde Flickr.
 */
-
-import Foundation
 
 class FlickrImage {
 	// stored property

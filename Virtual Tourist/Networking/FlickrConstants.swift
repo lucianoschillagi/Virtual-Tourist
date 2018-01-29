@@ -6,9 +6,9 @@
 //  Copyright © 2017 luko. All rights reserved.
 //
 
-import Foundation
-
 /* Networking */
+
+import Foundation
 
 //	https://api.flickr.com/services/rest/?
 //	method=flickr.photos.search&
@@ -29,13 +29,18 @@ Un objeto que contiene los datos constantes requeridos para confeccionar la soli
 
 struct FlickrConstants {
 	
-	// MARK: Flickr
-		static let ApiScheme = "https"
+	//*****************************************************************
+	// MARK: - Flickr
+	//*****************************************************************
+	
+	static let ApiScheme = "https"
 		static let ApiHost = "api.flickr.com"
 		static let ApiPath = "/services/rest"
-
 	
-	// MARK: Flickr Parameter Keys
+	//*****************************************************************
+	// MARK: - Flickr Parameter Keys
+	//*****************************************************************
+	
 	struct ParameterKeys {
 		static let Method = "method"
 		static let ApiKey = "api_key"
@@ -48,7 +53,10 @@ struct FlickrConstants {
 		static let Radius = "radius"
 	}
 	
-	// MARK: Flickr Parameter Values
+	//*****************************************************************
+	// MARK: - Flickr Parameter Values
+	//*****************************************************************
+	
 	struct ParameterValues {
 		static let SearchMethod = "flickr.photos.search"
 		static let ApiKey = "4f7329209f709e0c1223ca37c8da61e2"
@@ -58,8 +66,11 @@ struct FlickrConstants {
 		static let UseSafeSearch = "1"
 		static let SearchRangeKm = 10
 	}
-		
-	// MARK: Flickr Response Keys
+	
+	//*****************************************************************
+	// MARK: - Flickr Response Keys
+	//*****************************************************************
+	
 	struct ResponseKeys {
 		static let Status = "stat"
 		static let Photos = "photos"
@@ -68,7 +79,9 @@ struct FlickrConstants {
 		static let MediumURL = "url_m"
 	}
 	
-	// MARK: Flickr Response Values
+	//*****************************************************************
+	// MARK: - Flickr Response Values
+	//*****************************************************************
 	struct ResponseValues {
 		static let OKStatus = "ok"
 	}

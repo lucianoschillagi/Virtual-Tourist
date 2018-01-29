@@ -7,6 +7,8 @@
 //
 //
 
+/* Model */
+
 import Foundation
 import CoreData
 
