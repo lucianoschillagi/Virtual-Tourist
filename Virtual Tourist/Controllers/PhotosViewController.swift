@@ -21,12 +21,16 @@ Un objeto que contiene:
 
 class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
-	// MARK: - Outlets
+	//*****************************************************************
+	// MARK: - IBOutles
+	//*****************************************************************
 	@IBOutlet weak var mapFragment: MKMapView!
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var newCollectionButton: UIButton!
 
+	//*****************************************************************
 	// MARK: - Properties
+	//*****************************************************************
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	
 	var savedImages:[Photo] = [] // las imágenes guardadas (core data)
@@ -47,10 +51,9 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	} // end computed property
 	
 	
-	// MARK: - Core Data
-	
-	
+	//*****************************************************************
 	// MARK: - View Life Cycle
+	//*****************************************************************
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -87,7 +90,10 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	}
 	
-	// MARK: - Map View
+	//*****************************************************************
+	// MARK: - MapView
+	//*****************************************************************
+	
 	func centerMapOnLocation(location: CLLocation) {
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius, regionRadius)
 		mapFragment.setRegion(coordinateRegion, animated: true)
@@ -115,10 +121,12 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
 } // end VC
 
+//*****************************************************************
+// MARK: - CollectionView Methods
+//*****************************************************************
 
 extension PhotosViewController {
 
-	
 	/**
 	Pide el objeto de fuente de datos para la celda que corresponde al elemento especificado en la vista de colección.
 	

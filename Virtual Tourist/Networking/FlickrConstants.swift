@@ -23,7 +23,9 @@ import Foundation
 Un objeto que contiene los datos constantes requeridos para confeccionar la solicitud web.
 */
 
+//*****************************************************************
 // MARK: - Constants
+//*****************************************************************
 
 struct FlickrConstants {
 	

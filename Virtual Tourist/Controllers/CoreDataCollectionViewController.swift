@@ -11,8 +11,10 @@ import UIKit
 import CoreData
 
 class CoreDataMapAndCollectionViewController: UIViewController {
-	
-	// MARK: Properties (fetchedResultsController)
+
+	//*****************************************************************
+	// MARK: - Properties (fetchedResultsController)
+	//*****************************************************************
 	
 	var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
 		didSet { // observer...
@@ -23,7 +25,9 @@ class CoreDataMapAndCollectionViewController: UIViewController {
 		}
 	}
 	
-	// MARK: Initializers
+	//*****************************************************************
+	// MARK: - Initializers
+	//*****************************************************************
 	
 	init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>) {
 		fetchedResultsController = fc
@@ -35,7 +39,9 @@ class CoreDataMapAndCollectionViewController: UIViewController {
 	}
 }
 
-	// MARK: - Fetches
+//*****************************************************************
+// MARK: - Fetches
+//*****************************************************************
 
 extension CoreDataMapAndCollectionViewController {
 
@@ -50,7 +56,9 @@ extension CoreDataMapAndCollectionViewController {
 	}
 }
 
-	// MARK: - Results
+//*****************************************************************
+// MARK: - Results
+//*****************************************************************
 
 extension CoreDataMapAndCollectionViewController: NSFetchedResultsControllerDelegate {
 

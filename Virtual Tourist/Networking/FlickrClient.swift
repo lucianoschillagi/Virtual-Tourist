@@ -15,15 +15,23 @@ Un objeto que solicita fotos a Flickr tomando como parámetros las coordenadas d
 
 class FlickrClient: NSObject {
 	
+	//*****************************************************************
 	// MARK: - Properties
+	//*****************************************************************
+	
 	var session = URLSession.shared
 	
+	//*****************************************************************
 	// MARK: - Initializers
+	//*****************************************************************
+	
 	override init() {
 		super.init()
 	}
 	
+	//*****************************************************************
 	// MARK: - Networking
+	//*****************************************************************
 	
 	func getPhotosFromFlickr(lat: Double, lon: Double, completion: @escaping (_ success: Bool, _ flickrPhotos: [FlickrImage]?) -> Void) {
 		
@@ -126,7 +134,9 @@ class FlickrClient: NSObject {
 		return components.url!
 	}
 	
+	//*****************************************************************
 	// MARK: - Shared Instance
+	//*****************************************************************
 	
 	class func sharedInstance() -> FlickrClient {
 		struct Singleton {

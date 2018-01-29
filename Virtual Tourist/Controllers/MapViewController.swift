@@ -18,12 +18,16 @@ Un objeto que representa el mapa donde el usuario interactúa añadiendo ubicaci
 
 class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecognizerDelegate, MKMapViewDelegate  {
 	
-	// MARK: - Outlets
+	//*****************************************************************
+	// MARK: - IBOutles
+	//*****************************************************************
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var deletePins: UIView!
 	@IBOutlet weak var editButton: UIBarButtonItem!
 	
+	//*****************************************************************
 	// MARK: - Properties
+	//*****************************************************************
 	var editMode: Bool = false
 //	var gestureBegin: Bool = false
 //	var currentPins: [Pin] = [] // los pins actuales
@@ -66,7 +70,9 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		}
 	}
 	
-	// MARK: - Actions
+	//*****************************************************************
+	// MARK: - IBActions
+	//*****************************************************************
 
 	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin
 	@IBAction func addPin(_ sender: UILongPressGestureRecognizer) {
@@ -111,14 +117,12 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		}
 	}
 	
-
 	
 	// MARK: - Navigation
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		
 	}
-
 	
 }  // end VC
 

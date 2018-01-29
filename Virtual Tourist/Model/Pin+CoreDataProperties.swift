@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension Pin {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Pin> {
