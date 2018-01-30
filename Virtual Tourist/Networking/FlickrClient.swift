@@ -33,7 +33,10 @@ class FlickrClient: NSObject {
 	// MARK: - Networking
 	//*****************************************************************
 	
-	func getPhotosFromFlickr(lat: Double, lon: Double, completion: @escaping (_ success: Bool, _ flickrPhotos: [FlickrImage]?) -> Void) {
+	func getPhotosFromFlickr(lat: Double,
+													 lon: Double,
+													 completion: @escaping (_ success: Bool,
+																									_ flickrPhotos: [FlickrImage]?) -> Void) {
 		
 		/* 1. Set the parameters */
 		let methodParameters: [String : Any] = [

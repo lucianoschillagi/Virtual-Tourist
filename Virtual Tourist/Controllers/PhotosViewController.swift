@@ -46,23 +46,19 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	} // end computed property
 	
-	// model
-	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
-	
+
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
 	
+	// View Did Load
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Map View
-		// set initial location in Honolulu, LUEGO BORRAR
-		let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-		centerMapOnLocation(location: initialLocation)
+		// Map View ---------------------------------------------
 		addAnnotationToMap()
 		
-		// Collection View
+		// Collection View ---------------------------------------------
 		// el diseño de la colección de vista, en 3 columnas separadas por 20pts
 		let width = (view.frame.size.width - 20) / 3
 		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -71,8 +67,23 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
-	}
+		
+		}
 	
+	// View Will Appear
+	override func viewWillAppear(_ animated: Bool) {
+		// networking
+		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: 21.282778, lon:-157.829444) { (success, errorString) in
+			performUIUpdatesOnMain {
+				if success {
+					//self.completeLogin()
+				} else {
+					print(errorString ?? "")
+				}
+			}
+		}
+	}
+		
 	//*****************************************************************
 	// MARK: - MapView
 	//*****************************************************************
@@ -88,14 +99,6 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		mapFragment.addAnnotation(annotation)
 		mapFragment.showAnnotations([annotation], animated: true)
 	}
-	
-	
-
-
-
-//*****************************************************************
-// MARK: - CollectionView Methods
-//*****************************************************************
 
 func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
 	
@@ -110,28 +113,34 @@ func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
 	
 } // end vc
 
+//*****************************************************************
+// MARK: - CollectionView Methods
+//*****************************************************************
+
 extension PhotosViewController: UICollectionViewDataSource {
 	
 	// pregunta a su objeto fuente de datos por la cantidad de elementos en la sección especificada
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	func collectionView(_ collectionView: UICollectionView,
+											numberOfItemsInSection section: Int) -> Int {
 		
-		return collectionData.count // FIX: luego cambiar
+		return 21 // FIX: luego cambiar
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	func collectionView(_ collectionView: UICollectionView,
+							 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
 		
 		return cell
-	}
-		
+	}		
 }
 
 extension PhotosViewController: UICollectionViewDelegate {
 	
 	// le dice al delegado que el ítem en la ruta especificada fue deseleccionado.
-		func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+		func collectionView(_ collectionView: UICollectionView,
+						 didDeselectItemAt indexPath: IndexPath) {
 	
 			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
 			let cell = collectionView.cellForItem(at: indexPath)
@@ -170,5 +179,15 @@ extension PhotosViewController: UICollectionViewDelegate {
 ////		}
 //	}
 
+
+//@IBAction func deleteSelected() {
+//	if let selected = collectionView.indexPathsForSelectedItems {
+//		let items = selected.map{$0.item}.sorted().reversed()
+//		for item in items {
+//			collectionData.remove(at: item)
+//		}
+//		collectionView.deleteItems(at: selected)
+//	}
+//}
 
 

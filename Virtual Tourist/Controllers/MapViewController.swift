@@ -108,7 +108,8 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	// MARK: - MapView
 	//*****************************************************************
 	
-	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+	func mapView(_ mapView: MKMapView,
+							 didSelect view: MKAnnotationView) {
 		
 		if !editMode { // si NO está en modo edición...
 			print("NO estoy en modo edición y he sido seleccionado")
@@ -135,7 +136,7 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	//*****************************************************************
 	
 	// notifica al controlador de vista que se va a realizar una transición
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 		
 		if segue.identifier == "PinPhotos" {
 			// el destino de la transición, el 'PhotosViewController'
