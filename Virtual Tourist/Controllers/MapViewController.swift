@@ -54,6 +54,7 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		
 		// create a fetch request
 		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
+		fr.sortDescriptors = []
 	
 		// create the fetched results controller
 		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
@@ -156,21 +157,21 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 		
 		// CODIGO ANTERIOR SIN CORE DATA
-//		if segue.identifier == "PinPhotos" {
-//			// el destino de la transición, el 'PhotosViewController'
-//			let destination = segue.destination as! PhotosViewController
-//			// el remitente será una coordenada (pin) puesto sobre el mapa
-//			let coord = sender as! CLLocationCoordinate2D
-//			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
-//			destination.coordinateSelected = coord
-//		}
+		if segue.identifier == "PinPhotos" {
+			// el destino de la transición, el 'PhotosViewController'
+			let destination = segue.destination as! PhotosViewController
+			// el remitente será una coordenada (pin) puesto sobre el mapa
+			let coord = sender as! CLLocationCoordinate2D
+			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
+			destination.coordinateSelected = coord
+		}
 		
-				if segue.identifier == "PinPhotos" {
-					
-					
-					
-					
-				}
+//				if segue.identifier == "PinPhotos" {
+//
+//
+//
+//
+//				}
 		
 		
 	}

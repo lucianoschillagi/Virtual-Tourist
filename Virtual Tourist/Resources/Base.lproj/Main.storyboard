@@ -96,7 +96,7 @@
                                 </connections>
                             </mapView>
                             <collectionView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXK-Sd-tJW">
-                                <rect key="frame" x="0.0" y="193" width="414" height="543"/>
+                                <rect key="frame" x="0.0" y="193" width="414" height="478"/>
                                 <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wae-4S-5Ol">
                                     <size key="itemSize" width="187" height="181"/>
@@ -150,16 +150,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="trailing" secondItem="pgz-qV-rvm" secondAttribute="trailing" id="1Jh-46-z4L"/>
-                            <constraint firstItem="Yi5-x6-eKt" firstAttribute="bottom" secondItem="gXK-Sd-tJW" secondAttribute="bottom" id="7Tl-I4-gzM"/>
                             <constraint firstItem="pgz-qV-rvm" firstAttribute="top" secondItem="BTm-da-g3g" secondAttribute="top" id="DMc-Ym-AjO"/>
-                            <constraint firstItem="Yi5-x6-eKt" firstAttribute="trailing" secondItem="gXK-Sd-tJW" secondAttribute="trailing" id="HBJ-Iw-UBy"/>
-                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="top" secondItem="BTm-da-g3g" secondAttribute="top" constant="129" id="IEN-yq-ha6"/>
-                            <constraint firstItem="Yi5-x6-eKt" firstAttribute="leading" secondItem="gXK-Sd-tJW" secondAttribute="leading" id="LgP-aC-Pvf"/>
-                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="leading" secondItem="pgz-qV-rvm" secondAttribute="leading" id="MgT-cR-mhd"/>
-                            <constraint firstAttribute="trailing" secondItem="gXK-Sd-tJW" secondAttribute="trailing" id="SPB-Hl-jZU"/>
-                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="leading" secondItem="z1F-QQ-tIU" secondAttribute="leading" id="U6T-gI-TKb"/>
-                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="bottom" secondItem="BTm-da-g3g" secondAttribute="bottom" id="oBg-Ix-Rjv"/>
+                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="top" secondItem="BTm-da-g3g" secondAttribute="top" constant="129" id="E7x-kI-x4x"/>
+                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="leading" secondItem="Yi5-x6-eKt" secondAttribute="leading" id="GjQ-3J-Jfx"/>
+                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="trailing" secondItem="Yi5-x6-eKt" secondAttribute="trailing" id="L92-PC-PS9"/>
+                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="leading" secondItem="pgz-qV-rvm" secondAttribute="leading" id="Vev-D8-Fwo"/>
+                            <constraint firstItem="Yi5-x6-eKt" firstAttribute="bottom" secondItem="BTm-da-g3g" secondAttribute="bottom" id="dwk-zu-IGy"/>
+                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="trailing" secondItem="pgz-qV-rvm" secondAttribute="trailing" id="j86-iT-pUO"/>
+                            <constraint firstItem="BTm-da-g3g" firstAttribute="bottom" secondItem="gXK-Sd-tJW" secondAttribute="bottom" constant="65" id="mFX-1M-DzA"/>
+                            <constraint firstAttribute="trailing" secondItem="gXK-Sd-tJW" secondAttribute="trailing" id="wXd-QG-bLs"/>
+                            <constraint firstItem="gXK-Sd-tJW" firstAttribute="leading" secondItem="z1F-QQ-tIU" secondAttribute="leading" id="ykZ-2n-knw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BTm-da-g3g"/>
                     </view>
