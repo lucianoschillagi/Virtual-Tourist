@@ -72,11 +72,14 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
+		
 		// networking
-		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: 21.282778, lon:-157.829444) { (success, errorString) in
+		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: coordinateSelected.latitude,
+																											lon: coordinateSelected.longitude) { (success,
+																																												errorString) in
 			performUIUpdatesOnMain {
 				if success {
-					//self.completeLogin()
+					// completar
 				} else {
 					print(errorString ?? "")
 				}
