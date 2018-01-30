@@ -35,21 +35,38 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 //	var currentPins: [Pin] = [] // los pins actuales
 	var coordinateSelected:CLLocationCoordinate2D! // la coordenada (pin) seleccionada por el usuario
 	
+	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		// set edit-done button on navigation bar
 		setEditDoneButton()
-		//autolayoutMapView()
+		
+		// Core Data
+		
+		// get the stack
+		let delegate = UIApplication.shared.delegate as! AppDelegate
+		let stack = delegate.stack
+		
+		// create a fetch request
+		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
+	
+		// create the fetched results controller
+		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+																													managedObjectContext: stack.context,
+																													sectionNameKeyPath: nil,
+																													cacheName: nil)
+		
 	}
 	
 	//*****************************************************************
 	// MARK: - Edit-Done Button
 	//*****************************************************************
 	
-	// set Edit-Done Button
 	func setEditDoneButton() {
 		self.navigationItem.rightBarButtonItem = self.editButtonItem
 	}
@@ -138,14 +155,23 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	// notifica al controlador de vista que se va a realizar una transición
 	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 		
-		if segue.identifier == "PinPhotos" {
-			// el destino de la transición, el 'PhotosViewController'
-			let destination = segue.destination as! PhotosViewController
-			// el remitente será una coordenada (pin) puesto sobre el mapa
-			let coord = sender as! CLLocationCoordinate2D
-			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
-			destination.coordinateSelected = coord
-		}
+		// CODIGO ANTERIOR SIN CORE DATA
+//		if segue.identifier == "PinPhotos" {
+//			// el destino de la transición, el 'PhotosViewController'
+//			let destination = segue.destination as! PhotosViewController
+//			// el remitente será una coordenada (pin) puesto sobre el mapa
+//			let coord = sender as! CLLocationCoordinate2D
+//			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
+//			destination.coordinateSelected = coord
+//		}
+		
+				if segue.identifier == "PinPhotos" {
+					
+					
+					
+					
+				}
+		
 		
 	}
 	

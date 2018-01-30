@@ -46,6 +46,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	} // end computed property
 	
+//	let collectionViewCell = CollectionViewCell()
+//	let photo = Photo()
 
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -74,12 +76,15 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		
 		// networking
+		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
 		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: coordinateSelected.latitude,
 																											lon: coordinateSelected.longitude) { (success,
 																																												errorString) in
 			performUIUpdatesOnMain {
 				if success {
-					// completar
+					self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
+					//self.collectionViewCell.initWithPhoto(self.photo)
+					
 				} else {
 					print(errorString ?? "")
 				}

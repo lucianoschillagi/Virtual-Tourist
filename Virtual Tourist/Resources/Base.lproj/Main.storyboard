@@ -97,7 +97,7 @@
                             </mapView>
                             <collectionView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXK-Sd-tJW">
                                 <rect key="frame" x="0.0" y="193" width="414" height="543"/>
-                                <color key="backgroundColor" red="0.92792360510000005" green="1" blue="0.14872384150000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wae-4S-5Ol">
                                     <size key="itemSize" width="187" height="181"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -120,7 +120,6 @@
                                                 </activityIndicatorView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.0078431372550000003" green="0.70196078429999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="IhC-pn-tWD" firstAttribute="centerX" secondItem="mg1-sG-AHd" secondAttribute="centerX" id="3Lr-b9-3MV"/>
                                             <constraint firstItem="IhC-pn-tWD" firstAttribute="centerY" secondItem="mg1-sG-AHd" secondAttribute="centerY" id="3bd-rt-tF4"/>
