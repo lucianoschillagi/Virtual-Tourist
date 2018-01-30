@@ -31,9 +31,9 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	//*****************************************************************
 	
 	var editMode: Bool = false
-//	var gestureBegin: Bool = false
+	var gestureBegin: Bool = false
 //	var currentPins: [Pin] = [] // los pins actuales
-//	var coordinateSelected:CLLocationCoordinate2D!
+	var coordinateSelected:CLLocationCoordinate2D! // la coordenada (pin) seleccionada por el usuario
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -43,36 +43,40 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		super.viewDidLoad()
 		setEditDoneButton()
 		//autolayoutMapView()
-		
 	}
 	
+	//*****************************************************************
+	// MARK: - Edit-Done Button
+	//*****************************************************************
+	
+	// set Edit-Done Button
 	func setEditDoneButton() {
 		self.navigationItem.rightBarButtonItem = self.editButtonItem
 	}
 	
-	//Gesture Recognizer
-	
-//	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//
-//		gestureBegin = true
-//		print("reconoce el gesto")
-//		return true
-//	}
-	
-	// Edit Mode View
-	
+	// establece si el controlador de vista muestra una vista editable
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		
 		super.setEditing(editing, animated: animated)
 		
-		deletePins.isHidden = !editing
-		editMode = editing
+		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará deshabilitado
+		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		
-		if editing {
+		if editMode {
 			print("está en modo de edición")
 		} else {
-			print("NO está en modo de edición")
+			
 		}
+	}
+	
+	//*****************************************************************
+	// MARK: - Gesture Recognizer
+	//*****************************************************************
+	
+	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		
+		gestureBegin = true
+		return true
 	}
 	
 	//*****************************************************************
@@ -95,18 +99,22 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		// guardo el pin
 		//addCoreData(of: annotation)
 		// pone 'gestureBegin' nuevamente a 'false'
-//		gestureBegin = false
+		gestureBegin = false
 		print("Add Pin")
 //		print(gestureBegin)
 	}
 	
-	//Map View Function
+	//*****************************************************************
+	// MARK: - MapView
+	//*****************************************************************
 	
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 		
 		if !editMode { // si NO está en modo edición...
 			print("NO estoy en modo edición y he sido seleccionado")
-			//performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
+			
+			// inicia el segue
+			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
 			
 			mapView.deselectAnnotation(view.annotation, animated: false)
 //			//mapView.removeAnnotation(view.annotation!)
@@ -122,14 +130,43 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		}
 	}
 	
-	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)
 	//*****************************************************************
+	
+	// notifica al controlador de vista que se va a realizar una transición
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
+		if segue.identifier == "PinPhotos" {
+			// el destino de la transición, el 'PhotosViewController'
+			let destination = segue.destination as! PhotosViewController
+			// el remitente será una coordenada (pin) puesto sobre el mapa
+			let coord = sender as! CLLocationCoordinate2D
+			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
+			destination.coordinateSelected = coord
+		}
 		
 	}
+	
+//	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//		if segue.identifier == "PinPhotos" {
+//
+//			let destination = segue.destination as! PhotosViewController
+//			let coord = sender as! CLLocationCoordinate2D
+//			destination.coordinateSelected = coord
+//
+//			for pin in currentPins {
+//
+//				if pin.latitude == coord.latitude && pin.longitude == coord.longitude {
+//
+//					destination.coreDataPin = pin
+//					break
+//				}
+//			}
+//
+//		}
+//	}
 	
 }  // end VC
 

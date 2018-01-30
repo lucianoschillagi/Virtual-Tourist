@@ -12,7 +12,10 @@
 import Foundation
 import CoreData
 
-// Managed Object: Photo
+//*****************************************************************
+// MARK: - Photo - Properties and Methods
+//*****************************************************************
+
 public class Photo: NSManagedObject {
 // lo que tenemos que hacer es añadir un método ´init´ para que esta clase puede crear INSTANCIAS usables de sí misma
 	// inicializador de conveniencia para crear las instancias usables

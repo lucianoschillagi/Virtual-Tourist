@@ -1,8 +1,8 @@
 //
-//  PhotosViewController.swift
+//  PhotosAnteriorViewController.swift
 //  Virtual Tourist
 //
-//  Created by Luciano Schillagi on 1/29/18.
+//  Created by Luciano Schillagi on 1/17/18.
 //  Copyright © 2018 luko. All rights reserved.
 //
 
@@ -12,28 +12,31 @@ import UIKit
 import MapKit
 import CoreData
 
-/* Abstract:
-Un objeto que contiene:
--un fragmento de mapa con un zoom a la ubicación seleccionada
--una colección de vistas con imágenes relacionadas con esa ubicación
--un botón para actualizar la colección de imágenes
-*/
 
-class PhotosViewController: CoreDataMapAndCollectionViewController {
+// ANTERIOR!!! LUEGO BORRAR
+
+
+class PhotosAnteriorViewController: CoreDataMapAndCollectionViewController {
 	
 	//*****************************************************************
-	// MARK: - IBOutlets
+	// MARK: - IBOutles
 	//*****************************************************************
 	
 	@IBOutlet weak var mapFragment: MKMapView!
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var newCollectionButton: UIButton!
-	
+
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
+	
+	var savedImages:[Photo] = [] // las imágenes guardadas (core data)
+	var coreDataPin: Pin! = nil
+	let totalCellCount = 25
+	
+	//var flickrImage: [FlickrImage] = [FlickrImage]()
 	let regionRadius: CLLocationDistance = 1000
 	
 	var selectedToDelete:[Int] = [] {
@@ -46,9 +49,6 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	} // end computed property
 	
-	// model
-	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
-	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -56,21 +56,36 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Map View
-		// set initial location in Honolulu, LUEGO BORRAR
-		let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-		centerMapOnLocation(location: initialLocation)
-		addAnnotationToMap()
-		
-		// Collection View
 		// el diseño de la colección de vista, en 3 columnas separadas por 20pts
 		let width = (view.frame.size.width - 20) / 3
 		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
 		// el tamaño de cada item
 		layout.itemSize = CGSize(width: width, height: width)
-
+	
+//		// map view
+//		// set initial location in Honolulu, LUEGO BORRAR
+//		let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
+//		centerMapOnLocation(location: initialLocation)
+		
 		collectionView.isHidden = false
+		
 		collectionView.allowsMultipleSelection = true
+	
+		addAnnotationToMap()
+		
+	} 
+	
+	override func viewWillAppear(_ animated: Bool) {
+		// networking
+		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: 21.282778, lon:-157.829444) { (success, errorString) in
+			performUIUpdatesOnMain {
+				if success {
+					//self.completeLogin()
+				} else {
+					print(errorString ?? "")
+				}
+			}
+		}
 	}
 	
 	//*****************************************************************
@@ -81,7 +96,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius, regionRadius)
 		mapFragment.setRegion(coordinateRegion, animated: true)
 	}
-
+	
 	func addAnnotationToMap() {
 		let annotation = MKPointAnnotation()
 		annotation.coordinate = coordinateSelected
@@ -89,66 +104,34 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		mapFragment.showAnnotations([annotation], animated: true)
 	}
 	
+	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
+		
+		var selected: [Int] = []
+		
+		for indexPath in indexPathArray {
+			selected.append(indexPath.row)
+		}
+		print(selected)
+		return selected
+	}
 	
-
-
+	
+} // end VC
 
 //*****************************************************************
 // MARK: - CollectionView Methods
 //*****************************************************************
 
-func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
-	
-	var selected: [Int] = []
-	
-	for indexPath in indexPathArray {
-		selected.append(indexPath.row)
-	}
-	print(selected)
-	return selected
-	}
-	
-} // end vc
-
-extension PhotosViewController: UICollectionViewDataSource {
-	
-	// pregunta a su objeto fuente de datos por la cantidad de elementos en la sección especificada
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		
-		return collectionData.count // FIX: luego cambiar
-	}
-	
-	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
-		
-		return cell
-	}
-		
-}
-
-extension PhotosViewController: UICollectionViewDelegate {
-	
-	// le dice al delegado que el ítem en la ruta especificada fue deseleccionado.
-		func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-	
-			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-			let cell = collectionView.cellForItem(at: indexPath)
-			
-			// debug
-			print(indexPath)
-			
-			// Dispatch
-			DispatchQueue.main.async {
-				cell?.backgroundColor = .red
-				cell?.contentView.alpha = 0.2
-			}
-		}
-	
-} // end ext
-
-
+//extension PhotosViewController {
+//
+//	/**
+//	Pide el objeto de fuente de datos para la celda que corresponde al elemento especificado en la vista de colección.
+//
+//	- parameter collectionView: la vista de colección que solicita esta información.
+//	- parameter indexPath: La ruta de índice que especifica la ubicación del elemento
+//
+//	- returns: El número de filas en la sección.
+//	*/
 //	func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 //
 ////		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
@@ -169,6 +152,8 @@ extension PhotosViewController: UICollectionViewDelegate {
 ////			cell?.contentView.backgroundColor = UIColor.cyan
 ////		}
 //	}
+//
+//} // end extension
 
-
+	
 

@@ -12,6 +12,10 @@
 import Foundation
 import CoreData
 
+//*****************************************************************
+// MARK: - Pin - Properties and Methods
+//*****************************************************************
+
 extension Pin {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Pin> {

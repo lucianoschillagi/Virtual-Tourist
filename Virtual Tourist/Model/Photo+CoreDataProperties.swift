@@ -12,6 +12,10 @@
 import Foundation
 import CoreData
 
+//*****************************************************************
+// MARK: - Photo - Properties and Methods
+//*****************************************************************
+
 extension Photo {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Photo> {
