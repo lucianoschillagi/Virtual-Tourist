@@ -24,7 +24,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Gcf-hN-hwP"/>
-                                    <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="FvZ-ls-ZW8"/>
+                                    <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="OfW-Yd-CWT"/>
                                 </connections>
                             </mapView>
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VBn-bo-nS1">

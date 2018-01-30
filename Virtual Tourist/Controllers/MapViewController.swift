@@ -31,10 +31,9 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	//*****************************************************************
 	
 	var editMode: Bool = false
-	var gestureBegin: Bool = false
+	//var gestureBegin: Bool = false
 //	var currentPins: [Pin] = [] // los pins actuales
 	var coordinateSelected:CLLocationCoordinate2D! // la coordenada (pin) seleccionada por el usuario
-	
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -77,25 +76,22 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		
 		super.setEditing(editing, animated: animated)
 		
-		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará deshabilitado
+		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
-		
-		if editMode {
-			print("está en modo de edición")
-		} else {
-			
-		}
+		// debug
+		print("presionó el botón de Edit")
+		print("El valor de 'editMode' es \(editMode)")
 	}
 	
 	//*****************************************************************
 	// MARK: - Gesture Recognizer
 	//*****************************************************************
 	
-	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-		
-		gestureBegin = true
-		return true
-	}
+//	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//
+//		gestureBegin = true
+//		return true
+//	}
 	
 	//*****************************************************************
 	// MARK: - IBActions
@@ -104,6 +100,10 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin
 	@IBAction func addPin(_ sender: UILongPressGestureRecognizer) {
 		
+		if !editMode {
+		//debug
+		print("El modo edición está en \(editMode). [addPin]")
+			
 		// las coordenadas del tapeo sobre el mapa
 		let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
 		// convierte las coordenadas en unas coordenadas de mapa (latitud y longitud)
@@ -114,38 +114,38 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		annotation.coordinate = coordToAdd // CLLocationCoordinate2D
 		// agrego el pin correspondiente a esa coordenada en la vista del mapa
 		mapView.addAnnotation(annotation) // MKPointAnnotation
-		// guardo el pin
-		//addCoreData(of: annotation)
-		// pone 'gestureBegin' nuevamente a 'false'
-		gestureBegin = false
-		print("Add Pin")
-//		print(gestureBegin)
+		// debug
+		print("Agrega un Pin")
+		}
+		
+		else  {
+			print("El modo edición está en \(editMode). [addPin]")
+			sender.isEnabled =  false
+		}
 	}
 	
 	//*****************************************************************
 	// MARK: - MapView
 	//*****************************************************************
 	
+	// el pin que ha sido seleccionado en el mapa
 	func mapView(_ mapView: MKMapView,
 							 didSelect view: MKAnnotationView) {
 		
-		if !editMode { // si NO está en modo edición...
-			print("NO estoy en modo edición y he sido seleccionado")
+		// Edit-Mode conditional
+		if !editMode { // si 'editMode' es 'false' (si NO esté en modo edición)
 			
 			// inicia el segue
 			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
-			
+			// esconde el callout view cuando es tapea sobre el pin
 			mapView.deselectAnnotation(view.annotation, animated: false)
-//			//mapView.removeAnnotation(view.annotation!)
-//			print("pero no deselecciona el pin") // es true
 		
 		} else { // si está en modo edición...
-			
-			//removeCoreData(of: view.annotation!)
-			
+			print("El modo edición está en \(editMode). Puedo borrar pero no agregar pines")
+			// borra del mapa el pin tapeado
 			mapView.removeAnnotation(view.annotation!)
-			print("Estoy en modo edición y he sido seleccionado")
-			print("Y el pin se remueve con un tap!") // es true
+			print("Borra el pin tapeado")
+	
 		}
 	}
 	
@@ -156,7 +156,6 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	// notifica al controlador de vista que se va a realizar una transición
 	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 		
-		// CODIGO ANTERIOR SIN CORE DATA
 		if segue.identifier == "PinPhotos" {
 			// el destino de la transición, el 'PhotosViewController'
 			let destination = segue.destination as! PhotosViewController
