@@ -39,50 +39,50 @@ class CoreDataMapAndCollectionViewController: UIViewController {
 	}
 }
 
-//*****************************************************************
-// MARK: - Fetches
-//*****************************************************************
+	//*****************************************************************
+	// MARK: - Fetches
+	//*****************************************************************
 
-extension CoreDataMapAndCollectionViewController {
+	extension CoreDataMapAndCollectionViewController {
 
-	func executeSearch() {
-		if let fc = fetchedResultsController {
-			do {
-				try fc.performFetch()
-			} catch let e as NSError {
-				print("Error while trying to perform a search: \n\(e)\n\(String(describing: fetchedResultsController))")
+		func executeSearch() {
+			if let fc = fetchedResultsController {
+				do {
+					try fc.performFetch()
+				} catch let e as NSError {
+					print("Error while trying to perform a search: \n\(e)\n\(String(describing: fetchedResultsController))")
+				}
 			}
 		}
 	}
-}
 
-//*****************************************************************
-// MARK: - Results
-//*****************************************************************
+	//*****************************************************************
+	// MARK: - Results
+	//*****************************************************************
 
-extension CoreDataMapAndCollectionViewController: NSFetchedResultsControllerDelegate {
+	extension CoreDataMapAndCollectionViewController: NSFetchedResultsControllerDelegate {
 
-	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-		
-	}
+		func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+			
+		}
 
-	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-									didChange sectionInfo: NSFetchedResultsSectionInfo,
-									atSectionIndex sectionIndex: Int,
-									for type: NSFetchedResultsChangeType) {
-//
-//		let set = IndexSet(integer: sectionIndex)
-//
-//		switch (type) {
-//		case .insert:
-//			tableView.insertSections(set, with: .fade)
-//		case .delete:
-//			tableView.deleteSections(set, with: .fade)
-//		default:
-//			// irrelevant in our case
-//			break
-//		}
-	}
+		func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+										didChange sectionInfo: NSFetchedResultsSectionInfo,
+										atSectionIndex sectionIndex: Int,
+										for type: NSFetchedResultsChangeType) {
+	//
+	//		let set = IndexSet(integer: sectionIndex)
+	//
+	//		switch (type) {
+	//		case .insert:
+	//			tableView.insertSections(set, with: .fade)
+	//		case .delete:
+	//			tableView.deleteSections(set, with: .fade)
+	//		default:
+	//			// irrelevant in our case
+	//			break
+	//		}
+		}
 
 	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
 									didChange anObject: Any,

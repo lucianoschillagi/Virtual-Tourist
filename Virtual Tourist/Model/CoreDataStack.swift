@@ -78,47 +78,47 @@ struct CoreDataStack {
 	}
 }
 
-//*****************************************************************
-// MARK: - CoreDataStack (Removing Data)
-//*****************************************************************
+	//*****************************************************************
+	// MARK: - CoreDataStack (Removing Data)
+	//*****************************************************************
 
-internal extension CoreDataStack  {
-	
-	func dropAllData() throws {
-		// delete all the objects in the db. This won't delete the files, it will
-		// just leave empty tables.
-		try coordinator.destroyPersistentStore(at: dbURL, ofType:NSSQLiteStoreType , options: nil)
-		try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
-	}
-}
-
-//*****************************************************************
-// MARK: - CoreDataStack (Save Data)
-//*****************************************************************
-
-extension CoreDataStack {
-	
-	func saveContext() throws {
-		if context.hasChanges {
-			try context.save()
+	internal extension CoreDataStack  {
+		
+		func dropAllData() throws {
+			// delete all the objects in the db. This won't delete the files, it will
+			// just leave empty tables.
+			try coordinator.destroyPersistentStore(at: dbURL, ofType:NSSQLiteStoreType , options: nil)
+			try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
 		}
 	}
-	
-	func autoSave(_ delayInSeconds : Int) {
+
+	//*****************************************************************
+	// MARK: - CoreDataStack (Save Data)
+	//*****************************************************************
+
+	extension CoreDataStack {
 		
-		if delayInSeconds > 0 {
-			do {
-				try saveContext()
-				print("Autosaving")
-			} catch {
-				print("Error while autosaving")
+		func saveContext() throws {
+			if context.hasChanges {
+				try context.save()
 			}
+		}
+		
+		func autoSave(_ delayInSeconds : Int) {
 			
-			let delayInNanoSeconds = UInt64(delayInSeconds) * NSEC_PER_SEC
-			let time = DispatchTime.now() + Double(Int64(delayInNanoSeconds)) / Double(NSEC_PER_SEC)
-			
-			DispatchQueue.main.asyncAfter(deadline: time) {
-				self.autoSave(delayInSeconds)
+			if delayInSeconds > 0 {
+				do {
+					try saveContext()
+					print("Autosaving")
+				} catch {
+					print("Error while autosaving")
+				}
+				
+				let delayInNanoSeconds = UInt64(delayInSeconds) * NSEC_PER_SEC
+				let time = DispatchTime.now() + Double(Int64(delayInNanoSeconds)) / Double(NSEC_PER_SEC)
+				
+				DispatchQueue.main.asyncAfter(deadline: time) {
+					self.autoSave(delayInSeconds)
 			}
 		}
 	}

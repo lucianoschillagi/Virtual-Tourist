@@ -101,6 +101,7 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	@IBAction func addPin(_ sender: UILongPressGestureRecognizer) {
 		
 		if !editMode {
+			sender.isEnabled = true
 		//debug
 		print("El modo edición está en \(editMode). [addPin]")
 			
@@ -116,9 +117,9 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		mapView.addAnnotation(annotation) // MKPointAnnotation
 		// debug
 		print("Agrega un Pin")
-		}
 		
-		else  {
+		} else  {
+			
 			print("El modo edición está en \(editMode). [addPin]")
 			sender.isEnabled =  false
 		}

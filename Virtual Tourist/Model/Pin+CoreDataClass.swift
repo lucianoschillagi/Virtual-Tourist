@@ -15,6 +15,7 @@ import CoreData
 //*****************************************************************
 // MARK: - Pin (Managed Object)
 //*****************************************************************
+
 public class Pin: NSManagedObject {
 	
 // lo que tenemos que hacer es añadir un método ´init´ para que esta clase puede crear INSTANCIAS usables de sí misma

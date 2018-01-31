@@ -33,6 +33,6 @@ public class Photo: NSManagedObject {
 		}
 	}
 	
-} // end class
+} 
 
 
