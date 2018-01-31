@@ -139,6 +139,9 @@
                                     <constraint firstAttribute="height" constant="66" id="7Ki-PK-f75"/>
                                 </constraints>
                                 <state key="normal" title="New Collection"/>
+                                <connections>
+                                    <action selector="deleteSelected:" destination="tgO-rm-beU" eventType="touchUpInside" id="OCc-o2-k3k"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

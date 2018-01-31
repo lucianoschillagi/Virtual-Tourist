@@ -21,6 +21,9 @@ Un objeto que contiene:
 
 class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
+	// model - FIX: luego BORRAR
+	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
+	
 	//*****************************************************************
 	// MARK: - IBOutlets
 	//*****************************************************************
@@ -54,7 +57,26 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
 //	let collectionViewCell = CollectionViewCell()
 //	let photo = Photo()
-
+	
+	
+	//*****************************************************************
+	// MARK: - IBActions
+	//*****************************************************************
+	
+	// Borra los items de la colección seleccionados
+	@IBAction func deleteSelected(_ sender: Any) {
+		
+		if let selected = collectionView.indexPathsForSelectedItems {
+			let items = selected.map{$0.item}.sorted().reversed()
+			for item in items {
+				collectionData.remove(at: item)
+			}
+			collectionView.deleteItems(at: selected)
+		}
+		// debug
+		print("El modelo actualmente tiene \(collectionData.count) elementos")
+	}
+	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -126,7 +148,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 		
-		return 21 // FIX: luego cambiar
+		return collectionData.count // FIX: luego cambiar
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
