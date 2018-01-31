@@ -16,7 +16,7 @@ import CoreData
 Un objeto que representa el mapa donde el usuario interactúa añadiendo ubicaciones a través de pins.
 */
 
-class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecognizerDelegate, MKMapViewDelegate  {
+class MapViewController: CoreDataMapAndCollectionViewController, MKMapViewDelegate  {
 	
 	//*****************************************************************
 	// MARK: - IBOutles
@@ -31,7 +31,6 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	//*****************************************************************
 	
 	var editMode: Bool = false
-	//var gestureBegin: Bool = false
 //	var currentPins: [Pin] = [] // los pins actuales
 	var coordinateSelected:CLLocationCoordinate2D! // la coordenada (pin) seleccionada por el usuario
 	
@@ -60,7 +59,6 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 																													managedObjectContext: stack.context,
 																													sectionNameKeyPath: nil,
 																													cacheName: nil)
-		
 	}
 	
 	//*****************************************************************
@@ -80,31 +78,18 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		// debug
 		print("presionó el botón de Edit")
-		print("El valor de 'editMode' es \(editMode)")
+		print("El valor de 'editMode' es '\(editMode)'")
 	}
-	
-	//*****************************************************************
-	// MARK: - Gesture Recognizer
-	//*****************************************************************
-	
-//	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//
-//		gestureBegin = true
-//		return true
-//	}
 	
 	//*****************************************************************
 	// MARK: - IBActions
 	//*****************************************************************
 
-	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin
+	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin...
 	@IBAction func addPin(_ sender: UILongPressGestureRecognizer) {
 		
+		// Si NO está en 'modo edición' se pueden agregar pines
 		if !editMode {
-			sender.isEnabled = true
-		//debug
-		print("El modo edición está en \(editMode). [addPin]")
-			
 		// las coordenadas del tapeo sobre el mapa
 		let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
 		// convierte las coordenadas en unas coordenadas de mapa (latitud y longitud)
@@ -115,13 +100,9 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 		annotation.coordinate = coordToAdd // CLLocationCoordinate2D
 		// agrego el pin correspondiente a esa coordenada en la vista del mapa
 		mapView.addAnnotation(annotation) // MKPointAnnotation
-		// debug
-		print("Agrega un Pin")
 		
 		} else  {
-			
-			print("El modo edición está en \(editMode). [addPin]")
-			sender.isEnabled =  false
+			// ...caso contrario, NO
 		}
 	}
 	
@@ -132,21 +113,18 @@ class MapViewController: CoreDataMapAndCollectionViewController, UIGestureRecogn
 	// el pin que ha sido seleccionado en el mapa
 	func mapView(_ mapView: MKMapView,
 							 didSelect view: MKAnnotationView) {
-		
-		// Edit-Mode conditional
-		if !editMode { // si 'editMode' es 'false' (si NO esté en modo edición)
-			
+
+		// si NO esté en modo edición...
+		if !editMode {
 			// inicia el segue
 			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
 			// esconde el callout view cuando es tapea sobre el pin
 			mapView.deselectAnnotation(view.annotation, animated: false)
-		
-		} else { // si está en modo edición...
-			print("El modo edición está en \(editMode). Puedo borrar pero no agregar pines")
+			
+		// si está en modo edición...
+		} else {
 			// borra del mapa el pin tapeado
 			mapView.removeAnnotation(view.annotation!)
-			print("Borra el pin tapeado")
-	
 		}
 	}
 	
