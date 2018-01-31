@@ -76,9 +76,6 @@ class MapViewController: CoreDataMapAndCollectionViewController, MKMapViewDelega
 		
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
-		// debug
-		print("presionó el botón de Edit")
-		print("El valor de 'editMode' es '\(editMode)'")
 	}
 	
 	//*****************************************************************

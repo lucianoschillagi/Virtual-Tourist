@@ -35,16 +35,22 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000
+	let collectionViewCell = CollectionViewCell()
 	
 	var selectedToDelete:[Int] = [] {
+		
 		didSet {
+			
 			if selectedToDelete.count > 0 {
+				
 				newCollectionButton.setTitle("Remove Selected Pictures", for: .normal)
+				
 			} else {
+				
 				newCollectionButton.setTitle("New Collection", for: .normal)
 			}
 		}
-	} // end computed property
+	}
 	
 //	let collectionViewCell = CollectionViewCell()
 //	let photo = Photo()
@@ -107,17 +113,6 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		mapFragment.addAnnotation(annotation)
 		mapFragment.showAnnotations([annotation], animated: true)
 	}
-
-func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
-	
-	var selected: [Int] = []
-	
-	for indexPath in indexPathArray {
-		selected.append(indexPath.row)
-	}
-	print(selected)
-	return selected
-	}
 	
 } // end vc
 
@@ -146,20 +141,46 @@ extension PhotosViewController: UICollectionViewDataSource {
 
 extension PhotosViewController: UICollectionViewDelegate {
 	
-	// le dice al delegado que el ítem en la ruta especificada fue deseleccionado.
+	// seleccionado para borrar desde los index paths de los items seleccionados
+	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
+		
+		var selected: [Int] = []
+		
+		for indexPath in indexPathArray {
+			selected.append(indexPath.item)
+		}
+		print(selected)
+		return selected
+	}
+	
+	// le dice al delegado que el ítem en la ruta especificada fue seleccionado
+	func collectionView(_ collectionView: UICollectionView,
+											didSelectItemAt indexPath: IndexPath) {
+		
+		//collectionViewCell.contentView.backgroundColor = .red
+		let cell = collectionView.cellForItem(at: indexPath)
+		
+		// Dispatch
+		DispatchQueue.main.async {
+			cell?.contentView.backgroundColor = .red
+		}
+		print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
+		
+	}
+	
+	// le dice al delegado que el ítem en la ruta especificada fue deseleccionado
 		func collectionView(_ collectionView: UICollectionView,
 						 didDeselectItemAt indexPath: IndexPath) {
 	
 			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
 			let cell = collectionView.cellForItem(at: indexPath)
-			
+
 			// debug
-			print(indexPath)
-			
+			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
+
 			// Dispatch
 			DispatchQueue.main.async {
-				cell?.backgroundColor = .red
-				cell?.contentView.alpha = 0.2
+				cell?.contentView.backgroundColor = .blue
 			}
 		}
 	

@@ -20,6 +20,7 @@ class CollectionViewCell: UICollectionViewCell {
 	
 @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 @IBOutlet weak var imageViewCell: UIImageView!
+	
 
 //*****************************************************************
 // MARK: - Methods
