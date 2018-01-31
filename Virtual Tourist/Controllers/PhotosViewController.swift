@@ -153,35 +153,45 @@ extension PhotosViewController: UICollectionViewDelegate {
 		return selected
 	}
 	
-	// le dice al delegado que el ítem en la ruta especificada fue seleccionado
+	// le dice al delegado que el ítem en la ruta especificada fue SELECCIONADO
 	func collectionView(_ collectionView: UICollectionView,
 											didSelectItemAt indexPath: IndexPath) {
 		
-		//collectionViewCell.contentView.backgroundColor = .red
+		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
+		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+		
+		
+		// la ´dirección´ de la celda seleccionada
 		let cell = collectionView.cellForItem(at: indexPath)
 		
 		// Dispatch
 		DispatchQueue.main.async {
 			cell?.contentView.backgroundColor = .red
 		}
-		print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
+			// debug
+			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
+			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 		
 	}
 	
-	// le dice al delegado que el ítem en la ruta especificada fue deseleccionado
+	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
 		func collectionView(_ collectionView: UICollectionView,
 						 didDeselectItemAt indexPath: IndexPath) {
 	
+			// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
 			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+	
+			// la ´dirección´ de la celda seleccionada
 			let cell = collectionView.cellForItem(at: indexPath)
-
-			// debug
-			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
 
 			// Dispatch
 			DispatchQueue.main.async {
 				cell?.contentView.backgroundColor = .blue
 			}
+			
+			// debug
+			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
+			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 		}
 	
 } // end ext
