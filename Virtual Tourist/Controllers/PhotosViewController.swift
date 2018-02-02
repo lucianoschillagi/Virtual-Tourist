@@ -36,10 +36,11 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
+	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000
-	let collectionViewCell = CollectionViewCell()
 	
+	// collection view cell
 	var selectedToDelete:[Int] = [] {
 		
 		didSet {
@@ -55,8 +56,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	}
 	
-//	let collectionViewCell = CollectionViewCell()
-//	let photo = Photo()
+		// core data
+		var savedImages:[Photo] = []
 	
 	
 	//*****************************************************************
@@ -67,16 +68,24 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	@IBAction func deleteSelected(_ sender: Any) {
 		
 		if let selected = collectionView.indexPathsForSelectedItems {
+			
 			let items = selected.map{$0.item}.sorted().reversed()
+			
 			for item in items {
+				
 				collectionData.remove(at: item)
 			}
+			
 			collectionView.deleteItems(at: selected)
 		}
 		// debug
 		print("El modelo actualmente tiene \(collectionData.count) elementos")
 	}
 	
+//	@IBAction func newCollectionPhotos(_ sender: UIButton) {
+//		
+//	}
+//
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -148,7 +157,13 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 		
-		return collectionData.count // FIX: luego cambiar
+		// FIX: luego cambiar
+//		var delModeloMostrarSoloXElementos = collectionData.count
+//		delModeloMostrarSoloXElementos = 6
+		
+		//return delModeloMostrarSoloXElementos
+		return collectionData.count
+		
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
@@ -181,7 +196,6 @@ extension PhotosViewController: UICollectionViewDelegate {
 		
 		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
 		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-		
 		
 		// la ´dirección´ de la celda seleccionada
 		let cell = collectionView.cellForItem(at: indexPath)
@@ -219,36 +233,6 @@ extension PhotosViewController: UICollectionViewDelegate {
 } // end ext
 
 
-//	func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//
-////		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-////		let cell = collectionView.cellForItem(at: indexPath)
-////
-////		DispatchQueue.main.async {
-////			cell?.contentView.alpha = 0.5
-////		}
-//	}
-//
-//	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-////		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-////		let cell = collectionView.cellForItem(at: indexPath)
-////
-////		DispatchQueue.main.async {
-////			cell?.contentView.alpha = 0.3
-////			cell?.contentView.backgroundColor = UIColor.cyan
-////		}
-//	}
 
-
-//@IBAction func deleteSelected() {
-//	if let selected = collectionView.indexPathsForSelectedItems {
-//		let items = selected.map{$0.item}.sorted().reversed()
-//		for item in items {
-//			collectionData.remove(at: item)
-//		}
-//		collectionView.deleteItems(at: selected)
-//	}
-//}
 
 

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,19 +18,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="t0T-HT-dQp">
-                                <rect key="frame" x="0.0" y="24" width="414" height="712"/>
-                                <gestureRecognizers/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Cwy-kK-M2H">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Gcf-hN-hwP"/>
-                                    <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="OfW-Yd-CWT"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="jLG-QZ-8sV"/>
+                                    <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="kOg-ab-1hb"/>
                                 </connections>
                             </mapView>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VBn-bo-nS1">
-                                <rect key="frame" x="0.0" y="664" width="414" height="72"/>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfy-zI-vq4" userLabel="Tap Pins to Delete Background">
+                                <rect key="frame" x="0.0" y="671" width="414" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap Pins to Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaB-tX-cMd">
-                                        <rect key="frame" x="138" y="26" width="138" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap Pins to Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9L-ed-ufz">
+                                        <rect key="frame" x="138" y="20" width="138" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,16 +42,6 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="bottom" secondItem="t0T-HT-dQp" secondAttribute="bottom" id="3BF-U4-6bi"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="600" id="6Vs-Lc-W7z"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="Ili-Di-gVa"/>
-                            <constraint firstItem="t0T-HT-dQp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SEl-tn-8mr"/>
-                            <constraint firstItem="t0T-HT-dQp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-40" id="SM1-Gy-Xkh"/>
-                            <constraint firstAttribute="trailing" secondItem="t0T-HT-dQp" secondAttribute="trailing" id="ShH-r2-puh"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="a6z-SN-3J1"/>
-                            <constraint firstItem="VBn-bo-nS1" firstAttribute="leading" secondItem="t0T-HT-dQp" secondAttribute="leading" id="wvM-c6-9jA"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="VmD-gZ-3aO">
@@ -63,9 +53,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="deletePins" destination="VBn-bo-nS1" id="ZGO-u8-RUd"/>
+                        <outlet property="deletePins" destination="yfy-zI-vq4" id="d0g-DX-swZ"/>
                         <outlet property="editButton" destination="Hbb-jg-mJ2" id="yah-rp-6DM"/>
-                        <outlet property="mapView" destination="t0T-HT-dQp" id="ubR-dd-afO"/>
+                        <outlet property="mapView" destination="Cwy-kK-M2H" id="SEH-bV-R3J"/>
                         <segue destination="tgO-rm-beU" kind="show" identifier="PinPhotos" id="6R4-m8-pYI"/>
                     </connections>
                 </viewController>
@@ -76,7 +66,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="458" y="134"/>
+            <point key="canvasLocation" x="457.97101449275368" y="133.69565217391306"/>
         </scene>
         <!--Photos View Controller-->
         <scene sceneID="IHy-5D-FI5">
@@ -138,6 +128,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="7Ki-PK-f75"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="New Collection"/>
                                 <connections>
                                     <action selector="deleteSelected:" destination="tgO-rm-beU" eventType="touchUpInside" id="OCc-o2-k3k"/>

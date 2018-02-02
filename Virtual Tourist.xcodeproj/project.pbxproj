@@ -55,7 +55,7 @@
 		A67B842F201FBE54004ED38E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67B8433201FC302004ED38E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67B8435201FC482004ED38E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A67CBF74201FD33100CCDBF6 /* steps.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = steps.md; sourceTree = "<group>"; };
+		A67CBF74201FD33100CCDBF6 /* next.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = next.md; sourceTree = "<group>"; };
 		A68F2CF51FD773EF005D4342 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		A696B1C7201417240073AB60 /* CoreDataCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCollectionViewController.swift; sourceTree = "<group>"; };
 		A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDBlackBox.swift; path = "Virtual Tourist/GCDBlackBox.swift"; sourceTree = SOURCE_ROOT; };
@@ -165,7 +165,7 @@
 		A661D92F1FD771FB004CF5B8 /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
-				A67CBF74201FD33100CCDBF6 /* steps.md */,
+				A67CBF74201FD33100CCDBF6 /* next.md */,
 				A661D9301FD771FB004CF5B8 /* AppDelegate.swift */,
 				A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */,
 				A65EC8141FD9A2E50034B379 /* Model */,

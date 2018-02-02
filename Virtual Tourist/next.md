@@ -6,7 +6,7 @@
 
 
 # PhotosViewController
-## remove selected items
+
 
 
 
