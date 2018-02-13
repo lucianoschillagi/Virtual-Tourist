@@ -76,7 +76,14 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 		
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
-	}
+		
+		// debug
+		if editing {
+		print("la pantalla está en modo edición")
+		} else {
+		print("la pantalla NO está en modo edición")
+		}
+}
 	
 	//*****************************************************************
 	// MARK: - IBActions
@@ -123,13 +130,8 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 			destination.coordinateSelected = coord
 		}
 		
-		//				if segue.identifier == "PinPhotos" {
-		//
-		//
-		//
-		//
-		//				}
-		
+		// debug
+		print("transición hacia otra pantalla...")
 		
 	}
 	
@@ -137,7 +139,7 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 
 
 //*****************************************************************
-// MARK: - MapView: MapViewDelegate
+// MARK: - Map View Methods
 //*****************************************************************
 
 extension MapViewController:  MKMapViewDelegate {

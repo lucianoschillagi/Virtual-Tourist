@@ -148,7 +148,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 } // end vc
 
 //*****************************************************************
-// MARK: - CollectionView Methods
+// MARK: - Collection View Methods (Data Source)
 //*****************************************************************
 
 extension PhotosViewController: UICollectionViewDataSource {
@@ -175,6 +175,10 @@ extension PhotosViewController: UICollectionViewDataSource {
 		return cell
 	}		
 }
+
+//*****************************************************************
+// MARK: - Collection View Methods (Delegate)
+//*****************************************************************
 
 extension PhotosViewController: UICollectionViewDelegate {
 	
