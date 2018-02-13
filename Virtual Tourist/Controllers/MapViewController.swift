@@ -13,10 +13,10 @@ import MapKit
 import CoreData
 
 /* Abstract:
-Un objeto que representa el mapa donde el usuario interactúa añadiendo ubicaciones a través de pins.
+Un objeto que representa un mapa donde el usuario puede marcar localizaciones a través de pins.
 */
 
-class MapViewController: CoreDataMapAndCollectionViewController, MKMapViewDelegate  {
+class MapViewController: CoreDataMapAndCollectionViewController {
 	
 	//*****************************************************************
 	// MARK: - IBOutles
@@ -85,7 +85,7 @@ class MapViewController: CoreDataMapAndCollectionViewController, MKMapViewDelega
 	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin...
 	@IBAction func addPin(_ sender: UILongPressGestureRecognizer) {
 		
-		// Si NO está en 'modo edición' se pueden agregar pines
+		// si NO está en 'modo edición' se pueden agregar pines
 		if !editMode {
 		// las coordenadas del tapeo sobre el mapa
 		let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
@@ -97,33 +97,15 @@ class MapViewController: CoreDataMapAndCollectionViewController, MKMapViewDelega
 		annotation.coordinate = coordToAdd // CLLocationCoordinate2D
 		// agrego el pin correspondiente a esa coordenada en la vista del mapa
 		mapView.addAnnotation(annotation) // MKPointAnnotation
+			
+		// debug
+			print("un pin ha sido puesto")
 		
 		} else  {
 			// ...caso contrario, NO
 		}
 	}
 	
-	//*****************************************************************
-	// MARK: - MapView
-	//*****************************************************************
-	
-	// el pin que ha sido seleccionado en el mapa
-	func mapView(_ mapView: MKMapView,
-							 didSelect view: MKAnnotationView) {
-
-		// si NO esté en modo edición...
-		if !editMode {
-			// inicia el segue
-			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
-			// esconde el callout view cuando es tapea sobre el pin
-			mapView.deselectAnnotation(view.annotation, animated: false)
-			
-		// si está en modo edición...
-		} else {
-			// borra del mapa el pin tapeado
-			mapView.removeAnnotation(view.annotation!)
-		}
-	}
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)
@@ -141,35 +123,44 @@ class MapViewController: CoreDataMapAndCollectionViewController, MKMapViewDelega
 			destination.coordinateSelected = coord
 		}
 		
-//				if segue.identifier == "PinPhotos" {
-//
-//
-//
-//
-//				}
+		//				if segue.identifier == "PinPhotos" {
+		//
+		//
+		//
+		//
+		//				}
 		
 		
 	}
 	
-//	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//		if segue.identifier == "PinPhotos" {
-//
-//			let destination = segue.destination as! PhotosViewController
-//			let coord = sender as! CLLocationCoordinate2D
-//			destination.coordinateSelected = coord
-//
-//			for pin in currentPins {
-//
-//				if pin.latitude == coord.latitude && pin.longitude == coord.longitude {
-//
-//					destination.coreDataPin = pin
-//					break
-//				}
-//			}
-//
-//		}
-//	}
+} // end vc
+
+
+//*****************************************************************
+// MARK: - MapView: MapViewDelegate
+//*****************************************************************
+
+extension MapViewController:  MKMapViewDelegate {
 	
-}  // end VC
+	// el pin que ha sido seleccionado en el mapa
+	func mapView(_ mapView: MKMapView,
+							 didSelect view: MKAnnotationView) {
+		
+		// si NO esté en modo edición...
+		if !editMode {
+			// inicia el segue
+			performSegue(withIdentifier: "PinPhotos", sender: view.annotation?.coordinate)
+			// esconde el callout view cuando es tapea sobre el pin
+			mapView.deselectAnnotation(view.annotation, animated: false)
+			
+			// si está en modo edición...
+		} else {
+			// borra del mapa el pin tapeado
+			mapView.removeAnnotation(view.annotation!)
+			// debug
+			print("un pin ha sido borrado")
+		}
+	}
+	
+}
 
