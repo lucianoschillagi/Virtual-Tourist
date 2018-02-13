@@ -14,18 +14,34 @@ import Foundation
 Un objeto que representa una imagen obtenida desde Flickr.
 */
 
-class FlickrImage {
-	// stored property
-	let mediumURL : String // la url para construir la foto!
-	// init
-	init(mediumURL:String) { // inicializa el objeto
-		self.mediumURL = mediumURL
-	}
-	// method: devuelve el string de la url de la imagen
-	func imageURLString() -> String {
-		return mediumURL
+struct FlickrImage {
+	
+	//*****************************************************************
+	// MARK: - Properties 
+	//*****************************************************************
+	
+	let imageURL : String // la url para construir la foto!
+	
+	//*****************************************************************
+	// MARK: - Initializers
+	//*****************************************************************
+	
+	// prepara el objeto para recibir una secuencia de URLs (direcciones para obtener los datos de las imágenes)
+	init(dictionary: [String:AnyObject]) {
+		
+		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL]
+			as! String
+		
 	}
 	
-} // end class
+	//*****************************************************************
+	// MARK: - Results
+	//*****************************************************************
+	// method: devuelve el string de la url de la imagen
+	func imageURLString() -> String {
+		return imageURL
+	}
+	
+} // end struct
 
 

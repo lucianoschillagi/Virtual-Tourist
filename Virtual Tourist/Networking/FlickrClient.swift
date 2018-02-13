@@ -8,6 +8,7 @@
 /* Networking */
 
 import Foundation
+import UIKit
 
 /* Abstract:
 Un objeto que solicita fotos a Flickr tomando como parámetros las coordenadas del pin seleccionado.
@@ -33,7 +34,7 @@ class FlickrClient: NSObject {
 	// MARK: - Networking
 	//*****************************************************************
 	
-	func getPhotosFromFlickr(lat: Double,
+	func taskForGetPhotos(lat: Double,
 													 lon: Double,
 													 completion: @escaping (_ success: Bool,
 																									_ flickrPhotos: [FlickrImage]?) -> Void) {
@@ -115,14 +116,64 @@ class FlickrClient: NSObject {
 		task.resume()
 	}
 	
-	// create a URL from parameters
-	/**
-	Crea una URL con los parámetros necesarios para obtener los datos buscados.
+	// NOTE: copiado de Movie Mananger, editar!
+	func taskForGETImage(_ completionHandlerForImage: @escaping (_ imageData: Data?,
+																															 _ error: NSError?) -> Void) -> URLSessionTask {
+		
+		/* 1. Set the parameters */
+		// There are none...
+		
+		/* 2/3. Build the URL and configure the request */
+		let url = URL(string: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg")!
+		let request = URLRequest(url: url)
+		
+		/* 4. Make the request */
+		let task = session.dataTask(with: request) { (data, response, error) in
+			
+			func sendError(_ error: String) {
+				print(error)
+				let userInfo = [NSLocalizedDescriptionKey : error]
+				
+				// la solicitud no se pudo completar exitosamente
+				// no se obtuvieron los datos de la imágen
+				completionHandlerForImage(nil, NSError(domain: "taskForGETImage", code: 1, userInfo: userInfo))
+			}
+			
+			/* GUARD: Was there an error? */
+			guard (error == nil) else {
+				sendError("There was an error with your request: \(error!)")
+				return
+			}
+			
+			/* GUARD: Did we get a successful 2XX response? */
+			guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+				sendError("Your request returned a status code other than 2xx!")
+				return
+			}
+			
+			/* GUARD: Was there any data returned? */
+			guard let data = data else {
+				sendError("No data was returned by the request!")
+				return
+			}
+			
+			/* 5/6. Parse the data and use the data (happens in completion handler) */
+			// solicitud exitosa, se obtuvieron los datos de la imágen
+			completionHandlerForImage(data, nil)
+		}
+		
+		/* 7. Start the request */
+		task.resume()
+		
+		return task
+	}
+
 	
-	- parameter parameters: los parámetros necesarios para realizar la petición.
+	//*****************************************************************
+	// MARK: - Helpers
+	//*****************************************************************
 	
-	- returns: la URL completa para realizar la petición.
-	*/
+	// crea una URL con los parámetros necesarios para obtener los datos buscados
 	private func flickrURLFromParameters(_ parameters: [String:AnyObject]) -> URL {
 
 		var components = URLComponents()

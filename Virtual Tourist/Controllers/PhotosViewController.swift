@@ -21,9 +21,6 @@ Un objeto que contiene:
 
 class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
-	// model - FIX: luego BORRAR
-	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
-	
 	//*****************************************************************
 	// MARK: - IBOutlets
 	//*****************************************************************
@@ -35,6 +32,12 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
+	
+	// modelo de prueba
+	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
+	
+	// model
+	var flickrImages: [FlickrImage] = [FlickrImage]()
 	
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
@@ -56,7 +59,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		}
 	}
 	
-		// core data
+		// core data (todavía no implementado)
 		var savedImages:[Photo] = []
 	
 	
@@ -114,8 +117,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		// networking
 		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
-		FlickrClient.sharedInstance().getPhotosFromFlickr(lat: coordinateSelected.latitude,
-																											lon: coordinateSelected.longitude) { (success,
+		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
+																									 lon: coordinateSelected.longitude) { (success,
 																																												errorString) in
 			performUIUpdatesOnMain {
 				if success {
@@ -156,13 +159,8 @@ extension PhotosViewController: UICollectionViewDataSource {
 	// pregunta a su objeto fuente de datos por la cantidad de elementos en la sección especificada
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
-		
-		// FIX: luego cambiar
-//		var delModeloMostrarSoloXElementos = collectionData.count
-//		delModeloMostrarSoloXElementos = 6
-		
-		//return delModeloMostrarSoloXElementos
-		return collectionData.count
+	
+		return 12
 		
 	}
 	
@@ -235,8 +233,5 @@ extension PhotosViewController: UICollectionViewDelegate {
 		}
 	
 } // end ext
-
-
-
 
 

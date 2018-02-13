@@ -71,7 +71,7 @@ struct FlickrConstants {
 	// MARK: - Flickr Response Keys
 	//*****************************************************************
 	
-	struct ResponseKeys {
+	struct JSONResponseKeys {
 		static let Status = "stat"
 		static let Photos = "photos"
 		static let Title = "title"

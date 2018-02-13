@@ -20,7 +20,6 @@ class CollectionViewCell: UICollectionViewCell {
 	
 @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 @IBOutlet weak var imageViewCell: UIImageView!
-	
 
 //*****************************************************************
 // MARK: - Methods
@@ -43,7 +42,7 @@ class CollectionViewCell: UICollectionViewCell {
 		}
 	}
 	
-	//Download Images
+	// download images
 	func downloadImage(_ photo: Photo) {
 		
 		URLSession.shared.dataTask(with: URL(string: photo.imageURL!)!) { (data, response, error) in
@@ -62,23 +61,5 @@ class CollectionViewCell: UICollectionViewCell {
 			.resume()
 	}
 
-
-	// Save Images
-//	func saveImageDataToCoreData(_ photo: Photo, imageData: NSData){
-//
-//		do {
-//			photo.imageData = imageData
-//			let delegate = UIApplication.shared.delegate as! AppDelegate
-//			let stack = delegate.stack
-//
-//			try stack.saveContext()
-//
-//		} catch {
-//			print("Saving Photo imageData Failed")
-//		}
-//	}
-
-
-	
 } // end class
 
