@@ -105,15 +105,24 @@
                                                 <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mg1-sG-AHd">
                                                     <rect key="frame" x="84" y="81" width="20" height="20"/>
                                                 </activityIndicatorView>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ddE-6m-VCk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
+                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="mg1-sG-AHd" firstAttribute="centerX" secondItem="fw0-ti-2xD" secondAttribute="centerX" id="PeE-yT-cQH"/>
+                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="centerY" secondItem="mg1-sG-AHd" secondAttribute="centerY" id="XZZ-Fi-aUl"/>
+                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="centerX" secondItem="mg1-sG-AHd" secondAttribute="centerX" id="crg-Qu-cFy"/>
+                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="top" secondItem="fw0-ti-2xD" secondAttribute="top" id="mfo-ZL-VUi"/>
                                             <constraint firstItem="mg1-sG-AHd" firstAttribute="centerY" secondItem="fw0-ti-2xD" secondAttribute="centerY" id="neD-uj-5yK"/>
+                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="leading" secondItem="fw0-ti-2xD" secondAttribute="leading" id="u1E-fW-ovU"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="activityIndicator" destination="mg1-sG-AHd" id="o5t-7T-wQd"/>
+                                            <outlet property="imageViewCell" destination="ddE-6m-VCk" id="SNL-Tp-dZI"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

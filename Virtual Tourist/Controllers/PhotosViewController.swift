@@ -160,7 +160,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 	
-		return 12
+		return collectionData.count
 		
 	}
 	

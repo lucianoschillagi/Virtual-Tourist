@@ -12,6 +12,10 @@
 import Foundation
 import CoreData
 
+/* Abstract:
+Un objeto que representa una ubicación en el mapa mediante un pin.
+*/
+
 //*****************************************************************
 // MARK: - Pin - Properties and Methods
 //*****************************************************************

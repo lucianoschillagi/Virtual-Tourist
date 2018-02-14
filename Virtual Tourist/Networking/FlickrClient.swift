@@ -8,13 +8,12 @@
 /* Networking */
 
 import Foundation
-import UIKit
 
 /* Abstract:
 Un objeto que solicita fotos a Flickr tomando como parámetros las coordenadas del pin seleccionado.
 */
 
-class FlickrClient: NSObject {
+class FlickrClient {
 	
 	//*****************************************************************
 	// MARK: - Properties
@@ -26,17 +25,17 @@ class FlickrClient: NSObject {
 	// MARK: - Initializers
 	//*****************************************************************
 	
-	override init() {
-		super.init()
-	}
+//	override init() {
+//		super.init()
+//	}
 	
 	//*****************************************************************
 	// MARK: - Networking
 	//*****************************************************************
 	
 	func taskForGetPhotos(lat: Double,
-													 lon: Double,
-													 completion: @escaping (_ success: Bool,
+												lon: Double,
+												completion: @escaping (_ success: Bool,
 																									_ flickrPhotos: [FlickrImage]?) -> Void) {
 		
 		/* 1. Set the parameters */
@@ -46,7 +45,7 @@ class FlickrClient: NSObject {
 			FlickrConstants.ParameterKeys.Format: FlickrConstants.ParameterValues.ResponseFormat,
 			FlickrConstants.ParameterKeys.Lat: lat,
 			FlickrConstants.ParameterKeys.Lon: lon,
-			FlickrConstants.ParameterKeys.NoJSONCallback:FlickrConstants.ParameterValues.DisableJSONCallback,
+		FlickrConstants.ParameterKeys.NoJSONCallback:FlickrConstants.ParameterValues.DisableJSONCallback,
 			FlickrConstants.ParameterKeys.SafeSearch: FlickrConstants.ParameterValues.UseSafeSearch,
 			FlickrConstants.ParameterKeys.Extras: FlickrConstants.ParameterValues.MediumURL,
 			FlickrConstants.ParameterKeys.Radius: FlickrConstants.ParameterValues.SearchRangeKm
@@ -87,20 +86,70 @@ class FlickrClient: NSObject {
 			
 			/* 5. Parse the data */
 			if let json = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
-				let photosMeta = json?[FlickrConstants.ResponseKeys.Photos] as? [String:Any],
-				let photos = photosMeta[FlickrConstants.ResponseKeys.Photo] as? [Any] {
+				let photosMeta = json?[FlickrConstants.JSONResponseKeys.Photos] as? [String:Any],
+				// mediante la palabra clave 'photo' accede a un array de cualquier tipo [Any]
 				
+//			"photo": [
+//			{
+//			"id": "40000561792",
+//			"owner": "40976883@N04",
+//			"secret": "5c54bf8bce",
+//			"server": "4629",
+//			"farm": 5,
+//			"title": "2018-02-01_11-00-18",
+//			"ispublic": 1,
+//			"isfriend": 0,
+//			"isfamily": 0,
+//			"url_m": "https://farm5.staticflickr.com/4629/40000561792_5c54bf8bce.jpg",
+//			"height_m": "500",
+//			"width_m": "375"
+//			},
+//			{
+//			"id": "25150714897",
+//			"owner": "145538853@N02",
+//			"secret": "2a4bea8e71",
+//			"server": "4632",
+//			"farm": 5,
+//			"title": "#libertad de #movimiento (ppr un rato)",
+//			"ispublic": 1,
+//			"isfriend": 0,
+//			"isfamily": 0,
+//			"url_m": "https://farm5.staticflickr.com/4632/25150714897_2a4bea8e71.jpg",
+//			"height_m": "438",
+//			"width_m": "500"
+//			},
+				
+				let photos = photosMeta[FlickrConstants.JSONResponseKeys.Photo] as? [Any] {
+				// debug
 				print(photos)
 				
-				var flickrPhotos: [FlickrImage] = [] // un array fotos de flickr
+				// crea una variable que almacena un array, por ahora vacío, de URLs para obtener los datos que luego se convertirán en imágenes
+				var flickrPhotos: [FlickrImage] = []
 				
+//				for photo in photos {
+//
+//					if let flickrPhoto = photo as? [String:Any],
+//						let photoURL = flickrPhoto[FlickrConstants.JSONResponseKeys.MediumURL] as? String {
+//
+//						flickrPhotos.append(FlickrImage(dictionary: photoURL))
+//						print(photoURL)
+//					}
+//
+//				}
+				
+				// itera sobre el array de URLs
 				for photo in photos {
 					
+					// comprueba que los objetos obtenidos (flickrPhoto) sean de tipo
+					// diccionario [String:Any]...
 					if let flickrPhoto = photo as? [String:Any],
-						let photoURL = flickrPhoto[FlickrConstants.ResponseKeys.MediumURL] as? String {
-						
-						flickrPhotos.append(FlickrImage(mediumURL: photoURL))
-						print(photoURL)
+						// ...y que las 'medium_url' sean de tipo 'String'
+						let photoURL = flickrPhoto[FlickrConstants.JSONResponseKeys.MediumURL] as? String {
+						// si es así, invoca a la instancia del array de ´FlickrJSONPhotos´
+						// (recordar que está vacío) y le empieza a agregar URLs
+						flickrPhotos.append(FlickrImage(imageURL: photoURL))
+						// debug
+						print(photoURL) // obtiene la secuencia de URLs para obtener los datos (mediante una solicitud web) requeridos para luego convertirlos en imagenes
 					}
 					
 				}

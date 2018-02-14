@@ -12,6 +12,10 @@
 import Foundation
 import CoreData
 
+/* Abstract:
+Un objeto que representa una foto asociada a un determinado pin.
+*/
+
 //*****************************************************************
 // MARK: - Photo - Properties and Methods
 //*****************************************************************

@@ -11,7 +11,7 @@
 import Foundation
 
 /* Abstract:
-Un objeto que representa una imagen obtenida desde Flickr.
+Un objeto que contiene la URL para obtener los datos para crear las fotos.
 */
 
 struct FlickrImage {
@@ -20,20 +20,23 @@ struct FlickrImage {
 	// MARK: - Properties 
 	//*****************************************************************
 	
-	let imageURL : String // la url para construir la foto!
+	let imageURL: String // la url para construir la foto!
 	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
 	
-	// prepara el objeto para recibir una secuencia de URLs (direcciones para obtener los datos de las imágenes)
-	init(dictionary: [String:AnyObject]) {
-		
-		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL]
-			as! String
-		
+	// init
+	init(imageURL:String) { // inicializa el objeto
+		self.imageURL = imageURL
 	}
 	
+	// prepara el objeto para recibir una secuencia de URLs (direcciones para obtener los datos de las imágenes)
+//	init(dictionary: [String:AnyObject]) {
+//		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL]
+//			as! String
+//	}
+
 	//*****************************************************************
 	// MARK: - Results
 	//*****************************************************************
