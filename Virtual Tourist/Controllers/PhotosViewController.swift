@@ -36,14 +36,16 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	// modelo de prueba
 	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
 	
-	// model
-	var flickrImages: [FlickrImage] = [FlickrImage]()
+	// modelo en 'FlickrImage'
+	var fi = [FlickrImage]()
 	
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000
 	
 	// collection view cell
+	let totalCellCount = 25
+	
 	var selectedToDelete:[Int] = [] {
 		
 		didSet {
@@ -60,7 +62,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	}
 	
 		// core data (todavía no implementado)
-		var savedImages:[Photo] = []
+		var coreDataPin: Pin!
+	var savedPhotos:[Photo] = []
 	
 	
 	//*****************************************************************
@@ -81,8 +84,9 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 			
 			collectionView.deleteItems(at: selected)
 		}
-		// debug
+		// test
 		print("El modelo actualmente tiene \(collectionData.count) elementos")
+
 	}
 	
 //	@IBAction func newCollectionPhotos(_ sender: UIButton) {
@@ -97,10 +101,47 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Map View ---------------------------------------------
+		
+		// Core Data ***************************************************
+		
+		// get the stack
+//		let delegate = UIApplication.shared.delegate as! AppDelegate
+//		let stack = delegate.stack
+//
+//		// create a fetch request
+//		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+//		fr.sortDescriptors = []
+//		fr.predicate = NSPredicate(format: "pin = %@", argumentArray: [coreDataPin!]) // TODO: estudiar esta línea!
+//
+//		// create the FetchedResultsController
+//		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+//																													managedObjectContext: stack.context,
+//																													sectionNameKeyPath: nil,
+//																													cacheName: nil)
+		
+		// precarga las fotos guardadas
+//		let savedPhoto = preloadSavedPhoto()
+//
+//		if savedPhoto != nil && savedPhoto?.count != 0 {
+//
+//			savedPhotos = savedPhoto!
+//			showSavedResult()
+//
+//		} else {
+//			showNewResult()
+//
+//		}
+
+		// UI Elements ***************************************************
+		newCollectionButton.isHidden =  false
+		//noPhotos.isHidden = true
+		
+
+		// Map View ****************************************************
 		addAnnotationToMap()
 		
-		// Collection View ---------------------------------------------
+		// Collection View *********************************************
+		
 		// el diseño de la colección de vista, en 3 columnas separadas por 20pts
 		let width = (view.frame.size.width - 20) / 3
 		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -115,22 +156,23 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
 		
-		// networking
-		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
-		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
-																									 lon: coordinateSelected.longitude) { (success,
-																																												errorString) in
-			performUIUpdatesOnMain {
-				if success {
-					self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
-					//self.collectionViewCell.initWithPhoto(self.photo)
-					
-				} else {
-					print(errorString ?? "")
-				}
-			}
-		}
+//		// networking
+//		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
+//		FlickrClient.taskForGetPhotos(lat: coordinateSelected.latitude,
+//																	lon: coordinateSelected.longitude) { (success,
+//																																												errorString) in
+//			performUIUpdatesOnMain {
+//				if success {
+//					self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
+//					//self.collectionViewCell.initWithPhoto(self.photo)
+//					
+//				} else {
+//					print(errorString ?? "")
+//				}
+//			}
+//		}
 	}
+	
 		
 	//*****************************************************************
 	// MARK: - MapView
@@ -160,7 +202,9 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 	
-		return collectionData.count
+		//return collectionData.count
+		print("👹\(fi.count)")
+		return fi.count
 		
 	}
 	
@@ -233,5 +277,7 @@ extension PhotosViewController: UICollectionViewDelegate {
 		}
 	
 } // end ext
+
+
 
 

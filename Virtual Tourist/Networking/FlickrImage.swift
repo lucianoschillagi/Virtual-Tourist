@@ -21,29 +21,47 @@ struct FlickrImage {
 	//*****************************************************************
 	
 	let imageURL: String // la url para construir la foto!
+
 	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
 	
 	// init
-	init(imageURL:String) { // inicializa el objeto
-		self.imageURL = imageURL
+//	init(imageURL:String) { // inicializa el objeto
+//		self.imageURL = imageURL
+//	}
+	
+	// construct a TMDBMovie from a dictionary
+	init(dictionary: [String:AnyObject]) {
+		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL] as! String
 	}
 	
-	// prepara el objeto para recibir una secuencia de URLs (direcciones para obtener los datos de las imágenes)
-//	init(dictionary: [String:AnyObject]) {
-//		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL]
-//			as! String
-//	}
-
+	
 	//*****************************************************************
 	// MARK: - Results
 	//*****************************************************************
 	// method: devuelve el string de la url de la imagen
-	func imageURLString() -> String {
-		return imageURL
+//	func imageURLString() -> String {
+//
+//		return imageURL
+//
+//	}
+	
+	static func urlPhotosFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
+		
+		var urlPhotos = [FlickrImage]()
+		
+		// iterate through array of dictionaries, each Movie is a dictionary
+		for result in results {
+			urlPhotos.append(FlickrImage(dictionary: result))
+		}
+		
+		return urlPhotos
 	}
+	
+
+
 	
 } // end struct
 

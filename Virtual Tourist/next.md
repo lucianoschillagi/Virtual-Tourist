@@ -8,6 +8,8 @@
 
 
 
+sguir desde ac'a -> CoreDataPhotosVC
+
 
 
 
