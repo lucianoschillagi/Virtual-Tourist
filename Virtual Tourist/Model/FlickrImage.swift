@@ -22,7 +22,6 @@ struct FlickrImage {
 	
 	let imageURL: String // la url para construir la foto!
 
-	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
@@ -32,12 +31,10 @@ struct FlickrImage {
 //		self.imageURL = imageURL
 //	}
 	
-	// construct a TMDBMovie from a dictionary
+	// construct a FlickrImage from a dictionary
 	init(dictionary: [String:AnyObject]) {
 		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL] as! String
 	}
-	
-	
 	
 	//*****************************************************************
 	// MARK: - Results
