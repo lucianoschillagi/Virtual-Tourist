@@ -108,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */,
-				A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */,
 				A65EC8101FD9A27D0034B379 /* FlickrConstants.swift */,
 			);
 			path = Networking;
@@ -129,6 +128,7 @@
 		A65EC8141FD9A2E50034B379 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */,
 				A6D863AB200FCCB500A92F9F /* CoreDataStack.swift */,
 				A65D3C2C201573CA004B4CBB /* Model.xcdatamodeld */,
 				A65D3C2F201577B1004B4CBB /* Pin+CoreDataClass.swift */,

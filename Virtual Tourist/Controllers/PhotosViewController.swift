@@ -37,7 +37,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
 	
 	// modelo en 'FlickrImage'
-	var fi = [FlickrImage]()
+	var photos: [FlickrImage] = [FlickrImage]()
 	
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
@@ -63,8 +63,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
 		// core data (todavía no implementado)
 		var coreDataPin: Pin!
-	var savedPhotos:[Photo] = []
-	
+		var savedPhotos:[Photo] = []
 	
 	//*****************************************************************
 	// MARK: - IBActions
@@ -93,6 +92,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 //		
 //	}
 //
+	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -100,37 +100,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	// View Did Load
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		
-		// Core Data ***************************************************
-		
-		// get the stack
-//		let delegate = UIApplication.shared.delegate as! AppDelegate
-//		let stack = delegate.stack
-//
-//		// create a fetch request
-//		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
-//		fr.sortDescriptors = []
-//		fr.predicate = NSPredicate(format: "pin = %@", argumentArray: [coreDataPin!]) // TODO: estudiar esta línea!
-//
-//		// create the FetchedResultsController
-//		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
-//																													managedObjectContext: stack.context,
-//																													sectionNameKeyPath: nil,
-//																													cacheName: nil)
-		
-		// precarga las fotos guardadas
-//		let savedPhoto = preloadSavedPhoto()
-//
-//		if savedPhoto != nil && savedPhoto?.count != 0 {
-//
-//			savedPhotos = savedPhoto!
-//			showSavedResult()
-//
-//		} else {
-//			showNewResult()
-//
-//		}
+
 
 		// UI Elements ***************************************************
 		newCollectionButton.isHidden =  false
@@ -153,24 +123,29 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		}
 	
+
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
 		
-//		// networking
-//		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
-//		FlickrClient.taskForGetPhotos(lat: coordinateSelected.latitude,
-//																	lon: coordinateSelected.longitude) { (success,
-//																																												errorString) in
-//			performUIUpdatesOnMain {
-//				if success {
-//					self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
-//					//self.collectionViewCell.initWithPhoto(self.photo)
-//					
-//				} else {
-//					print(errorString ?? "")
-//				}
-//			}
-//		}
+		// networking
+		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
+		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
+																									 lon: coordinateSelected.longitude) { (success,errorString) in
+																										
+					performUIUpdatesOnMain {
+						
+						if success  {
+							
+								self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
+								//self.collectionViewCell.initWithPhoto(self.photo)
+																												
+								} else {
+							
+								print(errorString ?? "")
+						
+						}
+					}
+			}
 	}
 	
 		
@@ -202,9 +177,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 	
-		//return collectionData.count
-		print("👹\(fi.count)")
-		return fi.count
+		return collectionData.count
 		
 	}
 	

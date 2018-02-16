@@ -38,15 +38,10 @@ struct FlickrImage {
 	}
 	
 	
+	
 	//*****************************************************************
 	// MARK: - Results
 	//*****************************************************************
-	// method: devuelve el string de la url de la imagen
-//	func imageURLString() -> String {
-//
-//		return imageURL
-//
-//	}
 	
 	static func urlPhotosFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
 		
@@ -59,9 +54,6 @@ struct FlickrImage {
 		
 		return urlPhotos
 	}
-	
-
-
 	
 } // end struct
 

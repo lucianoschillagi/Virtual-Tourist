@@ -203,3 +203,39 @@
 //
 //}
 
+
+
+
+// Core Data ***************************************************
+
+// get the stack
+//		let delegate = UIApplication.shared.delegate as! AppDelegate
+//		let stack = delegate.stack
+//
+//		// create a fetch request
+//		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+//		fr.sortDescriptors = []
+//		fr.predicate = NSPredicate(format: "pin = %@", argumentArray: [coreDataPin!])
+//
+//		// create the FetchedResultsController
+//		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+//																													managedObjectContext: stack.context,
+//																													sectionNameKeyPath: nil,
+//																													cacheName: nil)
+
+// precarga las fotos guardadas
+//		let savedPhoto = preloadSavedPhoto()
+//
+//		if savedPhoto != nil && savedPhoto?.count != 0 {
+//
+//			savedPhotos = savedPhoto!
+//			showSavedResult()
+//
+//		} else {
+//			showNewResult()
+//
+//		}
+
+
+
+
