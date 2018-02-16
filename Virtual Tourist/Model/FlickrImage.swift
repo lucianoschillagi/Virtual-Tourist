@@ -33,7 +33,7 @@ struct FlickrImage {
 	
 	// construct a FlickrImage from a dictionary
 	init(dictionary: [String:AnyObject]) {
-		imageURL = dictionary[FlickrConstants.JSONResponseKeys.MediumURL] as! String
+		imageURL = dictionary[FlickrClient.JSONResponseKeys.MediumURL] as! String
 	}
 	
 	//*****************************************************************

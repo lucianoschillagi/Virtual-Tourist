@@ -129,23 +129,23 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		// networking
 		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
-		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
-																									 lon: coordinateSelected.longitude) { (success,errorString) in
-																										
-					performUIUpdatesOnMain {
-						
-						if success  {
-							
-								self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
-								//self.collectionViewCell.initWithPhoto(self.photo)
-																												
-								} else {
-							
-								print(errorString ?? "")
-						
-						}
-					}
-			}
+//		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
+//																									 lon: coordinateSelected.longitude) { (success,errorString) in
+//																										
+//					performUIUpdatesOnMain {
+//						
+//						if success  {
+//							
+//								self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
+//								//self.collectionViewCell.initWithPhoto(self.photo)
+//																												
+//								} else {
+//							
+//								print(errorString ?? "")
+//						
+//						}
+//					}
+//			}
 	}
 	
 		

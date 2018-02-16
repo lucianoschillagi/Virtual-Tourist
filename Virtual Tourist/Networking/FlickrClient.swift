@@ -13,13 +13,17 @@ import Foundation
 Un objeto que solicita fotos a Flickr tomando como parámetros las coordenadas del pin seleccionado.
 */
 
+//*****************************************************************
+// MARK: - FlickrClient (NSObject)
+//*****************************************************************
+
 class FlickrClient: NSObject {
 	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
-	static var session = URLSession.shared
+	var session = URLSession.shared // shared session
 	
 	//*****************************************************************
 	// MARK: - Initializers
@@ -33,7 +37,7 @@ class FlickrClient: NSObject {
 	// MARK: - Networking
 	//*****************************************************************
 	
-	func taskForGetPhotos(lat: Double,
+	func taskForGetMethod(lat: Double,
 												lon: Double,
 												completion: @escaping (_ success: Bool, _ flickrPhotos: [FlickrImage]?) -> Void) {
 		
@@ -48,21 +52,21 @@ class FlickrClient: NSObject {
 		
 		/* 1. Set the parameters */
 		let methodParameters: [String : Any] = [
-			FlickrConstants.ParameterKeys.Method: FlickrConstants.ParameterValues.SearchMethod,
-			FlickrConstants.ParameterKeys.ApiKey: FlickrConstants.ParameterValues.ApiKey,
-			FlickrConstants.ParameterKeys.Format: FlickrConstants.ParameterValues.ResponseFormat,
-			FlickrConstants.ParameterKeys.Lat: lat,
-			FlickrConstants.ParameterKeys.Lon: lon,
-			FlickrConstants.ParameterKeys.NoJSONCallback:FlickrConstants.ParameterValues.DisableJSONCallback,
-			FlickrConstants.ParameterKeys.SafeSearch: FlickrConstants.ParameterValues.UseSafeSearch,
-			FlickrConstants.ParameterKeys.Extras: FlickrConstants.ParameterValues.MediumURL,
-			FlickrConstants.ParameterKeys.Radius: FlickrConstants.ParameterValues.SearchRangeKm
+			FlickrClient.ParameterKeys.Method: FlickrClient.ParameterValues.SearchMethod,
+			FlickrClient.ParameterKeys.ApiKey: FlickrClient.ParameterValues.ApiKey,
+			FlickrClient.ParameterKeys.Format: FlickrClient.ParameterValues.ResponseFormat,
+			FlickrClient.ParameterKeys.Lat: lat,
+			FlickrClient.ParameterKeys.Lon: lon,
+			FlickrClient.ParameterKeys.NoJSONCallback:FlickrClient.ParameterValues.DisableJSONCallback,
+			FlickrClient.ParameterKeys.SafeSearch: FlickrClient.ParameterValues.UseSafeSearch,
+			FlickrClient.ParameterKeys.Extras: FlickrClient.ParameterValues.MediumURL,
+			FlickrClient.ParameterKeys.Radius: FlickrClient.ParameterValues.SearchRangeKm
 		]
 		/* 2/3. Build the URL, Configure the request */
 		let request = URLRequest(url: flickrURLsFromParameters(methodParameters as [String:AnyObject]))
 		
 		/* 4. Make the request 🚀*/
-		let task = FlickrClient.session.dataTask(with: request) { (data, response, error) in
+		let task = session.dataTask(with: request) { (data, response, error) in
 			
 			// Handling errors
 			
@@ -95,8 +99,8 @@ class FlickrClient: NSObject {
 			
 			/* 5. Parse the data */
 			if let json = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
-				let photosMeta = json?[FlickrConstants.JSONResponseKeys.Photos] as? [String:Any],
-				let photos = photosMeta[FlickrConstants.JSONResponseKeys.Photo] as? [Any] {
+				let photosMeta = json?[FlickrClient.JSONResponseKeys.Photos] as? [String:Any],
+				let photos = photosMeta[FlickrClient.JSONResponseKeys.Photo] as? [Any] {
 				
 				// test
 				print("😈 objeto json -> \(String(describing: json))")
@@ -135,7 +139,82 @@ class FlickrClient: NSObject {
 		
 		task.resume()
 	}
+	
+	// TODO: implementar
+	func taskForGetImage(filePath: String, completionHandlerForImage: @escaping (_ imageData: Data?, _ error: NSError?) -> Void) -> URLSessionTask {
 
+		/* 1. Set the parameters */
+		// There are none...
+		
+		/* 2/3. Build the URL and configure the request */
+		let baseURL = URL(string: "")!
+		//let url = baseURL.appendingPathComponent(size).appendingPathComponent(filePath)
+		let request = URLRequest(url: baseURL)
+		
+		/* 4. Make the request */
+		let task = session.dataTask(with: request) { (data, response, error) in
+			
+			func sendError(_ error: String) {
+				print(error)
+				let userInfo = [NSLocalizedDescriptionKey : error]
+				completionHandlerForImage(nil, NSError(domain: "taskForGetMethod", code: 1, userInfo: userInfo))
+			}
+			
+			/* GUARD: Was there an error? */
+			guard (error == nil) else {
+				sendError("There was an error with your request: \(error!)")
+				return
+			}
+			
+			/* GUARD: Did we get a successful 2XX response? */
+			guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+				sendError("Your request returned a status code other than 2xx!")
+				return
+			}
+			
+			/* GUARD: Was there any data returned? */
+			guard let data = data else {
+				sendError("No data was returned by the request!")
+				return
+			}
+			
+			/* 5/6. Parse the data and use the data (happens in completion handler) */
+			completionHandlerForImage(data, nil)
+		}
+		
+		/* 7. Start the request */
+		task.resume()
+		
+		return task
+	}
+	
+	// TODO: implementar
+	func getImageUrl(_ completionHandlerForImageUrl: @escaping (_ result: [FlickrImage]?, _ error: NSError?) -> Void) {
+		
+//		/* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
+//		let parameters = [TMDBClient.ParameterKeys.SessionID: TMDBClient.sharedInstance().sessionID!]
+//		var mutableMethod: String = Methods.AccountIDFavoriteMovies
+//		mutableMethod = substituteKeyInMethod(mutableMethod, key: TMDBClient.URLKeys.UserID, value: String(TMDBClient.sharedInstance().userID!))!
+//
+//		/* 2. Make the request */
+//		let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String:AnyObject]) { (results, error) in
+//
+//			/* 3. Send the desired value(s) to completion handler */
+//			if let error = error {
+//				completionHandlerForFavMovies(nil, error)
+//			} else {
+//
+//				if let results = results?[TMDBClient.JSONResponseKeys.MovieResults] as? [[String:AnyObject]] {
+//
+//					let movies = TMDBMovie.moviesFromResults(results)
+//					completionHandlerForFavMovies(movies, nil)
+//				} else {
+//					completionHandlerForFavMovies(nil, NSError(domain: "getFavoriteMovies parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getFavoriteMovies"]))
+//				}
+//			}
+//		}
+	}
+	
 	//*****************************************************************
 	// MARK: - Helpers
 	//*****************************************************************
@@ -158,9 +237,9 @@ class FlickrClient: NSObject {
 	 private func flickrURLsFromParameters(_ parameters: [String:AnyObject]) -> URL {
 
 		var components = URLComponents()
-		components.scheme = FlickrConstants.ApiScheme
-		components.host = FlickrConstants.ApiHost
-		components.path = FlickrConstants.ApiPath
+		components.scheme = FlickrClient.Constants.ApiScheme
+		components.host = FlickrClient.Constants.ApiHost
+		components.path = FlickrClient.Constants.ApiPath
 		components.queryItems = [URLQueryItem]()
 		
 		for (key, value) in parameters {

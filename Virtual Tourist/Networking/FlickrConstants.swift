@@ -24,66 +24,78 @@ Un objeto que contiene los datos constantes requeridos para confeccionar la soli
 */
 
 //*****************************************************************
-// MARK: - Constants
+// MARK: - FlickrClient (Constants)
 //*****************************************************************
 
-struct FlickrConstants {
+extension FlickrClient {
 	
 	//*****************************************************************
-	// MARK: - Flickr
+	// MARK: - Constants
 	//*****************************************************************
-	
-	static let ApiScheme = "https"
-		static let ApiHost = "api.flickr.com"
-		static let ApiPath = "/services/rest"
-	
-	//*****************************************************************
-	// MARK: - Flickr Parameter Keys
-	//*****************************************************************
-	
-	struct ParameterKeys {
-		static let Method = "method"
-		static let ApiKey = "api_key"
-		static let Format = "format"
-		static let Lat = "lat"
-		static let Lon = "lon"
-		static let NoJSONCallback = "nojsoncallback"
-		static let SafeSearch = "safe_search"
-		static let Extras = "extras"
-		static let Radius = "radius"
+
+	struct Constants {
+		
+			static let ApiScheme = "https"
+			static let ApiHost = "api.flickr.com"
+			static let ApiPath = "/services/rest"
+		
 	}
-	
-	//*****************************************************************
-	// MARK: - Flickr Parameter Values
-	//*****************************************************************
-	
-	struct ParameterValues {
-		static let SearchMethod = "flickr.photos.search"
-		static let ApiKey = "200778b8a74284c35e9cf41905e84d39"
-		static let ResponseFormat = "json"
-		static let DisableJSONCallback = "1" /* 1 means "yes" */
-		static let MediumURL = "url_m"
-		static let UseSafeSearch = "1"
-		static let SearchRangeKm = 10
+		
+		//*****************************************************************
+		// MARK: - Flickr Parameter Keys
+		//*****************************************************************
+		
+		struct ParameterKeys {
+			
+			static let Method = "method"
+			static let ApiKey = "api_key"
+			static let Format = "format"
+			static let Lat = "lat"
+			static let Lon = "lon"
+			static let NoJSONCallback = "nojsoncallback"
+			static let SafeSearch = "safe_search"
+			static let Extras = "extras"
+			static let Radius = "radius"
+		
 	}
-	
-	//*****************************************************************
-	// MARK: - Flickr Response Keys
-	//*****************************************************************
-	
-	struct JSONResponseKeys {
-		static let Status = "stat"
-		static let Photos = "photos"
-		static let Title = "title"
-		static let Photo = "photo"
-		static let MediumURL = "url_m"
-	}
-	
-	//*****************************************************************
-	// MARK: - Flickr Response Values
-	//*****************************************************************
-	struct ResponseValues {
-		static let OKStatus = "ok"
-	}
+		
+		//*****************************************************************
+		// MARK: - Flickr Parameter Values
+		//*****************************************************************
+		
+		struct ParameterValues {
+			
+			static let SearchMethod = "flickr.photos.search"
+			static let ApiKey = "200778b8a74284c35e9cf41905e84d39"
+			static let ResponseFormat = "json"
+			static let DisableJSONCallback = "1" /* 1 means "yes" */
+			static let MediumURL = "url_m"
+			static let UseSafeSearch = "1"
+			static let SearchRangeKm = 10
+			
+		}
+		
+		//*****************************************************************
+		// MARK: - Flickr Response Keys
+		//*****************************************************************
+		
+		struct JSONResponseKeys {
+			
+			static let Status = "stat"
+			static let Photos = "photos"
+			static let Title = "title"
+			static let Photo = "photo"
+			static let MediumURL = "url_m"
+			
+		}
+		
+		//*****************************************************************
+		// MARK: - Flickr Response Values
+		//*****************************************************************
+		struct ResponseValues {
+			
+			static let OKStatus = "ok"
+			
+		}
 }
 
