@@ -11,7 +11,7 @@
 import Foundation
 
 /* Abstract:
-Un objeto que contiene la URL para obtener los datos para crear las fotos.
+Un objeto que contiene las URLs para obtener los datos para crear las fotos.
 */
 
 struct FlickrImage {
@@ -20,36 +20,31 @@ struct FlickrImage {
 	// MARK: - Properties 
 	//*****************************************************************
 	
-	let imageURL: String // la url para construir la foto!
+	let photoPath: String // la url para construir la foto!
 
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
 	
-	// init
-//	init(imageURL:String) { // inicializa el objeto
-//		self.imageURL = imageURL
-//	}
-	
 	// construct a FlickrImage from a dictionary
 	init(dictionary: [String:AnyObject]) {
-		imageURL = dictionary[FlickrClient.JSONResponseKeys.MediumURL] as! String
+		photoPath = dictionary["url_m"] as! String // FlickrClient.JSONResponseKeys.MediumURL
 	}
 	
 	//*****************************************************************
 	// MARK: - Results
 	//*****************************************************************
 	
-	static func urlPhotosFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
+	static func photosPathFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
 		
-		var urlPhotos = [FlickrImage]()
+		var photosPath = [FlickrImage]()
 		
-		// iterate through array of dictionaries, each Movie is a dictionary
+		// iterate through array of dictionaries, each 'FlickrImage' is a dictionary
 		for result in results {
-			urlPhotos.append(FlickrImage(dictionary: result))
+			photosPath.append(FlickrImage(dictionary: result))
 		}
 		
-		return urlPhotos
+		return photosPath
 	}
 	
 } // end struct

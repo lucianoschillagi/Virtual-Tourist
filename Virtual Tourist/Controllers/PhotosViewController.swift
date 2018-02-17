@@ -229,6 +229,34 @@ extension PhotosViewController: UICollectionViewDelegate {
 		
 	}
 	
+//	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//		
+//		/* Get cell type */
+//		let cellReuseIdentifier = "WatchlistTableViewCell"
+//		let movie = movies[(indexPath as NSIndexPath).row]
+//		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
+//		
+//		/* Set cell defaults */
+//		cell?.textLabel!.text = movie.title
+//		cell?.imageView!.image = UIImage(named: "Film")
+//		cell?.imageView!.contentMode = UIViewContentMode.scaleAspectFit
+//		
+//		if let posterPath = movie.posterPath {
+//			let _ = TMDBClient.sharedInstance().taskForGETImage(TMDBClient.PosterSizes.RowPoster, filePath: posterPath, completionHandlerForImage: { (imageData, error) in
+//				if let image = UIImage(data: imageData!) {
+//					performUIUpdatesOnMain {
+//						cell?.imageView!.image = image
+//					}
+//				} else {
+//					print(error ?? "empty error")
+//				}
+//			})
+//		}
+//		
+//		return cell!
+//	}
+	
+	
 	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
 		func collectionView(_ collectionView: UICollectionView,
 						 didDeselectItemAt indexPath: IndexPath) {
