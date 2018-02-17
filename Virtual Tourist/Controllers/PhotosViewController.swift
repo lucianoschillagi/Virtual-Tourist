@@ -62,8 +62,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	}
 	
 		// core data (todavía no implementado)
-		var coreDataPin: Pin!
-		var savedPhotos:[Photo] = []
+//		var coreDataPin: Pin!
+//		var savedPhotos:[Photo] = []
 	
 	//*****************************************************************
 	// MARK: - IBActions
@@ -127,6 +127,23 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
 		
+		super.viewWillAppear(animated)
+		
+		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
+			
+			if let photos = photos {
+				self.photos = photos
+				
+				// dispatch
+				performUIUpdatesOnMain {
+					print("🏈 \(photos)")
+				}
+			} else {
+				print(error ?? "empty error")
+			}
+		}
+	}
+		
 		// networking
 		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
 //		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
@@ -146,7 +163,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 //						}
 //					}
 //			}
-	}
+//	}
 	
 		
 	//*****************************************************************
@@ -176,8 +193,8 @@ extension PhotosViewController: UICollectionViewDataSource {
 	// pregunta a su objeto fuente de datos por la cantidad de elementos en la sección especificada
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
-	
-		return collectionData.count
+
+		return photos.count
 		
 	}
 	
@@ -186,6 +203,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 							 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
+		
 		
 		return cell
 	}		

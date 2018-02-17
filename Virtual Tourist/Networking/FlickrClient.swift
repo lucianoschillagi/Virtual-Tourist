@@ -56,16 +56,35 @@ class FlickrClient: NSObject {
 		]
 		
 		/* 2. Make the request 🚀 */
-		//let _ = taskForGetMethod(methodParameters:[String : Any], completionHandlerForGet: <#T##(Bool, [FlickrImage]?) -> Void#>)
-		
-		// llamar a 'taskForGetMethod'
-		
-		// llamar a 'photosPathFromResults'
-		
-		
-	}
+		let _ = taskForGetMethod(methodParameters: methodParameters as [String : AnyObject]) { (results, error) in
+			
+			/* 3. Send the desired value(s) to completion handler */
+			if let error = error {
+				
+				completionHandlerForGetPhotosPath(nil, error)
+			
+			} else {
+				
+				if let photos = results?[FlickrClient.JSONResponseKeys.Photos] as? [String:AnyObject],
+					 let photo = photos [FlickrClient.JSONResponseKeys.Photo] as? [[String:AnyObject]] {
+					
+					let photos = FlickrImage.photosPathFromResults(photo)
+					completionHandlerForGetPhotosPath(photos, nil)
+					
+					
+				} else {
+					
+					completionHandlerForGetPhotosPath(nil, NSError(domain: "getPhotosPath parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getPhotosPath"]))
+					
+				}
+				
+			}
+
+		}
+			
+	} // end method
 	
-	
+
 	func taskForGetMethod(methodParameters: [String : AnyObject],
 												completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
 		
