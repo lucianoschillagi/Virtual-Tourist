@@ -21,6 +21,7 @@
 		A661D9381FD771FB004CF5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A661D9371FD771FB004CF5B8 /* Assets.xcassets */; };
 		A67B842D201FBA2B004ED38E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B842C201FBA2B004ED38E /* PhotosViewController.swift */; };
 		A67B8434201FC482004ED38E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A67B8435201FC482004ED38E /* SnapKit.framework */; };
+		A6856F9E203B65C80029E991 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6856F9D203B65C80029E991 /* PhotoCell.swift */; };
 		A68F2CF61FD773EF005D4342 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = A68F2CF51FD773EF005D4342 /* Contents.json */; };
 		A696B1C8201417240073AB60 /* CoreDataCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696B1C7201417240073AB60 /* CoreDataCollectionViewController.swift */; };
 		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
@@ -58,6 +59,7 @@
 		A67B8433201FC302004ED38E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67B8435201FC482004ED38E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67CBF74201FD33100CCDBF6 /* next.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = next.md; sourceTree = "<group>"; };
+		A6856F9D203B65C80029E991 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		A68F2CF51FD773EF005D4342 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		A696B1C7201417240073AB60 /* CoreDataCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCollectionViewController.swift; sourceTree = "<group>"; };
 		A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDBlackBox.swift; path = "Virtual Tourist/GCDBlackBox.swift"; sourceTree = SOURCE_ROOT; };
@@ -197,6 +199,7 @@
 			children = (
 				A6C8C375201D4B3100682C99 /* Autolayout.swift */,
 				A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */,
+				A6856F9D203B65C80029E991 /* PhotoCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				A6B9CAC620352A3E00ECA9CB /* CoreDataMapVC.swift in Sources */,
 				A696B1C8201417240073AB60 /* CoreDataCollectionViewController.swift in Sources */,
 				A6D863DE200FD98700A92F9F /* CollectionViewCell.swift in Sources */,
+				A6856F9E203B65C80029E991 /* PhotoCell.swift in Sources */,
 				A6B9CAC4203529EF00ECA9CB /* CoreDataPhotosVC.swift in Sources */,
 				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,
 				A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */,

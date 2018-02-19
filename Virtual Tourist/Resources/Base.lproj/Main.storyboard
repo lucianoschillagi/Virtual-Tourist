@@ -87,7 +87,6 @@
                             </mapView>
                             <collectionView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXK-Sd-tJW">
                                 <rect key="frame" x="0.0" y="193" width="414" height="478"/>
-                                <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wae-4S-5Ol">
                                     <size key="itemSize" width="187" height="181"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -95,21 +94,26 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="XOa-TX-Myl" customClass="CollectionViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="XOa-TX-Myl" customClass="PhotoCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jyc-uX-uk7">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Owa-Um-uzc">
                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Owa-Um-uzc" secondAttribute="trailing" id="0fy-lN-rjD"/>
+                                            <constraint firstAttribute="bottom" secondItem="Owa-Um-uzc" secondAttribute="bottom" id="Gwc-VQ-YfE"/>
+                                            <constraint firstItem="Owa-Um-uzc" firstAttribute="leading" secondItem="XOa-TX-Myl" secondAttribute="leading" id="MOW-pz-SDl"/>
+                                            <constraint firstItem="Owa-Um-uzc" firstAttribute="top" secondItem="XOa-TX-Myl" secondAttribute="top" id="wUk-Dm-Z0x"/>
+                                        </constraints>
                                         <connections>
-                                            <outlet property="imageViewCell" destination="jyc-uX-uk7" id="MbO-5L-Tul"/>
+                                            <outlet property="photoImageView" destination="Owa-Um-uzc" id="vCf-5E-3M9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

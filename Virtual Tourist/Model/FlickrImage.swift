@@ -28,7 +28,7 @@ struct FlickrImage {
 	
 	// construct a FlickrImage from a dictionary
 	init(dictionary: [String:AnyObject]) {
-		photoPath = dictionary["url_m"] as! String // FlickrClient.JSONResponseKeys.MediumURL
+		photoPath = dictionary["url_m"] as? String // FlickrClient.JSONResponseKeys.MediumURL
 	}
 	
 	//*****************************************************************

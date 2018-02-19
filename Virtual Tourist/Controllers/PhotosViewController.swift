@@ -177,7 +177,8 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 
-		return photos.count
+//		return photos.count
+		return 12
 		
 	}
 	
@@ -185,29 +186,31 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
 		// get cell type
-		let reuseIdentifier = "CollectionViewCell"
 		let photo = photos[(indexPath as NSIndexPath).row]
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as UICollectionViewCell!
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
 		
-		//cell.backgroundColor = UIColor.black
+		
+		
+		
+		
+		
+		
 
-		////
-
-		if let photoPath = photo.photoPath {
-
-			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
-
-				if let image = UIImage(data: imageData!) {
-					performUIUpdatesOnMain {
-
-					}
-				} else {
-					print(error ?? "empty error")
-				}
-			})
-
-		}
-		return cell!
+//		if let photoPath = photo.photoPath {
+//
+//			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
+//
+//				if let image = UIImage(data: imageData!) {
+//					performUIUpdatesOnMain {
+//
+//					}
+//				} else {
+//					print(error ?? "empty error")
+//				}
+//			})
+//
+//		}
+		return cell
 		
 	} // end func
 	
