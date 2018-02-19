@@ -20,7 +20,7 @@ struct FlickrImage {
 	// MARK: - Properties 
 	//*****************************************************************
 	
-	let photoPath: String // la url para construir la foto!
+	let photoPath: String? // la url para construir la foto!
 
 	//*****************************************************************
 	// MARK: - Initializers

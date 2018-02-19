@@ -28,6 +28,10 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	@IBOutlet weak var mapFragment: MKMapView!
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var newCollectionButton: UIButton!
+//	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+	
+	
 	
 	//*****************************************************************
 	// MARK: - Properties
@@ -137,34 +141,13 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 				// dispatch
 				performUIUpdatesOnMain {
 					print("🏈 \(photos)")
+
 				}
 			} else {
 				print(error ?? "empty error")
 			}
 		}
 	}
-		
-		// networking
-		// le pasa el método los valores de la coordenada (pin) seleccionada en ´MapVC´
-//		FlickrClient.sharedInstance().taskForGetPhotos(lat: coordinateSelected.latitude,
-//																									 lon: coordinateSelected.longitude) { (success,errorString) in
-//																										
-//					performUIUpdatesOnMain {
-//						
-//						if success  {
-//							
-//								self.collectionView.backgroundColor = .yellow // debug, luego BORRAR
-//								//self.collectionViewCell.initWithPhoto(self.photo)
-//																												
-//								} else {
-//							
-//								print(errorString ?? "")
-//						
-//						}
-//					}
-//			}
-//	}
-	
 		
 	//*****************************************************************
 	// MARK: - MapView
@@ -199,15 +182,37 @@ extension PhotosViewController: UICollectionViewDataSource {
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
-	func collectionView(_ collectionView: UICollectionView,
-							 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
+		// get cell type
+		let reuseIdentifier = "CollectionViewCell"
+		let photo = photos[(indexPath as NSIndexPath).row]
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as UICollectionViewCell!
 		
+		//cell.backgroundColor = UIColor.black
+
+		////
+
+		if let photoPath = photo.photoPath {
+
+			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
+
+				if let image = UIImage(data: imageData!) {
+					performUIUpdatesOnMain {
+
+					}
+				} else {
+					print(error ?? "empty error")
+				}
+			})
+
+		}
+		return cell!
 		
-		return cell
-	}		
-}
+	} // end func
+	
+	
+} // end ext
 
 //*****************************************************************
 // MARK: - Collection View Methods (Delegate)
@@ -247,33 +252,7 @@ extension PhotosViewController: UICollectionViewDelegate {
 		
 	}
 	
-//	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//		
-//		/* Get cell type */
-//		let cellReuseIdentifier = "WatchlistTableViewCell"
-//		let movie = movies[(indexPath as NSIndexPath).row]
-//		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
-//		
-//		/* Set cell defaults */
-//		cell?.textLabel!.text = movie.title
-//		cell?.imageView!.image = UIImage(named: "Film")
-//		cell?.imageView!.contentMode = UIViewContentMode.scaleAspectFit
-//		
-//		if let posterPath = movie.posterPath {
-//			let _ = TMDBClient.sharedInstance().taskForGETImage(TMDBClient.PosterSizes.RowPoster, filePath: posterPath, completionHandlerForImage: { (imageData, error) in
-//				if let image = UIImage(data: imageData!) {
-//					performUIUpdatesOnMain {
-//						cell?.imageView!.image = image
-//					}
-//				} else {
-//					print(error ?? "empty error")
-//				}
-//			})
-//		}
-//		
-//		return cell!
-//	}
-	
+
 	
 	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
 		func collectionView(_ collectionView: UICollectionView,

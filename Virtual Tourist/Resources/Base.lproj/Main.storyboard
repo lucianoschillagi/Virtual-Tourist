@@ -95,34 +95,21 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="fw0-ti-2xD" customClass="CollectionViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="XOa-TX-Myl" customClass="CollectionViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mg1-sG-AHd">
-                                                    <rect key="frame" x="84" y="81" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ddE-6m-VCk">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jyc-uX-uk7">
                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
-                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="mg1-sG-AHd" firstAttribute="centerX" secondItem="fw0-ti-2xD" secondAttribute="centerX" id="PeE-yT-cQH"/>
-                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="centerY" secondItem="mg1-sG-AHd" secondAttribute="centerY" id="XZZ-Fi-aUl"/>
-                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="centerX" secondItem="mg1-sG-AHd" secondAttribute="centerX" id="crg-Qu-cFy"/>
-                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="top" secondItem="fw0-ti-2xD" secondAttribute="top" id="mfo-ZL-VUi"/>
-                                            <constraint firstItem="mg1-sG-AHd" firstAttribute="centerY" secondItem="fw0-ti-2xD" secondAttribute="centerY" id="neD-uj-5yK"/>
-                                            <constraint firstItem="ddE-6m-VCk" firstAttribute="leading" secondItem="fw0-ti-2xD" secondAttribute="leading" id="u1E-fW-ovU"/>
-                                        </constraints>
                                         <connections>
-                                            <outlet property="activityIndicator" destination="mg1-sG-AHd" id="o5t-7T-wQd"/>
-                                            <outlet property="imageViewCell" destination="ddE-6m-VCk" id="SNL-Tp-dZI"/>
+                                            <outlet property="imageViewCell" destination="jyc-uX-uk7" id="MbO-5L-Tul"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -167,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yDG-F5-g1u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1286.9565217391305" y="133.69565217391306"/>
+            <point key="canvasLocation" x="1285.5072463768117" y="132.88043478260872"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="K3c-Bu-wmc">

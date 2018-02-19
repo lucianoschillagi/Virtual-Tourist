@@ -25,6 +25,9 @@ class FlickrClient: NSObject {
 	
 	var session = URLSession.shared // shared session
 	
+	// modelo en 'FlickrImage'
+	var photos: [FlickrImage] = [FlickrImage]()
+	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
@@ -68,9 +71,15 @@ class FlickrClient: NSObject {
 				if let photos = results?[FlickrClient.JSONResponseKeys.Photos] as? [String:AnyObject],
 					 let photo = photos [FlickrClient.JSONResponseKeys.Photo] as? [[String:AnyObject]] {
 					
-					let photos = FlickrImage.photosPathFromResults(photo)
-					completionHandlerForGetPhotosPath(photos, nil)
+					let flickrImages = FlickrImage.photosPathFromResults(photo) // llena el objeto 'FlickrImage' con un array de diccionarios
+					completionHandlerForGetPhotosPath(flickrImages, nil)
 					
+					// test
+					print("🎹\(photo)") // [[String:AnyObject]]
+					print("🎅\(flickrImages[2])") // [String:AnyObject]
+
+					let prueba = flickrImages[1]
+					print("😱\(prueba.photoPath)")
 					
 				} else {
 					
@@ -131,15 +140,15 @@ class FlickrClient: NSObject {
 		return task
 	}
 	
-	func taskForGetImage(filePath: String, completionHandlerForImage: @escaping (_ imageData: Data?, _ error: NSError?) -> Void) -> URLSessionTask {
+	func taskForGetImage(photoPath: String, completionHandlerForImage: @escaping (_ imageData: Data?, _ error: NSError?) -> Void) -> URLSessionTask {
 
 		/* 1. Set the parameters */
 		// There are none...
 		
 		/* 2/3. Build the URL and configure the request */
-		let baseURL = URL(string: "")!
+		let url = URL(string:photoPath)! // DE PRUEBA!!!!!
 		//let url = baseURL.appendingPathComponent(size).appendingPathComponent(filePath)
-		let request = URLRequest(url: baseURL)
+		let request = URLRequest(url: url)
 		
 		/* 4. Make the request */
 		let task = session.dataTask(with: request) { (data, response, error) in
