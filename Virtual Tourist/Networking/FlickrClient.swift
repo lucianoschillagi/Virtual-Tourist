@@ -75,11 +75,11 @@ class FlickrClient: NSObject {
 					completionHandlerForGetPhotosPath(flickrImages, nil)
 					
 					// test
-					print("🎹\(photo)") // [[String:AnyObject]]
-					print("🎅\(flickrImages[2])") // [String:AnyObject]
+//					print("🎹\(photo)") // [[String:AnyObject]]
+//					print("🎅\(flickrImages[2])") // [String:AnyObject]
 
-					let prueba = flickrImages[1]
-					print("😱\(prueba.photoPath)")
+//					let prueba = flickrImages[1]
+//					print("😱\(prueba.photoPath)")
 					
 				} else {
 					

@@ -30,9 +30,6 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	@IBOutlet weak var newCollectionButton: UIButton!
 //	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-	
-	
-	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
@@ -135,17 +132,21 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
 			
+			// optional binding
 			if let photos = photos {
 				self.photos = photos
 				
 				// dispatch
 				performUIUpdatesOnMain {
 					print("🏈 \(photos)")
+					print("😅 Las 'photos' obtenidas son: \(photos.count)")
 
 				}
 			} else {
 				print(error ?? "empty error")
-			}
+			} // end optional binding
+			
+			self.contarFotos()
 		}
 	}
 		
@@ -165,6 +166,15 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		mapFragment.showAnnotations([annotation], animated: true)
 	}
 	
+	// test
+	func contarFotos() {
+		
+		print("🥅 Las fotos obtenidas y almacendas son \(photos.count)")
+
+	}
+	
+	
+	
 } // end vc
 
 //*****************************************************************
@@ -173,43 +183,53 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 
 extension PhotosViewController: UICollectionViewDataSource {
 	
-	// pregunta a su objeto fuente de datos por la cantidad de elementos en la sección especificada
+	// cantidad de celdas
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 
-//		return photos.count
-		return 12
-		
+		return photos.count
+//		return collectionData.count
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
 		// get cell type
-		let photo = photos[(indexPath as NSIndexPath).row]
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+		let cellReuseIdentifier = "PhotoCell"
+		let photo = photos[(indexPath as NSIndexPath).row] // la 'dirección' de cada una de las fotos
 		
+		// test
+		print("👴🏽 \(photo)" )
 		
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PhotoCell
 		
+		/* Set cell defaults */
+		cell.backgroundColor = .red
 		
-		
-		
-		
+		// optional binding
+		if let photoPath = photo.photoPath {
 
-//		if let photoPath = photo.photoPath {
-//
-//			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
-//
-//				if let image = UIImage(data: imageData!) {
-//					performUIUpdatesOnMain {
-//
-//					}
-//				} else {
-//					print(error ?? "empty error")
-//				}
-//			})
-//
-//		}
+			//test
+//			print("🐸 \(photoPath)" )
+
+			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
+
+				if let image = UIImage(data: imageData!) {
+
+					// dispatch
+					performUIUpdatesOnMain {
+
+						cell.photoImageView.image = image
+
+					}
+
+				} else {
+					print(error ?? "empty error")
+				}
+			})
+
+		} // end optional binding
+		
 		return cell
 		
 	} // end func

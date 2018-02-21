@@ -8,6 +8,9 @@
 
 import UIKit
 
+// seguir desde : hay un problema con la celda!!!!!
+
+
 class PhotoCell: UICollectionViewCell {
 	
 	@IBOutlet weak var photoImageView: UIImageView!

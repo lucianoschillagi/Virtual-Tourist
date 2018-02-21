@@ -80,51 +80,36 @@ struct Significado {
 	}
 }
 
-let s = Significado(diccionario: significado)
-s.palabra
+
+// 21-02-18
+
+// completion handler
+
+// define una función que toma un ´closure´ como parámetro
+func hola(nombre: String, completionHandler: @escaping (_ n1: Int, _ n2: Int) -> Int) {
+	
+	print("hola \(nombre)")
+}
 
 
 
-//let s = Significado(diccionario: significado)
-//print(s.palabra)
 
-//struct FlickrImage {
+
+
+//FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
 //
-//	//*****************************************************************
-//	// MARK: - Properties
-//	//*****************************************************************
+//	if let photos = photos {
+//		self.photos = photos
 //
-//	let photoPath: String // la url para construir la foto!
+//		// dispatch
+//		performUIUpdatesOnMain {
+//			print("🏈 \(photos)")
 //
-//	//*****************************************************************
-//	// MARK: - Initializers
-//	//*****************************************************************
-//
-//	// construct a FlickrImage from a dictionary
-//	init(dictionary: [String:AnyObject]) {
-//		photoPath = dictionary["url_m"] as! String // FlickrClient.JSONResponseKeys.MediumURL
-//	}
-//
-//	//*****************************************************************
-//	// MARK: - Results
-//	//*****************************************************************
-//
-//	static func photosPathFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
-//
-//		var photosPath = [FlickrImage]()
-//
-//		// iterate through array of dictionaries, each 'FlickrImage' is a dictionary
-//		for result in results {
-//			photosPath.append(FlickrImage(dictionary: result))
 //		}
-//
-//		return photosPath
+//	} else {
+//		print(error ?? "empty error")
 //	}
-//
-//} // end struct
-
-
-
+//}
 
 
 
