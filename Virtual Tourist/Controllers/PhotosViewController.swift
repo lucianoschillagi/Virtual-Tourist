@@ -35,11 +35,12 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	//*****************************************************************
 	
 	// modelo de prueba
-	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
+	var collectionData: [String] = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
 	
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
-	
+
+
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000
@@ -122,6 +123,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
 		
+		print("😎 \(photos.count)")
+		
 		}
 	
 
@@ -130,24 +133,56 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		super.viewWillAppear(animated)
 		
-		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
+//		{ (movies, error) in
+//
+//
+//			// optional binding
+//			if let movies = movies {
+//
+//				self.movies = movies
+//
+//				performUIUpdatesOnMain {
+//
+//					self.moviesTableView.reloadData()
+//				}
+//
+//			} else {
+//
+//				print(error ?? "empty error")
+//
+//			} // end optional binding
+//
+//		} // end closure
+		
+		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
+																								lon: coordinateSelected.longitude) { (photos, error) in
 			
 			// optional binding
 			if let photos = photos {
+				
 				self.photos = photos
 				
 				// dispatch
 				performUIUpdatesOnMain {
-					print("🏈 \(photos)")
-					print("😅 Las 'photos' obtenidas son: \(photos.count)")
-
+					
+//					print("🏈 \(photos)") // TEST
+//					print("😅 Las 'photos' obtenidas son: \(photos.count)") // TEST
+					
+					self.collectionView.reloadData()
+					
 				}
+				
 			} else {
+				
 				print(error ?? "empty error")
+				
 			} // end optional binding
 			
+			// test
 			self.contarFotos()
-		}
+																									
+		} // end closure
+		
 	}
 		
 	//*****************************************************************
@@ -181,58 +216,123 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 // MARK: - Collection View Methods (Data Source)
 //*****************************************************************
 
-extension PhotosViewController: UICollectionViewDataSource {
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+	
+//	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
+//	var photos: [FlickrImage] = [FlickrImage]()
 	
 	// cantidad de celdas
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
+		
+//	return collectionData.count // este cuenta...
+		return photos.count // porqué este no?
 
-		return photos.count
-//		return collectionData.count
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
-		// get cell type
 		let cellReuseIdentifier = "PhotoCell"
-		let photo = photos[(indexPath as NSIndexPath).row] // la 'dirección' de cada una de las fotos
 		
-		// test
-		print("👴🏽 \(photo)" )
+		// no funciona
+		let photo = photos[(indexPath as NSIndexPath).row] // LEE del Modelo!
+		print("🏓 \(photos.count)")
+
+//		// FUNCIONA! // TEST
+//		let cData = collectionData[(indexPath as NSIndexPath).row]
+//		print("🏓 \(cData)")
 		
+		// get cell type
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PhotoCell
 		
 		/* Set cell defaults */
-		cell.backgroundColor = .red
+//		cell.photoImageView.backgroundColor = .red
+
 		
-		// optional binding
-		if let photoPath = photo.photoPath {
-
-			//test
-//			print("🐸 \(photoPath)" )
-
-			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
-
-				if let image = UIImage(data: imageData!) {
-
-					// dispatch
-					performUIUpdatesOnMain {
-
-						cell.photoImageView.image = image
-
-					}
-
-				} else {
-					print(error ?? "empty error")
-				}
-			})
-
-		} // end optional binding
+//		// optional binding
+//		if let photoPath = photo.photoPath {
+//
+//			//test
+////			print("🐸 \(photoPath)" )
+//
+//			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
+//
+//				if let image = UIImage(data: imageData!) {
+//
+//					// dispatch
+//					performUIUpdatesOnMain {
+//
+//						cell.photoImageView.image = image
+//
+//					}
+//
+//				} else {
+//					print(error ?? "empty error")
+//				}
+//			})
+//
+//		} // end optional binding
 		
 		return cell
 		
 	} // end func
+	
+		// seleccionado para borrar desde los index paths de los items seleccionados
+		func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
+	
+			var selected: [Int] = []
+	
+			for indexPath in indexPathArray {
+				selected.append(indexPath.item)
+			}
+			print(selected)
+			return selected
+		}
+	
+		// le dice al delegado que el ítem en la ruta especificada fue SELECCIONADO
+		func collectionView(_ collectionView: UICollectionView,
+												didSelectItemAt indexPath: IndexPath) {
+	
+			// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
+			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+	
+			// la ´dirección´ de la celda seleccionada
+			let cell = collectionView.cellForItem(at: indexPath)
+	
+			// Dispatch
+			DispatchQueue.main.async {
+				cell?.contentView.backgroundColor = .red
+			}
+				// debug
+				print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
+				print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+	
+		}
+	
+	
+	
+		// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
+			func collectionView(_ collectionView: UICollectionView,
+							 didDeselectItemAt indexPath: IndexPath) {
+	
+				// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
+				selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+	
+				// la ´dirección´ de la celda seleccionada
+				let cell = collectionView.cellForItem(at: indexPath)
+	
+				// Dispatch
+				DispatchQueue.main.async {
+					cell?.contentView.backgroundColor = .blue
+				}
+	
+				// debug
+				print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
+				print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+			}
+	
+	
 	
 	
 } // end ext
@@ -241,63 +341,63 @@ extension PhotosViewController: UICollectionViewDataSource {
 // MARK: - Collection View Methods (Delegate)
 //*****************************************************************
 
-extension PhotosViewController: UICollectionViewDelegate {
-	
-	// seleccionado para borrar desde los index paths de los items seleccionados
-	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
-		
-		var selected: [Int] = []
-		
-		for indexPath in indexPathArray {
-			selected.append(indexPath.item)
-		}
-		print(selected)
-		return selected
-	}
-	
-	// le dice al delegado que el ítem en la ruta especificada fue SELECCIONADO
-	func collectionView(_ collectionView: UICollectionView,
-											didSelectItemAt indexPath: IndexPath) {
-		
-		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
-		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-		
-		// la ´dirección´ de la celda seleccionada
-		let cell = collectionView.cellForItem(at: indexPath)
-		
-		// Dispatch
-		DispatchQueue.main.async {
-			cell?.contentView.backgroundColor = .red
-		}
-			// debug
-			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
-			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
-		
-	}
-	
-
-	
-	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
-		func collectionView(_ collectionView: UICollectionView,
-						 didDeselectItemAt indexPath: IndexPath) {
-	
-			// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
-			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-	
-			// la ´dirección´ de la celda seleccionada
-			let cell = collectionView.cellForItem(at: indexPath)
-
-			// Dispatch
-			DispatchQueue.main.async {
-				cell?.contentView.backgroundColor = .blue
-			}
-			
-			// debug
-			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
-			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
-		}
-	
-} // end ext
+//extension PhotosViewController: UICollectionViewDelegate {
+//
+//	// seleccionado para borrar desde los index paths de los items seleccionados
+//	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
+//
+//		var selected: [Int] = []
+//
+//		for indexPath in indexPathArray {
+//			selected.append(indexPath.item)
+//		}
+//		print(selected)
+//		return selected
+//	}
+//
+//	// le dice al delegado que el ítem en la ruta especificada fue SELECCIONADO
+//	func collectionView(_ collectionView: UICollectionView,
+//											didSelectItemAt indexPath: IndexPath) {
+//
+//		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
+//		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+//
+//		// la ´dirección´ de la celda seleccionada
+//		let cell = collectionView.cellForItem(at: indexPath)
+//
+//		// Dispatch
+//		DispatchQueue.main.async {
+//			cell?.contentView.backgroundColor = .red
+//		}
+//			// debug
+//			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
+//			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+//
+//	}
+//
+//
+//
+//	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
+//		func collectionView(_ collectionView: UICollectionView,
+//						 didDeselectItemAt indexPath: IndexPath) {
+//
+//			// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
+//			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+//
+//			// la ´dirección´ de la celda seleccionada
+//			let cell = collectionView.cellForItem(at: indexPath)
+//
+//			// Dispatch
+//			DispatchQueue.main.async {
+//				cell?.contentView.backgroundColor = .blue
+//			}
+//
+//			// debug
+//			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
+//			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+//		}
+//
+//} // end ext
 
 
 

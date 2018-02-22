@@ -34,6 +34,9 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 //	var currentPins: [Pin] = [] // los pins actuales
 	var coordinateSelected:CLLocationCoordinate2D! // la coordenada (pin) seleccionada por el usuario
 	
+	// modelo en 'FlickrImage'
+	var photos: [FlickrImage] = [FlickrImage]()
+	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -128,6 +131,30 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 			let coord = sender as! CLLocationCoordinate2D
 			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
 			destination.coordinateSelected = coord
+			
+//					// get photos!
+//					FlickrClient.sharedInstance().getPhotosPath(lat: 24.35, lon: 45.67) { (photos, error) in
+//
+//						// optional binding
+//						if let photos = photos {
+//							self.photos = photos
+//
+//
+//							// dispatch
+//							performUIUpdatesOnMain {
+//								print("🏈 \(photos)")
+//			//					print("😅 Las 'photos' obtenidas son: \(photos.count)")
+//
+//							}
+//						} else {
+//							print(error ?? "empty error")
+//						} // end optional binding
+//
+//						// test
+////						self.contarFotos()
+//					}
+
+			
 		}
 		
 		// debug
