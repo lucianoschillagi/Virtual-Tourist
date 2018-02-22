@@ -35,7 +35,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	//*****************************************************************
 	
 	// modelo de prueba
-	var collectionData: [String] = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
+//	var collectionData: [String] = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
 	
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
@@ -80,13 +80,16 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 			
 			for item in items {
 				
-				collectionData.remove(at: item)
+//			collectionData.remove(at: item)
+				photos.remove(at: item)
+				
 			}
 			
 			collectionView.deleteItems(at: selected)
+		
 		}
 		// test
-		print("El modelo actualmente tiene \(collectionData.count) elementos")
+		print("😈 El modelo actualmente tiene \(photos.count) elementos")
 
 	}
 	
@@ -218,14 +221,10 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 
 extension PhotosViewController: UICollectionViewDataSource {
 	
-//	var collectionData = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
-//	var photos: [FlickrImage] = [FlickrImage]()
-	
 	// cantidad de celdas
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 		
-//	return collectionData.count // este cuenta...
 		return photos.count // porqué este no? // AHORA SÍ!!
 
 	}
@@ -238,17 +237,9 @@ extension PhotosViewController: UICollectionViewDataSource {
 		// no funciona
 		let photo = photos[(indexPath as NSIndexPath).row] // LEE del Modelo!
 		print("🏓 \(photos.count)")
-
-//		// FUNCIONA! // TEST
-//		let cData = collectionData[(indexPath as NSIndexPath).row]
-//		print("🏓 \(cData)")
 		
 		// get cell type
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PhotoCell
-		
-		/* Set cell defaults */
-//		cell.photoImageView.backgroundColor = .red
-
 		
 		// optional binding
 		if let photoPath = photo.photoPath {
