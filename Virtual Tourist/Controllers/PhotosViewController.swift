@@ -226,7 +226,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
 											numberOfItemsInSection section: Int) -> Int {
 		
 //	return collectionData.count // este cuenta...
-		return photos.count // porqué este no?
+		return photos.count // porqué este no? // AHORA SÍ!!
 
 	}
 	
@@ -250,29 +250,30 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
 //		cell.photoImageView.backgroundColor = .red
 
 		
-//		// optional binding
-//		if let photoPath = photo.photoPath {
-//
-//			//test
-////			print("🐸 \(photoPath)" )
-//
-//			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
-//
-//				if let image = UIImage(data: imageData!) {
-//
-//					// dispatch
-//					performUIUpdatesOnMain {
-//
-//						cell.photoImageView.image = image
-//
-//					}
-//
-//				} else {
-//					print(error ?? "empty error")
-//				}
-//			})
-//
-//		} // end optional binding
+		// optional binding
+		if let photoPath = photo.photoPath {
+
+			//test
+			print("🏄🏼‍♀️ \(photos.count)")
+			print("🐸 \(photoPath)" )
+
+			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
+
+				if let image = UIImage(data: imageData!) {
+
+					// dispatch
+					performUIUpdatesOnMain {
+
+						cell.photoImageView.image = image
+
+					}
+
+				} else {
+					print(error ?? "empty error")
+				}
+			})
+
+		} // end optional binding
 		
 		return cell
 		
