@@ -6,18 +6,30 @@
 //  Copyright © 2018 luko. All rights reserved.
 //
 
+/* Abstract:
+
+*/
+
 import UIKit
-
-// seguir desde : hay un problema con la celda!!!!!
-
 
 class PhotoCell: UICollectionViewCell {
 	
 	@IBOutlet weak var photoImageView: UIImageView!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
-	override func prepareForReuse() {
-		photoImageView.image = nil
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	override func prepareForReuse() {
+//		photoImageView.image = nil // BORRAR? [sacado de RW video]
+//	}
 	
 	// computed property
 	

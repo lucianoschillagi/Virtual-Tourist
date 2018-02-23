@@ -104,16 +104,23 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Owa-Um-uzc">
                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="CeG-3e-68U">
+                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="181"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Owa-Um-uzc" secondAttribute="trailing" id="0fy-lN-rjD"/>
                                             <constraint firstAttribute="bottom" secondItem="Owa-Um-uzc" secondAttribute="bottom" id="Gwc-VQ-YfE"/>
                                             <constraint firstItem="Owa-Um-uzc" firstAttribute="leading" secondItem="XOa-TX-Myl" secondAttribute="leading" id="MOW-pz-SDl"/>
+                                            <constraint firstItem="CeG-3e-68U" firstAttribute="top" secondItem="XOa-TX-Myl" secondAttribute="top" id="N8E-hH-gqp"/>
+                                            <constraint firstAttribute="bottom" secondItem="CeG-3e-68U" secondAttribute="bottom" id="dAI-dL-vat"/>
+                                            <constraint firstAttribute="trailing" secondItem="CeG-3e-68U" secondAttribute="trailing" id="hxC-29-YCr"/>
+                                            <constraint firstItem="CeG-3e-68U" firstAttribute="leading" secondItem="XOa-TX-Myl" secondAttribute="leading" id="vCb-rL-3Zd"/>
                                             <constraint firstItem="Owa-Um-uzc" firstAttribute="top" secondItem="XOa-TX-Myl" secondAttribute="top" id="wUk-Dm-Z0x"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="CeG-3e-68U" id="rMj-xc-kRj"/>
                                             <outlet property="photoImageView" destination="Owa-Um-uzc" id="vCf-5E-3M9"/>
                                         </connections>
                                     </collectionViewCell>

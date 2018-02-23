@@ -13,6 +13,13 @@ sguir desde ac'a -> CoreDataPhotosVC
 
 
 
+// alert view
+
+
+
+
+
+
 
 
 

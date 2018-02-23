@@ -31,7 +31,6 @@
 		A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */; };
 		A6C8C376201D4B3100682C99 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C8C375201D4B3100682C99 /* Autolayout.swift */; };
 		A6D863AC200FCCB500A92F9F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863AB200FCCB500A92F9F /* CoreDataStack.swift */; };
-		A6D863DE200FD98700A92F9F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +68,6 @@
 		A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		A6C8C375201D4B3100682C99 /* Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
 		A6D863AB200FCCB500A92F9F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = "Virtual Tourist/Networking/CollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				A6C8C375201D4B3100682C99 /* Autolayout.swift */,
-				A6D863DD200FD98700A92F9F /* CollectionViewCell.swift */,
 				A6856F9D203B65C80029E991 /* PhotoCell.swift */,
 			);
 			path = View;
@@ -344,7 +341,6 @@
 				A661D9311FD771FB004CF5B8 /* AppDelegate.swift in Sources */,
 				A6B9CAC620352A3E00ECA9CB /* CoreDataMapVC.swift in Sources */,
 				A696B1C8201417240073AB60 /* CoreDataCollectionViewController.swift in Sources */,
-				A6D863DE200FD98700A92F9F /* CollectionViewCell.swift in Sources */,
 				A6856F9E203B65C80029E991 /* PhotoCell.swift in Sources */,
 				A6B9CAC4203529EF00ECA9CB /* CoreDataPhotosVC.swift in Sources */,
 				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,

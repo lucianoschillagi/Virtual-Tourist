@@ -28,8 +28,8 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	@IBOutlet weak var mapFragment: MKMapView!
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var newCollectionButton: UIButton!
-//	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
@@ -40,12 +40,12 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
 
-
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000
 	
 	// collection view cell
+	let photoCell = PhotoCell()
 	let totalCellCount = 25
 	
 	var selectedToDelete:[Int] = [] {
@@ -136,27 +136,6 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		super.viewWillAppear(animated)
 		
-//		{ (movies, error) in
-//
-//
-//			// optional binding
-//			if let movies = movies {
-//
-//				self.movies = movies
-//
-//				performUIUpdatesOnMain {
-//
-//					self.moviesTableView.reloadData()
-//				}
-//
-//			} else {
-//
-//				print(error ?? "empty error")
-//
-//			} // end optional binding
-//
-//		} // end closure
-		
 		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
 																								lon: coordinateSelected.longitude) { (photos, error) in
 			
@@ -234,7 +213,6 @@ extension PhotosViewController: UICollectionViewDataSource {
 		
 		let cellReuseIdentifier = "PhotoCell"
 		
-		// no funciona
 		let photo = photos[(indexPath as NSIndexPath).row] // LEE del Modelo!
 		print("🏓 \(photos.count)")
 		
@@ -247,15 +225,17 @@ extension PhotosViewController: UICollectionViewDataSource {
 			//test
 			print("🏄🏼‍♀️ \(photos.count)")
 			print("🐸 \(photoPath)" )
-
+			
+			// network request
 			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
 
 				if let image = UIImage(data: imageData!) {
 
 					// dispatch
 					performUIUpdatesOnMain {
-
+						
 						cell.photoImageView.image = image
+						cell.activityIndicator.stopAnimating()
 
 					}
 
@@ -265,6 +245,15 @@ extension PhotosViewController: UICollectionViewDataSource {
 			})
 
 		} // end optional binding
+		
+		
+		if photo.photoPath != nil {
+		
+			// TODO: implementar stop activity indicator
+			//cell.activityIndicator.stopAnimating()
+			print("la foto se cargó")
+			
+		}
 		
 		return cell
 		
@@ -302,15 +291,13 @@ extension PhotosViewController: UICollectionViewDelegate {
 
 		// Dispatch
 		DispatchQueue.main.async {
-			cell?.contentView.backgroundColor = .red
+			cell?.contentView.alpha = 0.5
 		}
-			// debug
+			// test
 			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
 			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 
 	}
-
-
 
 	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
 		func collectionView(_ collectionView: UICollectionView,
@@ -324,7 +311,7 @@ extension PhotosViewController: UICollectionViewDelegate {
 
 			// Dispatch
 			DispatchQueue.main.async {
-				cell?.contentView.backgroundColor = .blue
+				cell?.contentView.alpha = 1.0
 			}
 
 			// debug
