@@ -39,6 +39,9 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 	
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
+	
+	// las fotos guardadas
+	var savedImages: [Photo] = []
 
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
@@ -121,9 +124,19 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 																									
 		} // end closure
 		
+		print("👨🏽‍🔬 new collection photos!")
 		
 	}
 
+	/* pregunta:
+	
+	cómo limitar de un modelo de elementos indeterminados (fotos) las celdas de una colección a sólo 21?
+
+	
+	
+	*/
+	
+	
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -154,6 +167,24 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		collectionView.allowsMultipleSelection = true
 		
 		print("😎 \(photos.count)")
+		
+		
+		/* Core Data */
+		
+		// get the stack
+		let delegate = UIApplication.shared.delegate as! AppDelegate
+		let stack = delegate.stack
+		
+		// create a fetch request
+		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+		fr.sortDescriptors = []
+		
+		// create the fetched results controller
+		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+																													managedObjectContext: stack.context,
+																													sectionNameKeyPath: nil,
+																													cacheName: nil)
+		
 		
 		}
 	
@@ -232,7 +263,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 		
-		return photos.count
+		return photos.count // only 21
 
 	}
 	

@@ -37,6 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("Error droping all objects in DB")
 		}
 		
+		// Create notebooks
+//		let codeNotes = Notebook(name: "Coding Notes", context: stack.context)
+//		let appIdeas  = Notebook(name: "Ideas for new Apps", context: stack.context)
+	
+		let pin = Pin(latitude: -32.944243, longitude: -60.650539, context: stack.context)
+		
 		// Create pins
 		
 		// let rosario =
