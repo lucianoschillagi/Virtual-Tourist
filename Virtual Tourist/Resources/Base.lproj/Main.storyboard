@@ -140,6 +140,7 @@
                                 <state key="normal" title="New Collection"/>
                                 <connections>
                                     <action selector="deleteSelected:" destination="tgO-rm-beU" eventType="touchUpInside" id="OCc-o2-k3k"/>
+                                    <action selector="newCollectionPhotos:" destination="tgO-rm-beU" eventType="touchUpInside" id="0i2-p4-b4P"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -47,7 +47,8 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 		// set edit-done button on navigation bar
 		setEditDoneButton()
 		
-		// Core Data
+		
+		/* Core Data */
 		
 		// get the stack
 		let delegate = UIApplication.shared.delegate as! AppDelegate
@@ -62,6 +63,7 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 																													managedObjectContext: stack.context,
 																													sectionNameKeyPath: nil,
 																													cacheName: nil)
+	
 	}
 	
 	//*****************************************************************
@@ -108,13 +110,23 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 		// agrego el pin correspondiente a esa coordenada en la vista del mapa
 		mapView.addAnnotation(annotation) // MKPointAnnotation
 			
-		// debug
+		// TODO: Cuando los pines se dejan caer en el mapa, ¿persisten como instancias Pin en Core Data?
+		// add pin to core data
+			
+		let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context:fetchedResultsController!.managedObjectContext)
+			// test
+			print("🏃🏽‍♀️ Just created a new pin: \(pin).")
+			print("🏃🏽‍♀️ Localización del pin: latitud: \(pin.latitude), longitud: \(pin.longitude)")
+			
+		// test
 			print("un pin ha sido puesto")
 		
 		} else  {
 			// ...caso contrario, NO
 		}
-	}
+		
+		
+	} // end func
 	
 	
 	//*****************************************************************
@@ -131,29 +143,6 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 			let coord = sender as! CLLocationCoordinate2D
 			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
 			destination.coordinateSelected = coord
-			
-//					// get photos!
-//					FlickrClient.sharedInstance().getPhotosPath(lat: 24.35, lon: 45.67) { (photos, error) in
-//
-//						// optional binding
-//						if let photos = photos {
-//							self.photos = photos
-//
-//
-//							// dispatch
-//							performUIUpdatesOnMain {
-//								print("🏈 \(photos)")
-//			//					print("😅 Las 'photos' obtenidas son: \(photos.count)")
-//
-//							}
-//						} else {
-//							print(error ?? "empty error")
-//						} // end optional binding
-//
-//						// test
-////						self.contarFotos()
-//					}
-
 			
 		}
 		

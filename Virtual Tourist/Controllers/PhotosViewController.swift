@@ -93,10 +93,37 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 
 	}
 	
-//	@IBAction func newCollectionPhotos(_ sender: UIButton) {
-//		
-//	}
-//
+	@IBAction func newCollectionPhotos(_ sender: UIButton) {
+		
+		// The Photo Album view has a button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
+		
+		// 1-nueva solicitud web
+		
+		// network request
+		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
+																								lon: coordinateSelected.longitude) { (photos, error) in
+																									
+																									// NOTE: recibe los valores desde 'FlickrClient' y los procesa acá (photos y error)
+																									
+				// optional binding
+				if let photos = photos {
+																										
+				self.photos = photos
+					
+						} else {
+																										
+						print(error ?? "empty error")
+																										
+						} // end optional binding
+																									
+				// test
+					self.contarFotos()
+																									
+		} // end closure
+		
+		
+	}
+
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -136,30 +163,33 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 		
 		super.viewWillAppear(animated)
 		
+		// network request
 		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
 																								lon: coordinateSelected.longitude) { (photos, error) in
-			
+
+																									// NOTE: recibe los valores desde 'FlickrClient' y los procesa acá (photos y error)
+
 			// optional binding
 			if let photos = photos {
-				
+
 				self.photos = photos
-				
+
 				// dispatch
 				performUIUpdatesOnMain {
-					
+
 //					print("🏈 \(photos)") // TEST
 //					print("😅 Las 'photos' obtenidas son: \(photos.count)") // TEST
-					
+
 					self.collectionView.reloadData()
-					
+
 				}
-				
+
 			} else {
-				
+
 				print(error ?? "empty error")
-				
+
 			} // end optional binding
-			
+
 			// test
 			self.contarFotos()
 																									
@@ -190,8 +220,6 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 
 	}
 	
-	
-	
 } // end vc
 
 //*****************************************************************
@@ -204,7 +232,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
 		
-		return photos.count // porqué este no? // AHORA SÍ!!
+		return photos.count
 
 	}
 	
@@ -214,7 +242,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 		let cellReuseIdentifier = "PhotoCell"
 		
 		let photo = photos[(indexPath as NSIndexPath).row] // LEE del Modelo!
-		print("🏓 \(photos.count)")
+		print("👶🏼 \(photos.count)")
 		
 		// get cell type
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PhotoCell
@@ -245,15 +273,6 @@ extension PhotosViewController: UICollectionViewDataSource {
 			})
 
 		} // end optional binding
-		
-		
-		if photo.photoPath != nil {
-		
-			// TODO: implementar stop activity indicator
-			//cell.activityIndicator.stopAnimating()
-			print("la foto se cargó")
-			
-		}
 		
 		return cell
 		

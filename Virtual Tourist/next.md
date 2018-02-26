@@ -1,20 +1,5 @@
 
-# PhotosViewController
-## ---> VER 'The Movie Mananger' para ver como convertir los datos de la imagen en una imagen visible
-
-
-# MapViewController
-## autolayout 'Tap Pins to Delete' button
-
-
-
-sguir desde ac'a -> CoreDataPhotosVC
-
-
-
-
-// alert view
-
+Cuando los pines se dejan caer en el mapa, ¿persisten como instancias Pin en Core Data?
 
 
 
