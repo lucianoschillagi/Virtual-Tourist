@@ -1,5 +1,5 @@
 //
-//  PhotosViewController.swift
+//  PhotoAlbumViewController.swift
 //  Virtual Tourist
 //
 //  Created by Luciano Schillagi on 1/29/18.
@@ -19,7 +19,7 @@ Un objeto que contiene:
 -un botón para actualizar la colección de imágenes
 */
 
-class PhotosViewController: CoreDataMapAndCollectionViewController {
+class PhotoAlbumViewController: CoreDataViewController {
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -257,7 +257,7 @@ class PhotosViewController: CoreDataMapAndCollectionViewController {
 // MARK: - Collection View Methods (Data Source)
 //*****************************************************************
 
-extension PhotosViewController: UICollectionViewDataSource {
+extension PhotoAlbumViewController: UICollectionViewDataSource {
 	
 	// cantidad de celdas
 	func collectionView(_ collectionView: UICollectionView,
@@ -315,7 +315,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 // MARK: - Collection View Methods (Delegate)
 //*****************************************************************
 
-extension PhotosViewController: UICollectionViewDelegate {
+extension PhotoAlbumViewController: UICollectionViewDelegate {
 
 	// seleccionado para borrar desde los index paths de los items seleccionados
 	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {

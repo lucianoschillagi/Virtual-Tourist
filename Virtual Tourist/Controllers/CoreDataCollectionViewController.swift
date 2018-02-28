@@ -1,5 +1,5 @@
 //
-//  CoreDataMapAndCollectionViewController
+//  CoreDataViewController.swift
 //  Virtual Tourist
 //
 //  Created by Luciano Schillagi on 1/20/18.
@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 
-class CoreDataMapAndCollectionViewController: UIViewController {
+class CoreDataViewController: UIViewController {
 
 	//*****************************************************************
 	// MARK: - Properties (fetchedResultsController)
@@ -43,7 +43,7 @@ class CoreDataMapAndCollectionViewController: UIViewController {
 	// MARK: - Fetches
 	//*****************************************************************
 
-	extension CoreDataMapAndCollectionViewController {
+	extension CoreDataViewController {
 
 		func executeSearch() {
 			if let fc = fetchedResultsController {
@@ -60,7 +60,7 @@ class CoreDataMapAndCollectionViewController: UIViewController {
 	// MARK: - Results
 	//*****************************************************************
 
-	extension CoreDataMapAndCollectionViewController: NSFetchedResultsControllerDelegate {
+	extension CoreDataViewController: NSFetchedResultsControllerDelegate {
 
 		func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 			

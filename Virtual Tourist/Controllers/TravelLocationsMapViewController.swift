@@ -1,5 +1,5 @@
 //
-//  MapViewController.swift
+//  TravelLocationsMapViewController.swift
 //  Virtual Tourist
 //
 //  Created by Luciano Schillagi on 1/17/18.
@@ -16,7 +16,7 @@ import CoreData
 Un objeto que representa un mapa donde el usuario puede marcar localizaciones a través de pins.
 */
 
-class MapViewController: CoreDataMapAndCollectionViewController {
+class TravelLocationsMapViewController: CoreDataViewController {
 	
 	//*****************************************************************
 	// MARK: - IBOutles
@@ -138,7 +138,7 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 		
 		if segue.identifier == "PinPhotos" {
 			// el destino de la transición, el 'PhotosViewController'
-			let destination = segue.destination as! PhotosViewController
+			let destination = segue.destination as! PhotoAlbumViewController
 			// el remitente será una coordenada (pin) puesto sobre el mapa
 			let coord = sender as! CLLocationCoordinate2D
 			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
@@ -158,7 +158,7 @@ class MapViewController: CoreDataMapAndCollectionViewController {
 // MARK: - Map View Methods
 //*****************************************************************
 
-extension MapViewController:  MKMapViewDelegate {
+extension TravelLocationsMapViewController:  MKMapViewDelegate {
 	
 	// el pin que ha sido seleccionado en el mapa
 	func mapView(_ mapView: MKMapView,
