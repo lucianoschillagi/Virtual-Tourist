@@ -31,8 +31,8 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	//*****************************************************************
 	
 	var editMode: Bool = false
-//	var currentPins: [Pin] = [] // los pins actuales
-	var coordinateSelected:CLLocationCoordinate2D! // la coordenada (pin) seleccionada por el usuario
+	var currentPins: [Pin] = [] // los pins actuales
+	var coordinateSelected:CLLocationCoordinate2D?  // la coordenada (pin) seleccionada por el usuario
 	
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
@@ -46,7 +46,6 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		// set edit-done button on navigation bar
 		setEditDoneButton()
-		
 		
 		/* Core Data */
 		
@@ -63,6 +62,9 @@ class TravelLocationsMapViewController: CoreDataViewController {
 																													managedObjectContext: stack.context,
 																													sectionNameKeyPath: nil,
 																													cacheName: nil)
+		
+		// agregar pins persistidos al mapa
+		print("Los pins actuales son \(currentPins.count)")
 	
 	}
 	
@@ -95,39 +97,70 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	//*****************************************************************
 
 	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin...
-	@IBAction func addPin(_ sender: UILongPressGestureRecognizer) {
+	@IBAction func addPinToMap(_ sender: UILongPressGestureRecognizer) {
+		
+		/* 4 tareas */
+		
+		/* 1- que aparezca efectivamente el pin sobre el sitio tapeado */
 		
 		// si NO está en 'modo edición' se pueden agregar pines
 		if !editMode {
 		// las coordenadas del tapeo sobre el mapa
-		let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
-		// convierte las coordenadas en unas coordenadas de mapa (latitud y longitud)
-		let coordToAdd: CLLocationCoordinate2D = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
-		// un pin sobre el mapa
-		let annotation: MKPointAnnotation = MKPointAnnotation()
-		// ese pin ubicado en las coordenadas del mapa
-		annotation.coordinate = coordToAdd // CLLocationCoordinate2D
-		// agrego el pin correspondiente a esa coordenada en la vista del mapa
-		mapView.addAnnotation(annotation) // MKPointAnnotation
-			
-		// TODO: Cuando los pines se dejan caer en el mapa, ¿persisten como instancias Pin en Core Data?
-		// add pin to core data
-			
-		let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context:fetchedResultsController!.managedObjectContext)
-			// test
-			print("🏃🏽‍♀️ Just created a new pin: \(pin).")
-			print("🏃🏽‍♀️ Localización del pin: latitud: \(pin.latitude), longitud: \(pin.longitude)")
+			let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
+			// convierte las coordenadas en unas coordenadas de mapa (latitud y longitud)
+			let coordToAdd: CLLocationCoordinate2D = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
+			// un pin sobre el mapa
+			let annotation: MKPointAnnotation = MKPointAnnotation()
+			// ese pin ubicado en las coordenadas del mapa
+			annotation.coordinate = coordToAdd // CLLocationCoordinate2D
+			// agrego el pin correspondiente a esa coordenada en la vista del mapa
+			mapView.addAnnotation(annotation) // MKPointAnnotation
 			
 		// test
 			print("un pin ha sido puesto")
-		
+			print("🙎🏾 latitud: \(coordToAdd.latitude)")
+			
+			/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
+			
+			// TODO: Cuando los pines se dejan caer en el mapa, ¿persisten como instancias 'Pin' en Core Data?
+			// add pin to core data
+
+			// create a new pin in core data
+			
+			// Create a new notebook... and Core Data takes care of the rest!
+			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: (fetchedResultsController?.managedObjectContext)!)
+			currentPins.append(pin)
+			
+			print("🎩 los pins actuales son: \(currentPins.count)")
+			
+			for pin in currentPins {
+				print("👛 Los pins actuales son: \(pin)")
+			}
+			
+
+			// test
+			print("🏃🏽‍♀️ Se ha creado un nuevo pin: \(pin).")
+			print("🏃🏽‍♀️ Localización del pin: latitud: \(pin.latitude), longitud: \(pin.longitude)")
+			print("🦅 pins en core data: \(pin.entity)")
+			
 		} else  {
+			
 			// ...caso contrario, NO
-		}
+			
+		} // end if-else
 		
 		
+		/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+		
+		
+		
+		/* 4 - que se guarden los datos obtenidos (set de fotos) en core data */
+		
+		
+		
+
 	} // end func
-	
+
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)

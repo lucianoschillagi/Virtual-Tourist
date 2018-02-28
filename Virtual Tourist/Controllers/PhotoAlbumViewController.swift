@@ -28,20 +28,17 @@ class PhotoAlbumViewController: CoreDataViewController {
 	@IBOutlet weak var mapFragment: MKMapView!
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var newCollectionButton: UIButton!
-
 	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
-	// modelo de prueba
-//	var collectionData: [String] = ["1 🏆", "2 🐸", "3 🍩", "4 😸", "5 🤡", "6 👾", "7 👻", "8 👩‍🎤", "9 🎸", "10 🍖", "11 🐯", "12 🌋"]
-	
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
 	
-	// las fotos guardadas
-	var savedImages: [Photo] = []
+	// core data
+	var pin: Pin? // los pins persistidos
+	var savedPhotos: [Photo] = [] // las fotos persistidas
 
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
@@ -49,7 +46,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 	
 	// collection view cell
 	let photoCell = PhotoCell()
-	let totalCellCount = 25
+	let totalCellCount = 21
 	
 	var selectedToDelete:[Int] = [] {
 		
@@ -65,10 +62,6 @@ class PhotoAlbumViewController: CoreDataViewController {
 			}
 		}
 	}
-	
-		// core data (todavía no implementado)
-//		var coreDataPin: Pin!
-//		var savedPhotos:[Photo] = []
 	
 	//*****************************************************************
 	// MARK: - IBActions
