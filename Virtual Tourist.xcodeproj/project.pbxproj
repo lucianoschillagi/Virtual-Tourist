@@ -27,7 +27,6 @@
 		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
 		A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */; };
 		A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */; };
-		A6C8C376201D4B3100682C99 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C8C375201D4B3100682C99 /* Autolayout.swift */; };
 		A6D863AC200FCCB500A92F9F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D863AB200FCCB500A92F9F /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +61,6 @@
 		A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDBlackBox.swift; path = "Virtual Tourist/GCDBlackBox.swift"; sourceTree = SOURCE_ROOT; };
 		A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImage.swift; sourceTree = "<group>"; };
 		A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
-		A6C8C375201D4B3100682C99 /* Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
 		A6D863AB200FCCB500A92F9F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,7 +187,6 @@
 		A6D863DB200FD94000A92F9F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A6C8C375201D4B3100682C99 /* Autolayout.swift */,
 				A6856F9D203B65C80029E991 /* PhotoCell.swift */,
 			);
 			path = View;
@@ -327,7 +324,6 @@
 			files = (
 				A65D3C35201577B1004B4CBB /* Photo+CoreDataClass.swift in Sources */,
 				A65EC8111FD9A27D0034B379 /* FlickrConstants.swift in Sources */,
-				A6C8C376201D4B3100682C99 /* Autolayout.swift in Sources */,
 				A661D9331FD771FB004CF5B8 /* TravelLocationsMapViewController.swift in Sources */,
 				A65D3C33201577B1004B4CBB /* Pin+CoreDataClass.swift in Sources */,
 				A65D3C34201577B1004B4CBB /* Pin+CoreDataProperties.swift in Sources */,
