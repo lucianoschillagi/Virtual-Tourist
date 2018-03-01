@@ -129,13 +129,23 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			
 			// Create a new notebook... and Core Data takes care of the rest!
 			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: (fetchedResultsController?.managedObjectContext)!)
-			currentPins.append(pin)
 			
-			print("🎩 los pins actuales son: \(currentPins.count)")
 			
-			for pin in currentPins {
-				print("👛 Los pins actuales son: \(pin)")
-			}
+			
+			
+			
+			
+			
+			
+			
+			// currentPins, prueba, no sé si queda
+//			currentPins.append(pin)
+//
+//			print("🎩 los pins actuales son: \(currentPins.count)")
+//
+//			for pin in currentPins {
+//				print("👛 Los pins actuales son: \(pin)")
+//			}
 			
 
 			// test

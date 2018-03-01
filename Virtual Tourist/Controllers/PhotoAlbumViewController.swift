@@ -46,7 +46,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 	
 	// collection view cell
 	let photoCell = PhotoCell()
-	let totalCellCount = 21
+	let maxNumberOfCells = 21 // el máximo número de celdas mostradas en la ´collection view´
 	
 	var selectedToDelete:[Int] = [] {
 		
