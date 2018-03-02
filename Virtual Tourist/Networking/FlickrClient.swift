@@ -28,6 +28,8 @@ class FlickrClient: NSObject {
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
 	
+//	var photo: Photo
+	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
@@ -179,6 +181,8 @@ class FlickrClient: NSObject {
 			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
 			completionHandlerForImage(data, nil)
+			
+//			self.photo.imageData = data as NSData
 		}
 		
 		/* 7. Start the request */

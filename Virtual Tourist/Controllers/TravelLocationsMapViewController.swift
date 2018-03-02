@@ -126,17 +126,12 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			// add pin to core data
 
 			// create a new pin in core data
+	
+//				let nb = Notebook(name: "New Notebook", context: fetchedResultsController!.managedObjectContext)
 			
-			// Create a new notebook... and Core Data takes care of the rest!
-			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: (fetchedResultsController?.managedObjectContext)!)
-			
-			
-			
-			
-			
-			
-			
-			
+			// crea instancias del objeto gestionado 'Pin'
+			// cada vez que se el usuario agregar un pin
+			 let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
 			
 			// currentPins, prueba, no sé si queda
 //			currentPins.append(pin)
@@ -150,8 +145,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 
 			// test
 			print("🏃🏽‍♀️ Se ha creado un nuevo pin: \(pin).")
-			print("🏃🏽‍♀️ Localización del pin: latitud: \(pin.latitude), longitud: \(pin.longitude)")
-			print("🦅 pins en core data: \(pin.entity)")
+
 			
 		} else  {
 			

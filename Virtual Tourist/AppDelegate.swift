@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	//*****************************************************************
 	// MARK: - Properties
-	//*****************************************************************s
+	//*****************************************************************
 	
 	var window: UIWindow?
 	let stack = CoreDataStack(modelName: "Model")!
@@ -36,11 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// Remove previous stuff (if any)
 		
-//		do {
-//			try stack.dropAllData()
-//		} catch {
-//			print("Error droping all objects in DB")
-//		}
+		do {
+			try stack.dropAllData()
+		} catch {
+			print("Error droping all objects in DB")
+		}
 		
 		
 		// TODO: cómo precargar los pins persistidos? (preguntar Udacity)
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 		do {
 			try stack.saveContext()
-			print("🐽 guarda porque la aplicación deja de estar activa")
+			print("🐽 guarda el contexto porque la aplicación deja de estar activa")
 		} catch {
 			print("Error while saving.")
 		}
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 		do {
 			try stack.saveContext()
-			print("🐽 guarda porque la aplicación está en segundo plano")
+			print("🐽 guarda el contexto porque la aplicación está en segundo plano")
 
 		} catch {
 			print("Error while saving.")
