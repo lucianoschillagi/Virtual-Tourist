@@ -30,6 +30,8 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
+	let stack = CoreDataStack(modelName: "Model")!
+	
 	var editMode: Bool = false
 	var currentPins: [Pin] = []  // los pins actuales!!!!!!!!!IMPLEMENTAR
 	var coordinateSelected:CLLocationCoordinate2D?  // la coordenada (pin) seleccionada por el usuario
@@ -89,7 +91,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		
 		//TODO: cuando la vista de 'delete pins' aparece el marco de la supervista se eleva
-		mapView.frame.origin.y = -60
+		//mapView.frame.origin.y = -60
 		
 		
 		
@@ -168,13 +170,28 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		
 		/* 4 - que se guarden los datos obtenidos (set de fotos) en core data */
-		
-		
-		
+		savePins()
+
 		// test
 		print("\(currentPins.count)")
 		
 	} // end func
+	
+	
+	//*****************************************************************
+	// MARK: - Core Data
+	//***************************************************************
+	
+	func savePins() {
+		
+		do {
+				try stack.saveContext()
+				print("🐽 guarda el contexto porque se puso un pin sobre el mapa")
+			} catch {
+				print("Error while saving.")
+		}
+	
+	}
 
 	
 	//*****************************************************************
