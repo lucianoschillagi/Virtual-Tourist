@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Load some notebooks and notes.
 		preloadData()
 		// Start Autosaving
-		stack.autoSave(60)
+		stack.autoSave(5)
 		return true
 	}
 	

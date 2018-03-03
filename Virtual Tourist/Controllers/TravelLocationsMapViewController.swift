@@ -31,7 +31,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	//*****************************************************************
 	
 	var editMode: Bool = false
-	var currentPins: [Pin] = [] // los pins actuales
+	var currentPins: [Pin] = []  // los pins actuales!!!!!!!!!IMPLEMENTAR
 	var coordinateSelected:CLLocationCoordinate2D?  // la coordenada (pin) seleccionada por el usuario
 	
 	// modelo en 'FlickrImage'
@@ -63,9 +63,12 @@ class TravelLocationsMapViewController: CoreDataViewController {
 																													sectionNameKeyPath: nil,
 																													cacheName: nil)
 		
-		// agregar pins persistidos al mapa
-		print("Los pins actuales son \(currentPins.count)")
 	
+		//TODO: cuando la supervista se carga voy a buscar los pins(las coordenadas persistidas) para presentarlas en forma de anotaciones (pins) sobre el mapa
+
+		// test
+		print("🌂 \(currentPins.count)")
+		
 	}
 	
 	//*****************************************************************
@@ -84,7 +87,13 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		
-		// debug
+		
+		//TODO: cuando la vista de 'delete pins' aparece el marco de la supervista se eleva
+		mapView.frame.origin.y = -60
+		
+		
+		
+		// test
 		if editing {
 		print("la pantalla está en modo edición")
 		} else {
@@ -134,7 +143,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			 let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
 			
 			// currentPins, prueba, no sé si queda
-//			currentPins.append(pin)
+			currentPins.append(pin)
 //
 //			print("🎩 los pins actuales son: \(currentPins.count)")
 //
@@ -162,7 +171,9 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		
 		
-
+		// test
+		print("\(currentPins.count)")
+		
 	} // end func
 
 	
