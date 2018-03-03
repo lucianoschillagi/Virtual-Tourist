@@ -30,13 +30,16 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
+	// core data stack
 	let stack = CoreDataStack(modelName: "Model")!
-	
+	// edit mode
 	var editMode: Bool = false
+	// saved pins
 	var currentPins: [Pin] = []  // los pins actuales!!!!!!!!!IMPLEMENTAR
+	// coordenada seleccionada
 	var coordinateSelected:CLLocationCoordinate2D?  // la coordenada (pin) seleccionada por el usuario
 	
-	// modelo en 'FlickrImage'
+	// las images (fotos) descargadas desde Flickr
 	var photos: [FlickrImage] = [FlickrImage]()
 	
 	//*****************************************************************
@@ -71,6 +74,8 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		// test
 		print("🌂 \(currentPins.count)")
 		
+		mapView.addAnnotations(currentPins as! [MKAnnotation])
+		
 	}
 	
 	//*****************************************************************
@@ -89,17 +94,16 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		
-		
-		//TODO: cuando la vista de 'delete pins' aparece el marco de la supervista se eleva
-		//mapView.frame.origin.y = -60
-		
-		
-		
-		// test
+
+		// test, LUEGO BORRAR
 		if editing {
 		print("la pantalla está en modo edición")
+		// cuando la vista de 'delete pins' aparece el marco de la supervista se eleva
+		mapView.frame.origin.y = deletePins.frame.height * (-1)
 		} else {
 		print("la pantalla NO está en modo edición")
+		mapView.frame.origin.y = 0
+
 		}
 }
 	
@@ -133,30 +137,20 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			
 			/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
 			
-			// TODO: Cuando los pines se dejan caer en el mapa, ¿persisten como instancias 'Pin' en Core Data?
-			// add pin to core data
+			// CREA instancias del objeto gestionado 'Pin', cada vez que se el usuario agregar un pin
+			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
+			// y los GUARDA
+			savePins()
 
-			// create a new pin in core data
-	
-//				let nb = Notebook(name: "New Notebook", context: fetchedResultsController!.managedObjectContext)
-			
-			// crea instancias del objeto gestionado 'Pin'
-			// cada vez que se el usuario agregar un pin
-			 let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
-			
-			// currentPins, prueba, no sé si queda
+			// y almacena los pins que va guardando en un array de objetos 'Pin' [Pin]
 			currentPins.append(pin)
-//
-//			print("🎩 los pins actuales son: \(currentPins.count)")
-//
-//			for pin in currentPins {
-//				print("👛 Los pins actuales son: \(pin)")
-//			}
 			
-
 			// test
-			print("🏃🏽‍♀️ Se ha creado un nuevo pin: \(pin).")
-
+			print("🎩 los pins actuales son: \(currentPins.count)")
+			for _ in currentPins {
+				print("👛 Los pins actuales son: \(currentPins)")
+			}
+			
 			
 		} else  {
 			
@@ -168,12 +162,8 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
 		
 		
-		
-		/* 4 - que se guarden los datos obtenidos (set de fotos) en core data */
-		savePins()
 
-		// test
-		print("\(currentPins.count)")
+
 		
 	} // end func
 	
@@ -182,6 +172,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	// MARK: - Core Data
 	//***************************************************************
 	
+	// guardar los pines puestos
 	func savePins() {
 		
 		do {
@@ -193,6 +184,43 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	
 	}
 
+	// remover los pines tapeados
+	func removePins() {
+		
+		print("un pin ha sido removido de core data!")
+		// TODO: 1- 'decirle' al contexto que elimine el objeto especificado
+		
+		
+		
+		
+		
+		
+//		//Delete Core Data
+//
+//		func removeCoreData(of: MKAnnotation) {
+//
+//			let coord = of.coordinate
+//			for pin in currentPins {
+//
+//				if pin.latitude == coord.latitude && pin.longitude == coord.longitude {
+//
+//					do {
+//
+//						getCoreDataStack().context.delete(pin)
+//						try getCoreDataStack().saveContext()
+//
+//					} catch {
+//
+//						print("Remove Core Data Failed")
+//					}
+//					break
+//				}
+//			}
+//		}
+		
+		
+		
+	}
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)
@@ -240,6 +268,8 @@ extension TravelLocationsMapViewController:  MKMapViewDelegate {
 		} else {
 			// borra del mapa el pin tapeado
 			mapView.removeAnnotation(view.annotation!)
+			// y borra el objeto del modelo de datos (core data)
+			removePins() //
 			// debug
 			print("un pin ha sido borrado")
 		}
