@@ -126,10 +126,8 @@ class PhotoAlbumViewController: CoreDataViewController {
 	cómo limitar de un modelo de elementos indeterminados (fotos) las celdas de una colección a sólo 21?
 
 	
-	
 	*/
-	
-	
+
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -177,8 +175,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 																													managedObjectContext: stack.context,
 																													sectionNameKeyPath: nil,
 																													cacheName: nil)
-		
-		
+
 		}
 	
 
@@ -253,8 +250,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 extension PhotoAlbumViewController: UICollectionViewDataSource {
 	
 	// cantidad de celdas
-	func collectionView(_ collectionView: UICollectionView,
-											numberOfItemsInSection section: Int) -> Int {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
 		return photos.count // only 21
 
@@ -323,8 +319,7 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 	}
 
 	// le dice al delegado que el ítem en la ruta especificada fue SELECCIONADO
-	func collectionView(_ collectionView: UICollectionView,
-											didSelectItemAt indexPath: IndexPath) {
+	func collectionView(_ collectionView: UICollectionView,didSelectItemAt indexPath: IndexPath) {
 
 		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
 		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
@@ -343,8 +338,7 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 	}
 
 	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
-		func collectionView(_ collectionView: UICollectionView,
-						 didDeselectItemAt indexPath: IndexPath) {
+		func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 
 			// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
 			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)

@@ -100,7 +100,10 @@ struct CoreDataStack {
 		
 		func saveContext() throws {
 			if context.hasChanges {
-				try context.save()
+				try context.save() // almacena los cambios (datos) en un almacén
+				
+				// hay cambios no guardados?
+				print("👛 El contexto tiene cambios no confirmados: \(context.hasChanges)")
 			}
 		}
 		

@@ -1,5 +1,5 @@
 //
-//  Pin+CoreDataClass.swift
+//  Pin.swift
 //  Virtual Tourist
 //
 //  Created by Luciano Schillagi on 3/2/18.
@@ -16,7 +16,6 @@
 //}
 
 
-import Foundation
 import CoreData
 
 //Pin Class

@@ -45,10 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// TODO: cómo precargar los pins persistidos? (preguntar Udacity)
 		
-//		let codeNotes = Notebook(name: "Coding Notes", context: stack.context)
-		
-		
-		
+	
 		
 	}
 	

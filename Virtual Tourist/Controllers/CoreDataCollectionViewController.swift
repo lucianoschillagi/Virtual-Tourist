@@ -5,6 +5,9 @@
 //  Created by Luciano Schillagi on 1/20/18.
 //  Copyright © 2018 luko. All rights reserved.
 
+
+//NOTE: incompleto, sacado de 'CoolNotes', ver de adaptar a esta app.
+
 /* Controller */
 
 import UIKit
@@ -31,7 +34,7 @@ class CoreDataViewController: UIViewController {
 	
 	init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>) {
 		fetchedResultsController = fc
-		super.init(nibName: "nose", bundle: nil) // luego REVISAR ESTA LÍNEA
+		super.init(nibName: "Model", bundle: nil) // luego REVISAR ESTA LÍNEA
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -44,7 +47,8 @@ class CoreDataViewController: UIViewController {
 	//*****************************************************************
 
 	extension CoreDataViewController {
-
+		
+		// ejecutar búsqueda
 		func executeSearch() {
 			if let fc = fetchedResultsController {
 				do {

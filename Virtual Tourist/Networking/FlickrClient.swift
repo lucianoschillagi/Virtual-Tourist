@@ -43,9 +43,7 @@ class FlickrClient: NSObject {
 	//*****************************************************************
 	
 	// obtiene las urls de las fotos
-	func getPhotosPath(lat: Double,
-										 lon: Double,
-										 _ completionHandlerForGetPhotosPath: @escaping (_ result: [FlickrImage]?, _ error: NSError?) -> Void) {
+	func getPhotosPath(lat: Double,lon: Double, _ completionHandlerForGetPhotosPath: @escaping (_ result: [FlickrImage]?, _ error: NSError?) -> Void) {
 		
 		/* 1. Set the parameters */
 		let methodParameters: [String : Any] = [
@@ -96,8 +94,7 @@ class FlickrClient: NSObject {
 	} // end method
 	
 
-	func taskForGetMethod(methodParameters: [String : AnyObject],
-												completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+	func taskForGetMethod(methodParameters: [String : AnyObject],completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
 		
 		/* 1. Set the parameters */
 		let parametersReceived = methodParameters
