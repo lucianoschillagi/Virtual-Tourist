@@ -12,6 +12,18 @@ import UIKit
 import MapKit
 import CoreData
 
+/*
+
+TAREA: que se muestren un máximo de 21 fotos en el álbum.
+
+1-declarar una variable al principio o.e maxNumberOfCells: Int = 21
+
+2-cuando realice su llamada a flickrAPI, tendrá que hacer otro índice de números enteros para el número de fotos y que llene hasta 21 usando una instrucción while
+
+3-luego, las fotos de tu matriz final que devuelvas deben ser un bucle para recorrer la matriz de 21 enteros aleatorios con flickrImages [randomIndex] y solo hay 21 índices para que el llop regrese 21
+
+*/
+
 
 /* Abstract:
 Un objeto que representa un mapa donde el usuario puede marcar localizaciones a través de pins.
@@ -75,7 +87,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		
 		// TODO: traer los pins datos persistidos de los pines y mostrarlos en el mapa
-		let persistedCoordinates = CLLocationCoordinate2D(latitude: (savedPins?.latitude)!, longitude: (savedPins?.longitude)!)
+//		let persistedCoordinates = CLLocationCoordinate2D(latitude: (savedPins?.latitude)!, longitude: (savedPins?.longitude)!)
 		
 		//mapView.addAnnotations(persistedCoordinates) // FAIL!
 		

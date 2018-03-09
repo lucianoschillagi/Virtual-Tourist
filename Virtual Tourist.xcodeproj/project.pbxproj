@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		320259D103B90BC23B2EFDF0 /* Pods_Virtual_Tourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A62CC4B1201FA2A100E2054F /* Pods_Virtual_Tourist.framework */; };
+		A624FA7D2053109A00460FBD /* ProtocolExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A624FA7C2053109A00460FBD /* ProtocolExtensions.swift */; };
 		A65EC80D1FD994CF0034B379 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A65EC80C1FD994CF0034B379 /* LaunchScreen.xib */; };
 		A65EC8111FD9A27D0034B379 /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65EC8101FD9A27D0034B379 /* FlickrConstants.swift */; };
 		A661D9311FD771FB004CF5B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661D9301FD771FB004CF5B8 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		1C829A581DA7E7111A8C55D3 /* Pods-Virtual Tourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Virtual Tourist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Virtual Tourist/Pods-Virtual Tourist.release.xcconfig"; sourceTree = "<group>"; };
 		3EB44666589E73CACC757CD8 /* Pods-Virtual Tourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Virtual Tourist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Virtual Tourist/Pods-Virtual Tourist.debug.xcconfig"; sourceTree = "<group>"; };
+		A624FA7C2053109A00460FBD /* ProtocolExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProtocolExtensions.swift; path = "Virtual Tourist/ProtocolExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		A62CC4B1201FA2A100E2054F /* Pods_Virtual_Tourist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Virtual_Tourist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A62CC4B2201FA2A100E2054F /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A65EC80C1FD994CF0034B379 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -114,8 +116,8 @@
 			children = (
 				A696B1C7201417240073AB60 /* CoreDataCollectionViewController.swift */,
 				A661D9321FD771FB004CF5B8 /* TravelLocationsMapViewController.swift */,
-				A676C1D52051946100568652 /* Pins.swift */,
 				A67B842C201FBA2B004ED38E /* PhotoAlbumViewController.swift */,
+				A676C1D52051946100568652 /* Pins.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -170,6 +172,7 @@
 				A67CBF74201FD33100CCDBF6 /* next.md */,
 				A661D9301FD771FB004CF5B8 /* AppDelegate.swift */,
 				A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */,
+				A624FA7C2053109A00460FBD /* ProtocolExtensions.swift */,
 				A65EC8141FD9A2E50034B379 /* Model */,
 				A6D863DB200FD94000A92F9F /* View */,
 				A65EC8131FD9A2A60034B379 /* Controllers */,
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A65EC8111FD9A27D0034B379 /* FlickrConstants.swift in Sources */,
+				A624FA7D2053109A00460FBD /* ProtocolExtensions.swift in Sources */,
 				A6DE08F92049ADD7007EA5A8 /* Photo+CoreDataProperties.swift in Sources */,
 				A661D9331FD771FB004CF5B8 /* TravelLocationsMapViewController.swift in Sources */,
 				A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */,
