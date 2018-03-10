@@ -13,7 +13,6 @@ class Pins: NSObject, MKAnnotation {
 	
 	var coordinate: CLLocationCoordinate2D
 	
-
 	// MARK: - Initializers
 	init(coordinate: CLLocationCoordinate2D) {
 

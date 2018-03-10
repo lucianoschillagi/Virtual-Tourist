@@ -59,6 +59,8 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	// si están persistidos, sus instancias con el pin de presentarlas como Vistas
 	let savedPins: Pin? = nil
 	
+	let pins: Pins? = nil
+	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -88,8 +90,10 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		// TODO: traer los pins datos persistidos de los pines y mostrarlos en el mapa
 //		let persistedCoordinates = CLLocationCoordinate2D(latitude: (savedPins?.latitude)!, longitude: (savedPins?.longitude)!)
+//
+//		let jfkds: [Pins] = [Pins(coordinate: persistedCoordinates)]
 		
-		//mapView.addAnnotations(persistedCoordinates) // FAIL!
+//		mapView.addAnnotations(jfkds)
 		
 	}
 	

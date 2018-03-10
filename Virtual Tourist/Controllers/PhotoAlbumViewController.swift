@@ -19,18 +19,6 @@ Un objeto que contiene:
 -un botón para actualizar la colección de imágenes
 */
 
-/*
-
-TAREA: que se muestren un máximo de 21 fotos en el álbum.
-
-1-declarar una variable al principio o.e maxNumberOfCells: Int = 21
-
-2-cuando realice su llamada a flickrAPI, tendrá que hacer otro índice de números enteros para el número de fotos y que llene hasta 21 usando una instrucción while
-
-3-luego, las fotos de tu matriz final que devuelvas deben ser un bucle para recorrer la matriz de 21 enteros aleatorios con flickrImages [randomIndex] y solo hay 21 índices para que el loop regrese 21
-
-*/
-
 class PhotoAlbumViewController: CoreDataViewController {
 	
 	//*****************************************************************
@@ -97,46 +85,20 @@ class PhotoAlbumViewController: CoreDataViewController {
 				
 			}
 			
-			
 			collectionView.deleteItems(at: selected)
 		
 		}
 		// test
-		print("😈 El modelo actualmente tiene \(photos.count) elementos")
+		//print("😈 El modelo actualmente tiene \(photos.count) elementos")
 
 	}
 	
 	@IBAction func newCollectionPhotos(_ sender: UIButton) {
 		
-		// The Photo Album view has a button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
-		
-		// 1-nueva solicitud web
-		
-		// network request
-		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
-																								lon: coordinateSelected.longitude) { (photos, error) in
-																									
-																									// NOTE: recibe los valores desde 'FlickrClient' y los procesa acá (photos y error)
-																									
-				// optional binding
-				if let photos = photos {
-					
-				// va llenando el array 'photos' con las 'photoPath' recibidas
-				self.photos = photos
-					
-						} else {
-																										
-						print(error ?? "empty error")
-																										
-						} // end optional binding
-																				
-																				
-		} // end closure
+		viewWillAppear(false)
 		
 	}
 
-	
-	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -165,9 +127,6 @@ class PhotoAlbumViewController: CoreDataViewController {
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
 		
-		print("😎 \(photos.count)")
-		
-		
 		/* Core Data */
 		
 		// get the stack
@@ -186,7 +145,6 @@ class PhotoAlbumViewController: CoreDataViewController {
 
 		}
 	
-
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
 		
@@ -357,8 +315,8 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 			cell?.contentView.alpha = 0.5
 		}
 			// test
-			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
-			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+//			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
+//			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 
 	}
 
@@ -377,8 +335,8 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 			}
 
 			// debug
-			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
-			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+//			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
+//			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 		}
 
 } // end ext
