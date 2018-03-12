@@ -33,10 +33,10 @@ class PhotoAlbumViewController: CoreDataViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
-	// Model
-	// todas las fotos recibidas
+	// model
 	var photos: [FlickrImage] = [FlickrImage]() // let photoPath: String?
-	// contenedor con sólo 21 fotos
+	
+	// collection view
 	var maxNumberOfCells = 21
 	
 	// core data
@@ -45,7 +45,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
-	let regionRadius: CLLocationDistance = 1000
+	let regionRadius: CLLocationDistance = 1000 // el radio mostrado a partir de un punto
 	
 	// collection view cell
 	let photoCell = PhotoCell()
@@ -72,30 +72,42 @@ class PhotoAlbumViewController: CoreDataViewController {
 	// Borra los items de la colección seleccionados
 	@IBAction func deleteSelected(_ sender: Any) {
 		
-		
-		if let selected = collectionView.indexPathsForSelectedItems { // las direcciones de los items seleccionados
+		// comprueba si hay items seleccionados (array de elementos)
+		if let selected: [IndexPath] = collectionView.indexPathsForSelectedItems { // las direcciones de los items seleccionados
 			
+			// ordenar los elementos del array
 			let items = selected.map{$0.item}.sorted().reversed()
-			
+
+			// iterar los items del array
 			for item in items {
-				
+
+				// y borrarlos del modelo
 				photos.remove(at: item)
-				
+
 				print("\(item)")
-				
+
 			}
-			
+			// y borrarlos de los datos de la 'collection view'
 			collectionView.deleteItems(at: selected)
 		
 		}
-		// test
-		//print("😈 El modelo actualmente tiene \(photos.count) elementos")
 
 	}
 	
 	@IBAction func newCollectionPhotos(_ sender: UIButton) {
 		
-		viewWillAppear(false)
+		// si hay items seleccionados
+		if selectedToDelete.count > 0 {
+			
+			// borrar y no volver a llamar a la solicitud web
+			print("hay más de un item seleccionado para borrar")
+			
+		} else {
+			
+			// si No hay items seleccionados, descargar una nueva colección de fotos desde Flickr
+			viewWillAppear(false)
+			print("No hay items seleccionados, descargar nuevamente")
+		}
 		
 	}
 
@@ -110,9 +122,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 
 		// UI Elements ***************************************************
 		newCollectionButton.isHidden =  false
-		//noPhotos.isHidden = true
 		
-
 		// Map View ****************************************************
 		addAnnotationToMap()
 		
@@ -152,7 +162,7 @@ class PhotoAlbumViewController: CoreDataViewController {
 		
 		// network request
 		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
-																								lon: coordinateSelected.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos y error)
+																								lon: coordinateSelected.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
 			// optional binding
 			if let photos = photos {
 				
@@ -229,29 +239,24 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 	// cantidad de celdas
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
-			return photos.count // only 21
-		
+			return photos.count
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
-		let cellReuseIdentifier = "PhotoCell"
-		
 		let photo = photos[(indexPath as NSIndexPath).row] // LEE del Modelo!
-		print("👶🏼 \(photos.count)")
+		
+		// test
+		print("El modelo tiene actualmente \(photos.count) fotos.")
 		
 		// get cell type
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! PhotoCell
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
 		
-		// optional binding
+		// comprueba si hay fotos en el modelo
 		if let photoPath = photo.photoPath {
-
-			//test
-			print("🏄🏼‍♀️ \(photos.count)")
-			print("🐸 \(photoPath)" )
 			
-			// network request
+			// solicitud web para obtener los DATOS de las imágenes para convertirlas a imágenes
 			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
 
 				if let image = UIImage(data: imageData!) {
@@ -265,6 +270,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 					}
 
 				} else {
+
 					print(error ?? "empty error")
 				}
 			})
@@ -277,7 +283,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 	
 	// seleccionado para borrar desde los index paths de los items seleccionados
 	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
-		
+
 		// un array para almacenar los items seleccionados, por ahora vacío
 		var selected: [Int] = []
 		
@@ -288,7 +294,6 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 			selected.append(indexPath.item)
 			// el array ahora está llenado con los index path de los items seleccionados
 		}
-		print("🌈 \(selected)")
 		return selected
 	}
 	
@@ -312,11 +317,10 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 
 		// Dispatch
 		DispatchQueue.main.async {
-			cell?.contentView.alpha = 0.5
+			cell?.contentView.alpha = 0.4
 		}
 			// test
-//			print("Soy una celda y fui seleccionada. Mi dirección es \(indexPath)")
-//			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 
 	}
 
@@ -334,9 +338,8 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 				cell?.contentView.alpha = 1.0
 			}
 
-			// debug
-//			print("Soy una celda y fui DESeleccionada. Mi dirección es \(indexPath)")
-//			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+			// test
+			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
 		}
 
 } // end ext

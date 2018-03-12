@@ -21,5 +21,6 @@ class Pins: NSObject, MKAnnotation {
 		super.init()
 	}
 	
-	
 }
+
+

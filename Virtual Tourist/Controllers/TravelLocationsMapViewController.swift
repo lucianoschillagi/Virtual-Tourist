@@ -57,9 +57,12 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	
 	// una instancia de tipo 'Pin' para acceder al objeto y obtener
 	// si están persistidos, sus instancias con el pin de presentarlas como Vistas
-	let savedPins: Pin? = nil
+//	let savedPins: Pin? = nil
 	
-	let pins: Pins? = nil
+	// un array de objetos 'Pins'
+	// que representan una serie de coordenadas para poner sobre el mapa
+		var pins: Pins?
+//		var pins: [Pins] = []
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -87,14 +90,23 @@ class TravelLocationsMapViewController: CoreDataViewController {
 																													sectionNameKeyPath: nil,
 																													cacheName: nil)
 		
+		// crea un par de coordenadas y las pone dentro de la estructura 'CLLocationCoordinate2D'
+		// en dos objetos diferentes
+		let coordenadas = CLLocationCoordinate2D(latitude: -32.944243, longitude: -60.650539) // rosario
+		let coordenadas2 = CLLocationCoordinate2D(latitude: -34.603684, longitude: -58.381559) // bsas
 		
-		// TODO: traer los pins datos persistidos de los pines y mostrarlos en el mapa
-//		let persistedCoordinates = CLLocationCoordinate2D(latitude: (savedPins?.latitude)!, longitude: (savedPins?.longitude)!)
-//
-//		let jfkds: [Pins] = [Pins(coordinate: persistedCoordinates)]
+		// crea un array y pone las dos coordenadas
+//		var coordArray: [CLLocationCoordinate2D] = []
+//		coordArray.append(coordenadas)
+//		coordArray.append(coordenadas2)
 		
-//		mapView.addAnnotations(jfkds)
+		// asigna esas coordenadas al objeto 'Pins' (que adopta el protocolo que 'MKAnnotation')
+	
+
 		
+		
+		
+	
 	}
 	
 	//*****************************************************************
@@ -165,7 +177,9 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			// CREA instancias del objeto gestionado 'Pin', cada vez que se el usuario agregar un pin
 			// y le avisa al contexto que se ha producido un cambio en el Modelo
 			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
-
+	
+			
+			// Core data
 			// almacena los pins que va guardando en un array de objetos 'Pin' [Pin]
 			currentPins.append(pin)
 
