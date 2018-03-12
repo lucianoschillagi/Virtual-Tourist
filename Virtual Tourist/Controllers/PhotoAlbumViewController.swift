@@ -282,7 +282,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 
 					print(error ?? "empty error")
 				}
-			})
+			}) // end 'taskForGetImage' method
 
 		} // end optional binding
 		

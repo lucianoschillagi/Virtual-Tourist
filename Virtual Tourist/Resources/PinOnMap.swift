@@ -1,5 +1,5 @@
 //
-//  Pins.swift
+//  PinOnMap.swift
 //  Virtual Tourist
 //
 //  Created by Luciano Schillagi on 3/8/18.
@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class Pins: NSObject, MKAnnotation {
+class PinOnMap: NSObject, MKAnnotation {
 	
 	var coordinate: CLLocationCoordinate2D
 	

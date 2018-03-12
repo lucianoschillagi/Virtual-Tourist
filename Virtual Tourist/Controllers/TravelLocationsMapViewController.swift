@@ -12,19 +12,6 @@ import UIKit
 import MapKit
 import CoreData
 
-/*
-
-TAREA: que se muestren un máximo de 21 fotos en el álbum.
-
-1-declarar una variable al principio o.e maxNumberOfCells: Int = 21
-
-2-cuando realice su llamada a flickrAPI, tendrá que hacer otro índice de números enteros para el número de fotos y que llene hasta 21 usando una instrucción while
-
-3-luego, las fotos de tu matriz final que devuelvas deben ser un bucle para recorrer la matriz de 21 enteros aleatorios con flickrImages [randomIndex] y solo hay 21 índices para que el llop regrese 21
-
-*/
-
-
 /* Abstract:
 Un objeto que representa un mapa donde el usuario puede marcar localizaciones a través de pins.
 */
@@ -50,19 +37,16 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	var editMode: Bool = false
 	
 	// un array con los pins puestos actualmente sobre el mapa
-	var currentPins: [Pin] = []
+	var currentPins: [Pin] = [] // LUEGO DESCOMENTAR
+	
+	
+	var pins: PinOnMap?
+	var pinsArray: [PinOnMap] = [] // MKAnnotation
 	
 	// las images (fotos) descargadas desde Flickr
 	var photos: [FlickrImage] = [FlickrImage]()
 	
-	// una instancia de tipo 'Pin' para acceder al objeto y obtener
-	// si están persistidos, sus instancias con el pin de presentarlas como Vistas
-//	let savedPins: Pin? = nil
-	
-	// un array de objetos 'Pins'
-	// que representan una serie de coordenadas para poner sobre el mapa
-		var pins: Pins?
-//		var pins: [Pins] = []
+
 	
 	//*****************************************************************
 	// MARK: - View Life Cycle
@@ -71,17 +55,18 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// set edit-done button on navigation bar
+		// edit-done button
 		setEditDoneButton()
 		
 		/* Core Data */
 		
-		// get the stack
+		// obtiene la pila de core data
 		let delegate = UIApplication.shared.delegate as! AppDelegate
 		let stack = delegate.stack
 		
-		// solicita la búsqueda el objeto Pin
+		// solicita la búsqueda el objeto 'Pin'
 		let frPin = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
+		// ordena los resultados
 		frPin.sortDescriptors = []
 	
 		// el controlador de los resultados obtenidos
@@ -91,23 +76,35 @@ class TravelLocationsMapViewController: CoreDataViewController {
 																													cacheName: nil)
 		
 		// crea un par de coordenadas y las pone dentro de la estructura 'CLLocationCoordinate2D'
-		// en dos objetos diferentes
-		let coordenadas = CLLocationCoordinate2D(latitude: -32.944243, longitude: -60.650539)// rosario
-		let coordenadas2 = CLLocationCoordinate2D(latitude: -34.603684, longitude: -58.381559) // bsas
+		// luego pone esos dos objetos en un array de coordenadas
 		
-	
+		// el modelo alternativo
+		let coordenada1 = CLLocationCoordinate2D(latitude: -32.944243, longitude: -60.650539)// rosario
+		let coordenada2 = CLLocationCoordinate2D(latitude: -34.603684, longitude: -58.381559)// buenos aires
+		let coordenadasPersistidas: [CLLocationCoordinate2D] = [coordenada1, coordenada2]
 		
-		// crea un array y pone las dos coordenadas
-//		var coordArray: [CLLocationCoordinate2D] = []
-//		coordArray.append(coordenadas)
-//		coordArray.append(coordenadas2)
-		
-		// asigna esas coordenadas al objeto 'Pins' (que adopta el protocolo que 'MKAnnotation')
+		// este funciona!
+		for coordenada in coordenadasPersistidas {
 
-	
+			let pin = PinOnMap(coordinate: coordenada) // convierte los datos en objeto de tipo 'MKAnnotation'
+			pinsArray.append(pin)
+		}
+		
+		mapView.addAnnotations(pinsArray)
+		
+		// este todavía NO
+		
+		//		for pin in currentPins {
+		//
+		//			let coordenada = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+		//			let pins = Pins(coordinate: coordenada)
+		//			pinsArray.append(pins)
+		//
+		//		}
+		
 
-	
 	}
+	
 	
 	//*****************************************************************
 	// MARK: - Edit-Done Button
@@ -170,20 +167,23 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			
 		// test
 			print("un pin ha sido puesto")
-			print("🙎🏾 latitud: \(coordToAdd.latitude)")
+			print("🙎🏾 : \(coordToAdd.latitude)")
 			
 			/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
 			
 			// CREA instancias del objeto gestionado 'Pin', cada vez que se el usuario agregar un pin
 			// y le avisa al contexto que se ha producido un cambio en el Modelo
 			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
+			
+			// test
+			print("📡 Estas son las instancias creadas del objeto gestionado 'Pin': \(pin)")
 	
-			
-			// Core data
-			// almacena los pins que va guardando en un array de objetos 'Pin' [Pin]
+			// almacena los pins que va guardando en un array de objetos 'Pin' [Pin] llamado 'currentPins'
 			currentPins.append(pin)
+			print("🖥 Los pines actuales son \(currentPins). Cantidad: \(currentPins.count)")
 			
-			// y los GUARDA
+			// guarda los cambios recientes en el contexto
+			// en este caso los pines agregados
 			savePins()
 			
 			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
@@ -264,10 +264,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 	func removePins() {
 		
 		print("un pin ha sido removido de core data!")
-		// TODO: 1- 'decirle' al contexto que elimine el objeto especificado
-		
-	
-		
+
 	}
 	
 	//*****************************************************************
@@ -282,20 +279,17 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			let destination = segue.destination as! PhotoAlbumViewController
 			// el remitente será una coordenada (pin) puesto sobre el mapa
 			let coord = sender as! CLLocationCoordinate2D
-			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
-			destination.coordinateSelected = coord
-			// le pasa al otro vc las fotos recibidas desde Flickr
-			destination.photos = photos
 			
+			// MARK: pasando datos de este vc al siguiente...
+			// le pasa la coordenada seleccionada
+			destination.coordinateSelected = coord
+			// le pasa las fotos recibidas desde flickr
+			destination.photos = photos
 		}
-		
-		// debug
-		print("transición hacia otra pantalla...")
 		
 	}
 	
 } // end vc
-
 
 //*****************************************************************
 // MARK: - Map View Methods

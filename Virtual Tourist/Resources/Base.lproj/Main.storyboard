@@ -122,9 +122,13 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Owa-Um-uzc" secondAttribute="trailing" id="0fy-lN-rjD"/>
+                                            <constraint firstItem="Owa-Um-uzc" firstAttribute="leading" secondItem="XOa-TX-Myl" secondAttribute="leading" id="1pN-u0-n0q"/>
                                             <constraint firstAttribute="bottom" secondItem="Owa-Um-uzc" secondAttribute="bottom" id="Gwc-VQ-YfE"/>
                                             <constraint firstItem="Owa-Um-uzc" firstAttribute="leading" secondItem="XOa-TX-Myl" secondAttribute="leading" id="MOW-pz-SDl"/>
                                             <constraint firstItem="CeG-3e-68U" firstAttribute="top" secondItem="XOa-TX-Myl" secondAttribute="top" id="N8E-hH-gqp"/>
+                                            <constraint firstItem="Owa-Um-uzc" firstAttribute="top" secondItem="XOa-TX-Myl" secondAttribute="top" id="Y0D-sL-Kjl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Owa-Um-uzc" secondAttribute="trailing" id="ZiW-7i-E0X"/>
+                                            <constraint firstAttribute="bottom" secondItem="Owa-Um-uzc" secondAttribute="bottom" id="bU6-E5-oQj"/>
                                             <constraint firstAttribute="bottom" secondItem="CeG-3e-68U" secondAttribute="bottom" id="dAI-dL-vat"/>
                                             <constraint firstAttribute="trailing" secondItem="CeG-3e-68U" secondAttribute="trailing" id="hxC-29-YCr"/>
                                             <constraint firstItem="CeG-3e-68U" firstAttribute="leading" secondItem="XOa-TX-Myl" secondAttribute="leading" id="vCb-rL-3Zd"/>

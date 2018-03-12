@@ -102,8 +102,9 @@ struct CoreDataStack {
 			if context.hasChanges {
 				try context.save() // almacena los cambios (datos) en un almacén
 				
-				// hay cambios no guardados?
-				print("👛 El contexto tiene cambios no confirmados: \(context.hasChanges)")
+				// hay objetos en el contexto aún no persistidos?
+				print("👛 hay objetos en el contexto aún no persistidos?: \(context.insertedObjects)")
+
 			}
 		}
 		
