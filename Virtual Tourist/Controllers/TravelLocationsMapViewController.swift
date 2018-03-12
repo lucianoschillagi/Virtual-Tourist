@@ -92,8 +92,10 @@ class TravelLocationsMapViewController: CoreDataViewController {
 		
 		// crea un par de coordenadas y las pone dentro de la estructura 'CLLocationCoordinate2D'
 		// en dos objetos diferentes
-		let coordenadas = CLLocationCoordinate2D(latitude: -32.944243, longitude: -60.650539) // rosario
+		let coordenadas = CLLocationCoordinate2D(latitude: -32.944243, longitude: -60.650539)// rosario
 		let coordenadas2 = CLLocationCoordinate2D(latitude: -34.603684, longitude: -58.381559) // bsas
+		
+	
 		
 		// crea un array y pone las dos coordenadas
 //		var coordArray: [CLLocationCoordinate2D] = []
@@ -101,11 +103,9 @@ class TravelLocationsMapViewController: CoreDataViewController {
 //		coordArray.append(coordenadas2)
 		
 		// asigna esas coordenadas al objeto 'Pins' (que adopta el protocolo que 'MKAnnotation')
+
 	
 
-		
-		
-		
 	
 	}
 	
@@ -182,16 +182,55 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			// Core data
 			// almacena los pins que va guardando en un array de objetos 'Pin' [Pin]
 			currentPins.append(pin)
-
-			// test
-			print("🎩 los pins actuales son: \(currentPins.count)")
-			for _ in currentPins {
-				print("👛 Los pins actuales son: \(currentPins)")
-			}
 			
 			// y los GUARDA
 			savePins()
 			
+			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+			
+			// network request
+			FlickrClient.sharedInstance().getPhotosPath(lat: coordToAdd.latitude,
+																									lon: coordToAdd.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
+				// optional binding
+					if let photos = photos {
+																											
+					// si se reciben fotos...
+					// almacena en la propiedad 'photos' todas las fotos recibidas
+						self.photos = photos
+																											
+						// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
+							let photosRandom: [FlickrImage] = photos.shuffled()
+																											
+							// sobre las fotos ordenadas aleatoriamente...
+							// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
+								if photosRandom.count > 21 {
+																												
+								// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
+								let extractFirstTwentyOne = photosRandom[0..<21]
+																												
+								// prepara un array de fotos para contener las primeras 21
+								var firstTwentyOne: [FlickrImage] = []
+																												
+								// convierte la porción extraída (21) en un objeto de tipo Array
+								firstTwentyOne = Array(extractFirstTwentyOne)
+																												
+								// asigna a la propiedad 'photos' las 21 fotos seleccionadas
+								self.photos = firstTwentyOne
+																												
+									} else { // si recibe menos de 21 fotos
+																												
+								// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
+								self.photos = photos
+									
+						}
+																											
+								} else {
+																											
+							print(error ?? "empty error")
+																											
+						} // end optional binding
+																										
+			} // end closure
 			
 		} else  {
 			
@@ -199,9 +238,7 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			
 		} // end if-else
 		
-		
-		/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
-		
+		print("🔌 Las fotos actuales son \(photos.count)")
 
 		
 	} // end func
@@ -247,6 +284,8 @@ class TravelLocationsMapViewController: CoreDataViewController {
 			let coord = sender as! CLLocationCoordinate2D
 			// pasa esta coordenada (este valor) a la propiedad 'coordinateSelected' de 'PhotosViewController'
 			destination.coordinateSelected = coord
+			// le pasa al otro vc las fotos recibidas desde Flickr
+			destination.photos = photos
 			
 		}
 		

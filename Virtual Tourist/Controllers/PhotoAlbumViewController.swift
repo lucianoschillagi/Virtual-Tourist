@@ -105,8 +105,57 @@ class PhotoAlbumViewController: CoreDataViewController {
 		} else {
 			
 			// si No hay items seleccionados, descargar una nueva colección de fotos desde Flickr
-			viewWillAppear(false)
 			print("No hay items seleccionados, descargar nuevamente")
+					// network request
+					FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
+																											lon: coordinateSelected.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
+						// optional binding
+						if let photos = photos {
+			
+							// si se reciben fotos...
+							// almacena en la propiedad 'photos' todas las fotos recibidas
+							self.photos = photos
+			
+							// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
+							let photosRandom: [FlickrImage] = photos.shuffled()
+			
+							// sobre las fotos ordenadas aleatoriamente...
+							// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
+							if photosRandom.count > self.maxNumberOfCells {
+			
+							// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
+							let extractFirstTwentyOne = photosRandom[0..<self.maxNumberOfCells]
+			
+							// prepara un array de fotos para contener las primeras 21
+							var firstTwentyOne: [FlickrImage] = []
+			
+							// convierte la porción extraída (21) en un objeto de tipo Array
+							firstTwentyOne = Array(extractFirstTwentyOne)
+			
+							// asigna a la propiedad 'photos' las 21 fotos seleccionadas
+							self.photos = firstTwentyOne
+			
+							} else { // si recibe menos de 21 fotos
+			
+								// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
+								self.photos = photos
+							}
+			
+							// dispatch
+							performUIUpdatesOnMain {
+			
+								self.collectionView.reloadData()
+			
+							}
+			
+						} else {
+			
+							print(error ?? "empty error")
+			
+						} // end optional binding
+			
+					} // end closure
+			
 		}
 		
 	}
@@ -160,55 +209,15 @@ class PhotoAlbumViewController: CoreDataViewController {
 		
 		super.viewWillAppear(animated)
 		
-		// network request
-		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
-																								lon: coordinateSelected.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
-			// optional binding
-			if let photos = photos {
-				
-				// si se reciben fotos...
-				// almacena en la propiedad 'photos' todas las fotos recibidas
-				self.photos = photos
-				
-				// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
-				let photosRandom: [FlickrImage] = photos.shuffled()
-				
-				// sobre las fotos ordenadas aleatoriamente...
-				// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
-				if photosRandom.count > self.maxNumberOfCells {
-				
-				// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
-				let extractFirstTwentyOne = photosRandom[0..<self.maxNumberOfCells]
-				
-				// prepara un array de fotos para contener las primeras 21
-				var firstTwentyOne: [FlickrImage] = []
-				
-				// convierte la porción extraída (21) en un objeto de tipo Array
-				firstTwentyOne = Array(extractFirstTwentyOne)
-				
-				// asigna a la propiedad 'photos' las 21 fotos seleccionadas
-				self.photos = firstTwentyOne
-					
-				} else { // si recibe menos de 21 fotos
-					
-					// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
-					self.photos = photos
-				}
-				
-				// dispatch
-				performUIUpdatesOnMain {
-
-					self.collectionView.reloadData()
-
-				}
-
-			} else {
-
-				print(error ?? "empty error")
-
-			} // end optional binding
-																									
-		} // end closure
+		// test
+		print("☎️Las fotos actuales son \(photos.count)")
+		
+						// dispatch
+						performUIUpdatesOnMain {
+		
+							self.collectionView.reloadData()
+		
+						}
 		
 	} // end viewWillAppear()
 		
