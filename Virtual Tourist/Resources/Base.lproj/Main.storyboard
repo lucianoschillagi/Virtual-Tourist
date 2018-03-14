@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="jLG-QZ-8sV"/>
-                                    <outletCollection property="gestureRecognizers" destination="MnV-ql-3Q8" appends="YES" id="kOg-ab-1hb"/>
+                                    <outletCollection property="gestureRecognizers" destination="AvV-uu-P1n" appends="YES" id="mbQ-4l-bDB"/>
                                 </connections>
                             </mapView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfy-zI-vq4" userLabel="Tap Pins to Delete Background">
@@ -73,9 +73,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="MnV-ql-3Q8">
                     <connections>
-                        <action selector="addPinToMap:" destination="BYZ-38-t0r" id="ECK-FA-SRS"/>
+                        <action selector="longPressPrueba:" destination="BYZ-38-t0r" id="mxW-xH-nUx"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="AvV-uu-P1n">
+                    <connections>
+                        <action selector="addPinToMap:" destination="BYZ-38-t0r" id="A9J-Xa-lYD"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="457.97101449275368" y="133.69565217391306"/>
         </scene>

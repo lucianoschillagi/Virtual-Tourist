@@ -22,5 +22,3 @@ class PinOnMap: NSObject, MKAnnotation {
 	}
 	
 }
-
-

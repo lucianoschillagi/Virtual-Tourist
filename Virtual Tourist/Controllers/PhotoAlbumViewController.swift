@@ -19,7 +19,7 @@ Un objeto que contiene:
 -un botón para actualizar la colección de imágenes
 */
 
-class PhotoAlbumViewController: CoreDataViewController {
+class PhotoAlbumViewController: UIViewController {
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -185,22 +185,6 @@ class PhotoAlbumViewController: CoreDataViewController {
 
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
-		
-		/* Core Data */
-		
-		// get the stack
-		let delegate = UIApplication.shared.delegate as! AppDelegate
-		let stack = delegate.stack
-		
-		// create a fetch request
-		let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
-		fr.sortDescriptors = []
-		
-		// create the fetched results controller
-		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
-																													managedObjectContext: stack.context,
-																													sectionNameKeyPath: nil,
-																													cacheName: nil)
 
 		}
 	

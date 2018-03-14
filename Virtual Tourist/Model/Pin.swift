@@ -7,15 +7,6 @@
 //
 //
 
-//import Foundation
-//import CoreData
-//
-//@objc(Pin)
-//public class Pin: NSManagedObject {
-//
-//}
-
-
 import CoreData
 
 //Pin Class
@@ -34,6 +25,7 @@ public class Pin: NSManagedObject {
 			fatalError("Unable To Find Entity Name!")
 		}
 	}
-
 }
+	
+
 
