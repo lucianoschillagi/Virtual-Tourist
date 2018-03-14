@@ -24,7 +24,7 @@
 		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
 		A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */; };
 		A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */; };
-		A6DE08F32049A6D3007EA5A8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A6DE08F12049A6D3007EA5A8 /* Model.xcdatamodeld */; };
+		A6DE08F32049A6D3007EA5A8 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A6DE08F12049A6D3007EA5A8 /* VirtualTourist.xcdatamodeld */; };
 		A6DE08F82049ADD7007EA5A8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DE08F42049ADD7007EA5A8 /* Photo.swift */; };
 		A6DE08F92049ADD7007EA5A8 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DE08F52049ADD7007EA5A8 /* Photo+CoreDataProperties.swift */; };
 		A6DE08FA2049ADD7007EA5A8 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DE08F62049ADD7007EA5A8 /* Pin.swift */; };
@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				A668AE1A205978020002A42D /* DataController.swift */,
-				A6DE08F12049A6D3007EA5A8 /* Model.xcdatamodeld */,
+				A6DE08F12049A6D3007EA5A8 /* VirtualTourist.xcdatamodeld */,
 				A6DE08F62049ADD7007EA5A8 /* Pin.swift */,
 				A6DE08F72049ADD7007EA5A8 /* Pin+CoreDataProperties.swift */,
 				A6DE08F42049ADD7007EA5A8 /* Photo.swift */,
@@ -333,7 +333,7 @@
 				A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */,
 				A6DE08FA2049ADD7007EA5A8 /* Pin.swift in Sources */,
 				A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */,
-				A6DE08F32049A6D3007EA5A8 /* Model.xcdatamodeld in Sources */,
+				A6DE08F32049A6D3007EA5A8 /* VirtualTourist.xcdatamodeld in Sources */,
 				A668AE1B205978020002A42D /* DataController.swift in Sources */,
 				A6DE08FB2049ADD7007EA5A8 /* Pin+CoreDataProperties.swift in Sources */,
 				A67B842D201FBA2B004ED38E /* PhotoAlbumViewController.swift in Sources */,
@@ -519,13 +519,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		A6DE08F12049A6D3007EA5A8 /* Model.xcdatamodeld */ = {
+		A6DE08F12049A6D3007EA5A8 /* VirtualTourist.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				A6DE08F22049A6D3007EA5A8 /* Model.xcdatamodel */,
 			);
 			currentVersion = A6DE08F22049A6D3007EA5A8 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			path = VirtualTourist.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

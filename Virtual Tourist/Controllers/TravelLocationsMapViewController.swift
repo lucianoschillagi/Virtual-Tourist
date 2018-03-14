@@ -30,6 +30,9 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
+	// core data
+	var dataController: DataController!
+	
 	// edit mode
 	var editMode: Bool = false
 	

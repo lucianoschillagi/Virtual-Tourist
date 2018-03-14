@@ -10,9 +10,6 @@
 
 import UIKit
 
-/* Abstract:
----
-*/
 
 //*****************************************************************
 // MARK: - AppDelegate: UIResponder, UIApplicationDelegate
@@ -26,21 +23,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	//*****************************************************************
 	
 	var window: UIWindow?
-
-	//*****************************************************************
-	// MARK: - Preload Data
-	//*****************************************************************
 	
-	func preloadData() {
-		
-	}
+	// core data
+	let dataController = DataController(modelName: "VirtualTourist")
 	
 	//*****************************************************************
 	// MARK: - UIApplication Delegate
 	//*****************************************************************
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+		
+		// Override point for customization after application launch.
+		dataController.load()
+		
+		// inyecta el 'dataController' en el 'TravelLocationsMapViewController'
+		let navigationController = window?.rootViewController as! UINavigationController
+		let travelLocationsViewController = navigationController.topViewController as! TravelLocationsMapViewController
+		travelLocationsViewController.dataController = dataController
+		
 		return true
 	}
 	
