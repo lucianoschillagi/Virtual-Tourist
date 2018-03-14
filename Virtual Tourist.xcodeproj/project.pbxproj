@@ -15,6 +15,7 @@
 		A661D9331FD771FB004CF5B8 /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A661D9321FD771FB004CF5B8 /* TravelLocationsMapViewController.swift */; };
 		A661D9361FD771FB004CF5B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A661D9341FD771FB004CF5B8 /* Main.storyboard */; };
 		A661D9381FD771FB004CF5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A661D9371FD771FB004CF5B8 /* Assets.xcassets */; };
+		A668AE1B205978020002A42D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A668AE1A205978020002A42D /* DataController.swift */; };
 		A676C1D62051946100568652 /* PinOnMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A676C1D52051946100568652 /* PinOnMap.swift */; };
 		A67B842D201FBA2B004ED38E /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B842C201FBA2B004ED38E /* PhotoAlbumViewController.swift */; };
 		A67B8434201FC482004ED38E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A67B8435201FC482004ED38E /* SnapKit.framework */; };
@@ -44,6 +45,7 @@
 		A661D9351FD771FB004CF5B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A661D9371FD771FB004CF5B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A661D93C1FD771FB004CF5B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A668AE1A205978020002A42D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A676C1D52051946100568652 /* PinOnMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinOnMap.swift; sourceTree = "<group>"; };
 		A67B842C201FBA2B004ED38E /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		A67B842F201FBE54004ED38E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,12 +118,13 @@
 		A65EC8141FD9A2E50034B379 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */,
+				A668AE1A205978020002A42D /* DataController.swift */,
 				A6DE08F12049A6D3007EA5A8 /* Model.xcdatamodeld */,
 				A6DE08F62049ADD7007EA5A8 /* Pin.swift */,
 				A6DE08F72049ADD7007EA5A8 /* Pin+CoreDataProperties.swift */,
 				A6DE08F42049ADD7007EA5A8 /* Photo.swift */,
 				A6DE08F52049ADD7007EA5A8 /* Photo+CoreDataProperties.swift */,
+				A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				A6DE08FA2049ADD7007EA5A8 /* Pin.swift in Sources */,
 				A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */,
 				A6DE08F32049A6D3007EA5A8 /* Model.xcdatamodeld in Sources */,
+				A668AE1B205978020002A42D /* DataController.swift in Sources */,
 				A6DE08FB2049ADD7007EA5A8 /* Pin+CoreDataProperties.swift in Sources */,
 				A67B842D201FBA2B004ED38E /* PhotoAlbumViewController.swift in Sources */,
 			);
