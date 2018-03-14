@@ -2,19 +2,40 @@
 //  Pin+CoreDataProperties.swift
 //  Virtual Tourist
 //
-//  Created by Luciano Schillagi on 3/2/18.
+//  Created by Luciano Schillagi on 3/14/18.
 //  Copyright © 2018 luko. All rights reserved.
 //
 //
 
+import Foundation
 import CoreData
 
 
 extension Pin {
 
-    @NSManaged public var latitude: Double
-    @NSManaged public var longitude: Double
-    @NSManaged public var pinToPhoto: NSSet?
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Pin> {
+        return NSFetchRequest<Pin>(entityName: "Pin")
+    }
+
+    @NSManaged public var latitude: NSNumber?
+    @NSManaged public var longitude: NSNumber?
+    @NSManaged public var photos: NSSet?
 
 }
 
+// MARK: Generated accessors for photos
+extension Pin {
+
+    @objc(addPhotosObject:)
+    @NSManaged public func addToPhotos(_ value: Photo)
+
+    @objc(removePhotosObject:)
+    @NSManaged public func removeFromPhotos(_ value: Photo)
+
+    @objc(addPhotos:)
+    @NSManaged public func addToPhotos(_ values: NSSet)
+
+    @objc(removePhotos:)
+    @NSManaged public func removeFromPhotos(_ values: NSSet)
+
+}

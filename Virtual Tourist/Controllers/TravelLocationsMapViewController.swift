@@ -32,18 +32,15 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	// core data
 	var dataController: DataController!
+	var pins: [Pin] = [] // The `Pin` objects being presented
 	
 	// edit mode
 	var editMode: Bool = false
 	
-	/* Pins */
-	// un array con los pins puestos actualmente sobre el mapa
-	var currentPins: [Pin] = [] // core data
-	
+	// map view
 	var pinsArray: [PinOnMap] = [] // esta clase adopta el protocolo 'MKAnnotation'
 	
-	/* Photos */
-	// las fotos descargadas desde flickr
+	// flickr
 	var photos: [FlickrImage] = [FlickrImage]()
 	
 	
@@ -53,6 +50,19 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		// fetch request
+		let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+//		let sortDescriptor = NSSortDescriptor(key: "creationData", ascending: false)
+//		fetchRequest.sortDescriptor = [sortDescriptor]
+		
+		// comprueba el resultado de la solicitud de búsqueda del objeto ´Pin´ (los pins)
+		if let result = try? dataController.viewContext.fetch(fetchRequest) {
+			
+			pins = result
+//		tableView.reloadData() // cual sería el simil para ´mapView´?
+		
+		}
 		
 		// edit-done button
 		setEditDoneButton()
@@ -75,16 +85,16 @@ class TravelLocationsMapViewController: UIViewController {
 	
 		// este todavía NO
 		
-				for pin in currentPins {
-					
-					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-					let pins = PinOnMap(coordinate: coordinate)
-					pinsArray.append(pins)
-		
-				}
-		
-		mapView.addAnnotations(pinsArray)
-
+//				for pin in currentPins {
+//
+//					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+//					let pins = PinOnMap(coordinate: coordinate)
+//					pinsArray.append(pins)
+//
+//				}
+//
+//		mapView.addAnnotations(pinsArray)
+//
 	}
 	
 	//*****************************************************************
@@ -103,8 +113,6 @@ class TravelLocationsMapViewController: UIViewController {
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		
-
-		// test, LUEGO BORRAR
 		if editing {
 		print("la pantalla está en modo edición")
 		// cuando la vista de 'delete pins' aparece el marco de la supervista se eleva
@@ -219,25 +227,6 @@ class TravelLocationsMapViewController: UIViewController {
 
 
 	} // end func
-
-	
-//	@IBAction func longPressPrueba(_ sender: Any) {
-//
-//		// las coordenadas del tapeo sobre el mapa
-//		let gestureTouchLocation: CGPoint = (sender as AnyObject).location(in: mapView) // la ubicación del tapeo sobre una vista
-//
-//		print("🔏 toque largo sobre el mapa \(gestureTouchLocation)")
-//
-//
-//	}
-	
-
-	
-	//*****************************************************************
-	// MARK: - Core Data
-	//***************************************************************
-	
-
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)
@@ -260,7 +249,7 @@ class TravelLocationsMapViewController: UIViewController {
 		}
 		
 	}
-	
+		
 } // end vc
 
 
@@ -294,3 +283,15 @@ extension TravelLocationsMapViewController:  MKMapViewDelegate {
 }
 
 
+
+// test
+
+//	@IBAction func longPressPrueba(_ sender: Any) {
+//
+//		// las coordenadas del tapeo sobre el mapa
+//		let gestureTouchLocation: CGPoint = (sender as AnyObject).location(in: mapView) // la ubicación del tapeo sobre una vista
+//
+//		print("🔏 toque largo sobre el mapa \(gestureTouchLocation)")
+//
+//
+//	}
