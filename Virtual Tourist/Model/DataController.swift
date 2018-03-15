@@ -13,18 +13,18 @@ import CoreData
 
 // Core Data Stack
 
-// crea una clase para encapsular las configuraciones de la pila
-// y su funcionalidad
+// crea una clase para encapsular las configuraciones de la pila y su funcionalidad
 
 class DataController {
 	
 	let persistentContainer: NSPersistentContainer
 	
-	// computed property
+	// ve el contexto..
 	var viewContext: NSManagedObjectContext {
 		return persistentContainer.viewContext
 	}
 	
+	// inicializa el contenedor persistente de un modelo dado
 	init(modelName: String) {
 		persistentContainer = NSPersistentContainer(name: modelName)
 	}

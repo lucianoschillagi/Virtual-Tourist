@@ -32,6 +32,8 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	// core data
 	var dataController: DataController!
+	
+	/// The `Pin` objects being presented
 	var pins: [Pin] = [] // The `Pin` objects being presented
 	
 	// edit mode
@@ -59,7 +61,9 @@ class TravelLocationsMapViewController: UIViewController {
 		// comprueba el resultado de la solicitud de búsqueda del objeto ´Pin´ (los pins)
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
 			
+			// le pasa el resultado al array de pins
 			pins = result
+			
 //		tableView.reloadData() // cual sería el simil para ´mapView´?
 		
 		}
@@ -113,15 +117,6 @@ class TravelLocationsMapViewController: UIViewController {
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		
-		if editing {
-		print("la pantalla está en modo edición")
-		// cuando la vista de 'delete pins' aparece el marco de la supervista se eleva
-		mapView.frame.origin.y = deletePins.frame.height * (-1)
-		} else {
-		print("la pantalla NO está en modo edición")
-		mapView.frame.origin.y = 0
-
-		}
 }
 	
 	//*****************************************************************

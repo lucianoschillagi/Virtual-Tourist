@@ -25,7 +25,7 @@
                                     <outletCollection property="gestureRecognizers" destination="AvV-uu-P1n" appends="YES" id="mbQ-4l-bDB"/>
                                 </connections>
                             </mapView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfy-zI-vq4" userLabel="Tap Pins to Delete Background">
+                            <view hidden="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfy-zI-vq4" userLabel="Tap Pins to Delete Background">
                                 <rect key="frame" x="0.0" y="670" width="414" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pins to Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9L-ed-ufz">
