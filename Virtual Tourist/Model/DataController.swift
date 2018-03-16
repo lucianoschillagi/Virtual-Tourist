@@ -19,12 +19,11 @@ class DataController {
 	
 	let persistentContainer: NSPersistentContainer
 	
-	// ve el contexto..
 	var viewContext: NSManagedObjectContext {
 		return persistentContainer.viewContext
 	}
 	
-	// inicializa el contenedor persistente de un modelo dado
+	/// inicializa el contenedor persistente de un modelo dado
 	init(modelName: String) {
 		persistentContainer = NSPersistentContainer(name: modelName)
 	}

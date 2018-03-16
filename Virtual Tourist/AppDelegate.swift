@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		dataController.load()
 		
-		// inyecta el 'dataController' en el 'TravelLocationsMapViewController'
+		// apenas arrancia la aplicación...
+		/// inyecta el 'dataController' en el 'TravelLocationsMapViewController'
 		let navigationController = window?.rootViewController as! UINavigationController
 		let travelLocationsViewController = navigationController.topViewController as! TravelLocationsMapViewController
 		travelLocationsViewController.dataController = dataController

@@ -30,7 +30,7 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
-	// core data
+	/// inyecta el controlador de datos
 	var dataController: DataController!
 	
 	/// The `Pin` objects being presented
@@ -53,17 +53,15 @@ class TravelLocationsMapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// fetch request
+		// solictud de búsqueda del objeto ´Pin´
 		let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-//		let sortDescriptor = NSSortDescriptor(key: "creationData", ascending: false)
-//		fetchRequest.sortDescriptor = [sortDescriptor]
+		fetchRequest.sortDescriptors = []
 		
 		// comprueba el resultado de la solicitud de búsqueda del objeto ´Pin´ (los pins)
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
 			
 			// le pasa el resultado al array de pins
 			pins = result
-			
 //		tableView.reloadData() // cual sería el simil para ´mapView´?
 		
 		}
@@ -154,17 +152,31 @@ class TravelLocationsMapViewController: UIViewController {
 			print("🙎🏾 : \(coordToAdd.latitude)")
 
 			/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
+			
+			// crea un objeto 'notebook' cada vez que el botón ´addButton(name:String)´ es presionado
+//			let notebook = Notebook(context: dataController.viewContext)
+//			notebook.name = name
+//			notebook.creationDate = Date()
+//			try? dataController.viewContext.save()
+//			// inserta un 'notebook' en el array de notebooks
+//			notebooks.insert(notebook, at: 0)
+//			// inserta una fila
+//			tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
 
-			// CREA instancias del objeto gestionado 'Pin', cada vez que se el usuario agregar un pin
-			// y le avisa al contexto que se ha producido un cambio en el Modelo
-//			let pin = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: fetchedResultsController!.managedObjectContext)
-
+			// crea una instancia del objeto 'Pin' cada vez que se agrega un pin sobre el mapa
+//			let pin = Pin(context: dataController.viewContext)
+			let pin  = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: dataController.viewContext)
+			// intenta guardar los cambios que registra el contexto (en este caso, que se agregó un nuevo objeto ´Pin´)
+			try? dataController.viewContext.save()
+			
 			// test
-//			print("📡 Estas son las instancias creadas del objeto gestionado 'Pin': \(pin)")
+			print("✏️ se agrega un nuevo pin \(pin)")
+			print("🔭 los pines totales son \(pins)")
+			
 
-			// almacena los pins que va guardando en un array de objetos 'Pin' [Pin] llamado 'currentPins'
-//			currentPins.append(pin)
-//			print("🖥 Los pines actuales son \(currentPins). Cantidad: \(currentPins.count)")
+			
+
+			
 
 
 			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
@@ -222,6 +234,22 @@ class TravelLocationsMapViewController: UIViewController {
 
 
 	} // end func
+	
+	
+	
+	//*****************************************************************
+	// MARK: - Helpers
+	//*****************************************************************
+	
+	/// cuenta la cantidad de pins persistidos
+	var numberOfPins: Int { return pins.count }
+	
+	/// devuelve las ´ubicaciones´ de un grupo de pins
+	func pins(at indexPath: IndexPath) -> Pin {
+		return pins[indexPath.row]
+	}
+	
+	
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)
