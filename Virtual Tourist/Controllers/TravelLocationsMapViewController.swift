@@ -53,8 +53,11 @@ class TravelLocationsMapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// solictud de búsqueda del objeto ´Pin´
-		let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+		// edit-done button
+		setEditDoneButton()
+		
+		// Core Data -> Map View
+		let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest() // solictud de búsqueda del objeto ´Pin´
 		fetchRequest.sortDescriptors = []
 		
 		// comprueba el resultado de la solicitud de búsqueda del objeto ´Pin´ (los pins)
@@ -62,41 +65,19 @@ class TravelLocationsMapViewController: UIViewController {
 			
 			// le pasa el resultado al array de pins
 			pins = result
-//		tableView.reloadData() // cual sería el simil para ´mapView´?
-		
+			
 		}
 		
-		// edit-done button
-		setEditDoneButton()
+		for pin in pins {
+			
+			let coordinate = CLLocationCoordinate2D(latitude: pin.latitude as! CLLocationDegrees, longitude: pin.longitude as! CLLocationDegrees)
+			let pins = PinOnMap(coordinate: coordinate)
+			pinsArray.append(pins)
+			
+		}
 		
-
-		// crea un par de coordenadas y las pone dentro de la estructura 'CLLocationCoordinate2D'
-		// luego pone esos dos objetos en un array de coordenadas
-		// el modelo alternativo
-		let coordenada1 = CLLocationCoordinate2D(latitude: -32.944243, longitude: -60.650539)// rosario
-		let coordenada2 = CLLocationCoordinate2D(latitude: -34.603684, longitude: -58.381559)// buenos aires
-		let coordenadasPersistidas: [CLLocationCoordinate2D] = [coordenada1, coordenada2]
+		mapView.addAnnotations(pinsArray)
 		
-		// este funciona!
-//		for coordenada in coordenadasPersistidas {
-//
-//			let pin = PinOnMap(coordinate: coordenada) // convierte los datos en objeto de tipo 'MKAnnotation'
-//			pinsArray.append(pin)
-//		}
-		
-	
-		// este todavía NO
-		
-//				for pin in currentPins {
-//
-//					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-//					let pins = PinOnMap(coordinate: coordinate)
-//					pinsArray.append(pins)
-//
-//				}
-//
-//		mapView.addAnnotations(pinsArray)
-//
 	}
 	
 	//*****************************************************************
@@ -115,56 +96,44 @@ class TravelLocationsMapViewController: UIViewController {
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
 		
-}
+	}
 	
 	//*****************************************************************
 	// MARK: - IBActions
 	//*****************************************************************
-
+	
 	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin...
 	@IBAction func addPinToMap(_ sender: UITapGestureRecognizer) {
-
+		
 		/* 4 tareas */
-
+		
 		/* 1- que aparezca efectivamente el pin sobre el sitio tapeado */
-
+		
 		// si NO está en 'modo edición' se pueden agregar pines
 		if !editMode {
-
-		// las coordenadas del tapeo sobre el mapa
+			
+			// las coordenadas del tapeo sobre el mapa
 			let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
-
+			
 			// convierte las coordenadas de un punto sobre la vista de un mapa (x, y)-  CGPoint
 			// en unas coordenadas de mapa (latitud y longitud) - CLLocationCoordinate2D
 			let coordToAdd: CLLocationCoordinate2D = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
-
+			
 			// una determinada anotación (pin) sobre un punto del mapa
 			let annotation: MKPointAnnotation = MKPointAnnotation()
-
+			
 			// ese pin ubicado en las coordenadas del mapa
 			annotation.coordinate = coordToAdd // CLLocationCoordinate2D
-
+			
 			// agrego el pin correspondiente a esa coordenada en la vista del mapa
 			mapView.addAnnotation(annotation) // MKPointAnnotation
-
-		// test
+			
+			// test
 			print("🔒 un pin ha sido puesto")
 			print("🙎🏾 : \(coordToAdd.latitude)")
-
+			
 			/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
 			
-			// crea un objeto 'notebook' cada vez que el botón ´addButton(name:String)´ es presionado
-//			let notebook = Notebook(context: dataController.viewContext)
-//			notebook.name = name
-//			notebook.creationDate = Date()
-//			try? dataController.viewContext.save()
-//			// inserta un 'notebook' en el array de notebooks
-//			notebooks.insert(notebook, at: 0)
-//			// inserta una fila
-//			tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
-
-			// crea una instancia del objeto 'Pin' cada vez que se agrega un pin sobre el mapa
-//			let pin = Pin(context: dataController.viewContext)
 			let pin  = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: dataController.viewContext)
 			// intenta guardar los cambios que registra el contexto (en este caso, que se agregó un nuevo objeto ´Pin´)
 			try? dataController.viewContext.save()
@@ -173,66 +142,60 @@ class TravelLocationsMapViewController: UIViewController {
 			print("✏️ se agrega un nuevo pin \(pin)")
 			print("🔭 los pines totales son \(pins)")
 			
-
-			
-
-			
-
-
 			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
 			// network request
-			FlickrClient.sharedInstance().getPhotosPath(lat: coordToAdd.latitude,
-																									lon: coordToAdd.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
+			FlickrClient.sharedInstance().getPhotosPath(lat: coordToAdd.latitude, lon: coordToAdd.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
+				
 				// optional binding
-					if let photos = photos {
-
+				if let photos = photos {
+					
 					// si se reciben fotos...
 					// almacena en la propiedad 'photos' todas las fotos recibidas
+					self.photos = photos
+					
+					// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
+					let photosRandom: [FlickrImage] = photos.shuffled()
+					
+					// sobre las fotos ordenadas aleatoriamente...
+					// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
+					if photosRandom.count > 21 {
+						
+						// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
+						let extractFirstTwentyOne = photosRandom[0..<21]
+						
+						// prepara un array de fotos para contener las primeras 21
+						var firstTwentyOne: [FlickrImage] = []
+						
+						// convierte la porción extraída (21) en un objeto de tipo Array
+						firstTwentyOne = Array(extractFirstTwentyOne)
+						
+						// asigna a la propiedad 'photos' las 21 fotos seleccionadas
+						self.photos = firstTwentyOne
+						
+					} else { // si recibe menos de 21 fotos
+						
+						// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
 						self.photos = photos
-
-						// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
-							let photosRandom: [FlickrImage] = photos.shuffled()
-
-							// sobre las fotos ordenadas aleatoriamente...
-							// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
-								if photosRandom.count > 21 {
-
-								// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
-								let extractFirstTwentyOne = photosRandom[0..<21]
-
-								// prepara un array de fotos para contener las primeras 21
-								var firstTwentyOne: [FlickrImage] = []
-
-								// convierte la porción extraída (21) en un objeto de tipo Array
-								firstTwentyOne = Array(extractFirstTwentyOne)
-
-								// asigna a la propiedad 'photos' las 21 fotos seleccionadas
-								self.photos = firstTwentyOne
-
-									} else { // si recibe menos de 21 fotos
-
-								// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
-								self.photos = photos
-
-						}
-
-								} else {
-
-							print(error ?? "empty error")
-
-						} // end optional binding
-
+						
+					}
+					
+				} else {
+					
+					print(error ?? "empty error")
+					
+				} // end optional binding
+				
 			} // end closure
-
+			
 		} else  {
-
+			
 			// ...caso contrario, NO
-
+			
 		} // end if-else
-
+		
 		print("🔌 Las fotos actuales son \(photos.count)")
-
-
+		
+		
 	} // end func
 	
 	
@@ -272,7 +235,7 @@ class TravelLocationsMapViewController: UIViewController {
 		}
 		
 	}
-		
+	
 } // end vc
 
 
@@ -305,8 +268,6 @@ extension TravelLocationsMapViewController:  MKMapViewDelegate {
 	
 }
 
-
-
 // test
 
 //	@IBAction func longPressPrueba(_ sender: Any) {
@@ -318,3 +279,4 @@ extension TravelLocationsMapViewController:  MKMapViewDelegate {
 //
 //
 //	}
+
