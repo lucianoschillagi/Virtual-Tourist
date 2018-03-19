@@ -2,7 +2,7 @@
 //  Pin+CoreDataProperties.swift
 //  Virtual Tourist
 //
-//  Created by Luciano Schillagi on 3/14/18.
+//  Created by Luciano Schillagi on 3/19/18.
 //  Copyright © 2018 luko. All rights reserved.
 //
 //
@@ -17,8 +17,8 @@ extension Pin {
         return NSFetchRequest<Pin>(entityName: "Pin")
     }
 
-    @NSManaged public var latitude: NSNumber?
-    @NSManaged public var longitude: NSNumber?
+    @NSManaged public var latitude: Double
+    @NSManaged public var longitude: Double
     @NSManaged public var photos: NSSet?
 
 }

@@ -42,7 +42,7 @@ class PhotoAlbumViewController: UIViewController {
 	// core data
 	var pin: Pin? // los pins persistidos
 	var savedPhotos: [Photo] = [] // las fotos persistidas
-
+	
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000 // el radio mostrado a partir de un punto
@@ -77,21 +77,21 @@ class PhotoAlbumViewController: UIViewController {
 			
 			// ordenar los elementos del array
 			let items = selected.map{$0.item}.sorted().reversed()
-
+			
 			// iterar los items del array
 			for item in items {
-
+				
 				// y borrarlos del modelo
 				photos.remove(at: item)
-
+				
 				print("\(item)")
-
+				
 			}
 			// y borrarlos de los datos de la 'collection view'
 			collectionView.deleteItems(at: selected)
-		
+			
 		}
-
+		
 	}
 	
 	@IBAction func newCollectionPhotos(_ sender: UIButton) {
@@ -106,60 +106,59 @@ class PhotoAlbumViewController: UIViewController {
 			
 			// si No hay items seleccionados, descargar una nueva colección de fotos desde Flickr
 			print("No hay items seleccionados, descargar nuevamente")
-					// network request
-					FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude,
-																											lon: coordinateSelected.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
-						// optional binding
-						if let photos = photos {
-			
-							// si se reciben fotos...
-							// almacena en la propiedad 'photos' todas las fotos recibidas
-							self.photos = photos
-			
-							// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
-							let photosRandom: [FlickrImage] = photos.shuffled()
-			
-							// sobre las fotos ordenadas aleatoriamente...
-							// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
-							if photosRandom.count > self.maxNumberOfCells {
-			
-							// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
-							let extractFirstTwentyOne = photosRandom[0..<self.maxNumberOfCells]
-			
-							// prepara un array de fotos para contener las primeras 21
-							var firstTwentyOne: [FlickrImage] = []
-			
-							// convierte la porción extraída (21) en un objeto de tipo Array
-							firstTwentyOne = Array(extractFirstTwentyOne)
-			
-							// asigna a la propiedad 'photos' las 21 fotos seleccionadas
-							self.photos = firstTwentyOne
-			
-							} else { // si recibe menos de 21 fotos
-			
-								// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
-								self.photos = photos
-							}
-			
-							// dispatch
-							performUIUpdatesOnMain {
-			
-								self.collectionView.reloadData()
-			
-							}
-			
-						} else {
-			
-							print(error ?? "empty error")
-			
-						} // end optional binding
-			
-					} // end closure
+			// network request
+			FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
+				// optional binding
+				if let photos = photos {
+					
+					// si se reciben fotos...
+					// almacena en la propiedad 'photos' todas las fotos recibidas
+					self.photos = photos
+					
+					// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
+					let photosRandom: [FlickrImage] = photos.shuffled()
+					
+					// sobre las fotos ordenadas aleatoriamente...
+					// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
+					if photosRandom.count > self.maxNumberOfCells {
+						
+						// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
+						let extractFirstTwentyOne = photosRandom[0..<self.maxNumberOfCells]
+						
+						// prepara un array de fotos para contener las primeras 21
+						var firstTwentyOne: [FlickrImage] = []
+						
+						// convierte la porción extraída (21) en un objeto de tipo Array
+						firstTwentyOne = Array(extractFirstTwentyOne)
+						
+						// asigna a la propiedad 'photos' las 21 fotos seleccionadas
+						self.photos = firstTwentyOne
+						
+					} else { // si recibe menos de 21 fotos
+						
+						// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
+						self.photos = photos
+					}
+					
+					// dispatch
+					performUIUpdatesOnMain {
+						
+						self.collectionView.reloadData()
+						
+					}
+					
+				} else {
+					
+					print(error ?? "empty error")
+					
+				} // end optional binding
+				
+			} // end closure
 			
 		}
 		
 	}
-
+	
 	//*****************************************************************
 	// MARK: - View Life Cycle
 	//*****************************************************************
@@ -167,8 +166,8 @@ class PhotoAlbumViewController: UIViewController {
 	// View Did Load
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-
+		
+		
 		// UI Elements ***************************************************
 		newCollectionButton.isHidden =  false
 		
@@ -182,11 +181,11 @@ class PhotoAlbumViewController: UIViewController {
 		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
 		// el tamaño de cada item
 		layout.itemSize = CGSize(width: width, height: width)
-
+		
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
-
-		}
+		
+	}
 	
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
@@ -196,15 +195,15 @@ class PhotoAlbumViewController: UIViewController {
 		// test
 		print("☎️Las fotos actuales son \(photos.count)")
 		
-						// dispatch
-						performUIUpdatesOnMain {
-		
-							self.collectionView.reloadData()
-		
-						}
+		// dispatch
+		performUIUpdatesOnMain {
+			
+			self.collectionView.reloadData()
+			
+		}
 		
 	} // end viewWillAppear()
-		
+	
 	//*****************************************************************
 	// MARK: - MapView
 	//*****************************************************************
@@ -213,7 +212,7 @@ class PhotoAlbumViewController: UIViewController {
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius, regionRadius)
 		mapFragment.setRegion(coordinateRegion, animated: true)
 	}
-
+	
 	func addAnnotationToMap() {
 		let annotation = MKPointAnnotation()
 		annotation.coordinate = coordinateSelected
@@ -232,7 +231,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 	// cantidad de celdas
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
-			return photos.count
+		return photos.count
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
@@ -251,23 +250,23 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 			
 			// solicitud web para obtener los DATOS de las imágenes para convertirlas a imágenes
 			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
-
+				
 				if let image = UIImage(data: imageData!) {
-
+					
 					// dispatch
 					performUIUpdatesOnMain {
 						
 						cell.photoImageView.image = image
 						cell.activityIndicator.stopAnimating()
-
+						
 					}
-
+					
 				} else {
-
+					
 					print(error ?? "empty error")
 				}
 			}) // end 'taskForGetImage' method
-
+			
 		} // end optional binding
 		
 		return cell
@@ -276,7 +275,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 	
 	// seleccionado para borrar desde los index paths de los items seleccionados
 	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
-
+		
 		// un array para almacenar los items seleccionados, por ahora vacío
 		var selected: [Int] = []
 		
@@ -298,47 +297,42 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 //*****************************************************************
 
 extension PhotoAlbumViewController: UICollectionViewDelegate {
-
+	
 	// le dice al delegado que el ítem en la ruta especificada fue SELECCIONADO
 	func collectionView(_ collectionView: UICollectionView,didSelectItemAt indexPath: IndexPath) {
-
+		
 		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
 		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-
+		
 		// la ´dirección´ de la celda seleccionada
 		let cell = collectionView.cellForItem(at: indexPath)
-
+		
 		// Dispatch
 		DispatchQueue.main.async {
 			cell?.contentView.alpha = 0.4
 		}
-			// test
-			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
-
+		// test
+		print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+		
 	}
-
+	
 	// le dice al delegado que el ítem en la ruta especificada fue DESELECCIONADO
-		func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-
-			// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
-			selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
-
-			// la ´dirección´ de la celda seleccionada n
-			let cell = collectionView.cellForItem(at: indexPath)
-
-			// Dispatch
-			DispatchQueue.main.async {
-				cell?.contentView.alpha = 1.0
-			}
-
-			// test
-			print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+	func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+		
+		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
+		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
+		
+		// la ´dirección´ de la celda seleccionada n
+		let cell = collectionView.cellForItem(at: indexPath)
+		
+		// Dispatch
+		DispatchQueue.main.async {
+			cell?.contentView.alpha = 1.0
 		}
-
+		
+		// test
+		print("Items actualmente seleccionados: \(selectedToDelete.count). \(selectedToDelete)")
+	}
+	
 } // end ext
-
-
-
-
-
 

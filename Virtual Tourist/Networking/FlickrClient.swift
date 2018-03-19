@@ -28,8 +28,6 @@ class FlickrClient: NSObject {
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
 	
-//	var photo: Photo
-	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
@@ -73,13 +71,6 @@ class FlickrClient: NSObject {
 					
 					let flickrImages = FlickrImage.photosPathFromResults(photo) // llena el objeto 'FlickrImage' con un array de diccionarios
 					completionHandlerForGetPhotosPath(flickrImages, nil)
-					
-					// test
-//					print("🎹\(photo)") // [[String:AnyObject]]
-//					print("🎅\(flickrImages[2])") // [String:AnyObject]
-
-//					let prueba = flickrImages[1]
-//					print("😱\(prueba.photoPath)")
 					
 				} else {
 					

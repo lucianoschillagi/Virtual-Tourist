@@ -6,12 +6,12 @@
         <relationship name="pin" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="photos" inverseEntity="Pin" syncable="YES"/>
     </entity>
     <entity name="Pin" representedClassName=".Pin" syncable="YES">
-        <attribute name="latitude" attributeType="Double" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="longitude" attributeType="Double" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
         <element name="Photo" positionX="-117" positionY="-90" width="128" height="88"/>
-        <element name="Pin" positionX="-567" positionY="-90" width="128" height="88"/>
+        <element name="Pin" positionX="-567" positionY="-90" width="128" height="90"/>
     </elements>
 </model>
