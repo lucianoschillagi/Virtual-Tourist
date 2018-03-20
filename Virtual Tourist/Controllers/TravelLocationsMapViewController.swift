@@ -12,8 +12,6 @@ import UIKit
 import MapKit
 import CoreData
 
-// TODO: ver tip de buena práctica ´hasChanges´ [https://classroom.udacity.com/nanodegrees/nd003/parts/e97f6879-7f09-42cf-81a2-8ee1a1e9958e/modules/307104883375460/lessons/a1aca629-8165-4eb6-9b9a-ed4ccd3c906d/concepts/263eb36c-3ad2-446a-800f-e6324f1b4a6d]
-
 /* Abstract:
 Un objeto que representa un mapa donde el usuario puede marcar localizaciones a través de pins.
 */
@@ -70,17 +68,16 @@ class TravelLocationsMapViewController: UIViewController {
 			
 			// le pasa el resultado al array de pins
 			pins = result
-			
 		}
-	
+		// itera el array de objetos persistidos (pin)
+		// y los agrega en el array de objetos preparados para mostrarse en una vista de mapa
 				for pin in pins {
-
-					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude as! CLLocationDegrees, longitude: pin.longitude as! CLLocationDegrees)
+					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude , longitude: pin.longitude as! CLLocationDegrees)
 					let pins = PinOnMap(coordinate: coordinate)
 					pinsArray.append(pins)
-
 				}
-
+		
+		// last step: update the UI
 		mapView.addAnnotations(pinsArray)
 		
 		// test
@@ -214,15 +211,16 @@ class TravelLocationsMapViewController: UIViewController {
 	/// cuenta la cantidad de pins persistidos
 	var numberOfPins: Int { return pins.count }
 	
-	/// devuelve la ubicación de un determinado pin
-//	func pins(at indexPath: IndexPath) -> Pin {
-//		return pins[indexPath.row]
-//	}
 	
-//	func pins(coordinate: CLLocationCoordinate2D) -> Pin {
-//
-//
-//	}
+	// TODO: falta implementar este método
+	func tieneCambiosElContexto() {
+		
+		dataController.viewContext.hasChanges
+		
+		// TODO: ver tip de buena práctica ´hasChanges´ [https://classroom.udacity.com/nanodegrees/nd003/parts/e97f6879-7f09-42cf-81a2-8ee1a1e9958e/modules/307104883375460/lessons/a1aca629-8165-4eb6-9b9a-ed4ccd3c906d/concepts/263eb36c-3ad2-446a-800f-e6324f1b4a6d]
+		
+		
+	}
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)

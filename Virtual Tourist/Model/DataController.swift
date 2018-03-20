@@ -9,12 +9,9 @@
 import Foundation
 import CoreData
 
-// TODO: estudiar bien esta clase!
-
 // Core Data Stack
 
 // crea una clase para encapsular las configuraciones de la pila y su funcionalidad
-
 class DataController {
 	
 	let persistentContainer: NSPersistentContainer

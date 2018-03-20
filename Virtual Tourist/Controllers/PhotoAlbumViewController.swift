@@ -40,6 +40,7 @@ class PhotoAlbumViewController: UIViewController {
 	var maxNumberOfCells = 21
 	
 	// core data
+	var dataController: DataController! // inyecta el data controller en este vc
 	var pin: Pin? // los pins persistidos
 	var savedPhotos: [Photo] = [] // las fotos persistidas
 	

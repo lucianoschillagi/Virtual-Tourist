@@ -118,12 +118,12 @@
 		A65EC8141FD9A2E50034B379 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A668AE1A205978020002A42D /* DataController.swift */,
 				A6DE08F12049A6D3007EA5A8 /* VirtualTourist.xcdatamodeld */,
 				A6C47BA6205F731A003F7FD8 /* Pin+CoreDataProperties.swift */,
 				A6E701942059B963000DCC93 /* Pin+CoreDataClass.swift */,
 				A6E701922059B963000DCC93 /* Photo+CoreDataClass.swift */,
 				A6E701932059B963000DCC93 /* Photo+CoreDataProperties.swift */,
-				A668AE1A205978020002A42D /* DataController.swift */,
 				A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */,
 			);
 			path = Model;
