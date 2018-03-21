@@ -231,15 +231,18 @@ class TravelLocationsMapViewController: UIViewController {
 		
 		if segue.identifier == "PinPhotos" {
 			// el destino de la transición, el 'PhotosViewController'
-			let destination = segue.destination as! PhotoAlbumViewController
+			let photoAlbumVC = segue.destination as! PhotoAlbumViewController
 			// el remitente será una coordenada (pin) puesto sobre el mapa
 			let coord = sender as! CLLocationCoordinate2D
 		
 			// MARK: pasando datos de este vc al siguiente...
 			// le pasa la coordenada seleccionada
-			destination.coordinateSelected = coord
+			photoAlbumVC.coordinateSelected = coord
 			// le pasa las fotos recibidas desde flickr
-			destination.photos = photos
+			photoAlbumVC.photos = photos
+			// le pasa el controlador de datos
+			photoAlbumVC.dataController = dataController
+			
 		}
 		
 	}

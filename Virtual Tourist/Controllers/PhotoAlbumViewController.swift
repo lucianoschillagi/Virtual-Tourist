@@ -35,13 +35,14 @@ class PhotoAlbumViewController: UIViewController {
 	
 	// model
 	var photos: [FlickrImage] = [FlickrImage]() // let photoPath: String?
+	var coreDataPhotos: [Photo] = []
 	
 	// collection view
 	var maxNumberOfCells = 21
 	
 	// core data
 	var dataController: DataController! // inyecta el data controller en este vc
-	var pin: Pin? // los pins persistidos
+	var pin: Pin! // el pin del cual son mostradas sus fotos
 	var savedPhotos: [Photo] = [] // las fotos persistidas
 	
 	// map view
@@ -168,7 +169,6 @@ class PhotoAlbumViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		
 		// UI Elements ***************************************************
 		newCollectionButton.isHidden =  false
 		
@@ -186,7 +186,30 @@ class PhotoAlbumViewController: UIViewController {
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
 		
-	}
+		// Core Data *********************************************
+		// TASK: solicita las fotos asociadas al pin tapeado y las intenta persistir
+		// para tenerlas disponibles para obtenerlas luego directamente (sin tener que hacer una solicitud web)
+		
+		// fetch request
+		let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+		// predicate: las fotos asociadas al 'pin' actual
+		let predicate = NSPredicate(format: "pin == %@", pin)
+		// pone a la solicitud de búsqueda este predicado específico
+		fetchRequest.predicate = predicate
+		
+		// resultado de la búsqueda
+		if let result = try? dataController.viewContext.fetch(fetchRequest) {
+			// si el resultado de la solicitud es exitoso
+			// lo guarda en el array de fotos
+			coreDataPhotos = result
+			// intenta guardar el contexto (para que los datos, las fotos asociadas, queden persistidas
+			try? dataController.viewContext.save()
+			// y actualiza la interfaz
+			collectionView.reloadData()
+		}
+	
+
+	} // end view did load
 	
 	// View Will Appear
 	override func viewWillAppear(_ animated: Bool) {
