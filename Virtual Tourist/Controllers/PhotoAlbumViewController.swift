@@ -77,16 +77,18 @@ class PhotoAlbumViewController: UIViewController {
 		// comprueba si hay items seleccionados (array de elementos)
 		if let selected: [IndexPath] = collectionView.indexPathsForSelectedItems { // las direcciones de los items seleccionados
 			
-			// ordenar los elementos del array
+			// ordena los elementos del array
 			let items = selected.map{$0.item}.sorted().reversed()
 			
-			// iterar los items del array
+			// itera los items del array
 			for item in items {
 				
-				// y borrarlos del modelo
+				// borra los items seleccionados del array de photos (que son objetos gestionados)
 				photos.remove(at: item)
 				
-				print("\(item)")
+				// test
+				print("Se han removido las siguientes fotos: \(item)")
+				print("las fotos asociadas al pin son actualmente \(photos.count)")
 				
 			}
 			// y borrarlos de los datos de la 'collection view'
@@ -193,9 +195,9 @@ class PhotoAlbumViewController: UIViewController {
 		// fetch request
 		let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
 		// predicate: las fotos asociadas al 'pin' actual
-		let predicate = NSPredicate(format: "pin == %@", pin)
-		// pone a la solicitud de búsqueda este predicado específico
-		fetchRequest.predicate = predicate
+//		let predicate = NSPredicate(format: "pin == %@", pin)
+//		// pone a la solicitud de búsqueda este predicado específico
+//		fetchRequest.predicate = predicate
 		
 		// resultado de la búsqueda
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {

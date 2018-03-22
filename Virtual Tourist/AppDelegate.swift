@@ -72,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	// save view context
 	func saveViewContext() {
+		// intenta guardar el contexto
 		try? dataController.viewContext.save()
 	}
 	
