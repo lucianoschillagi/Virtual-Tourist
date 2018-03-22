@@ -33,11 +33,8 @@ class TravelLocationsMapViewController: UIViewController {
 	/// inyecta el controlador de datos
 	var dataController: DataController!
 	
-	/// The `Pin` objects being presented
-	var pins: [Pin] = [] // The `Pin` objects being presented
-	
-	/// la coordenada seleccionada
-	//let selectCoord: CLLocationCoordinate2D = (CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0) // valor inicial)
+	/// los objetos 'Pin' que se presentan
+	var pins: [Pin] = []
 	
 	// edit mode
 	var editMode: Bool = false
@@ -106,121 +103,108 @@ class TravelLocationsMapViewController: UIViewController {
 	//*****************************************************************
 	// MARK: - IBActions
 	//*****************************************************************
-
-	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin...
-	@IBAction func addPinToMap(_ sender: UITapGestureRecognizer) {
-
-		/* 4 tareas */
-
-		/* 1- que aparezca efectivamente el pin sobre el sitio tapeado */
-
-		// si NO está en 'modo edición' se pueden agregar pines
-		if !editMode {
-
-		// las coordenadas del tapeo sobre el mapa
-			let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
-
-			// convierte las coordenadas de un punto sobre la vista de un mapa (x, y)-  CGPoint
-			// en unas coordenadas de mapa (latitud y longitud) - CLLocationCoordinate2D
-			let coordToAdd: CLLocationCoordinate2D = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
-
-			// una determinada anotación (pin) sobre un punto del mapa
-			let annotation: MKPointAnnotation = MKPointAnnotation()
-
-			// ese pin ubicado en las coordenadas del mapa
-			annotation.coordinate = coordToAdd // CLLocationCoordinate2D
-
-			// agrego el pin correspondiente a esa coordenada en la vista del mapa
-			mapView.addAnnotation(annotation) // MKPointAnnotation
-
-		// test
-			print("🔒 un pin ha sido puesto")
-			print("🙎🏾 : \(coordToAdd.latitude)")
-
-			/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
-			
-			// crea un objeto pin 
-			let pin  = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: dataController.viewContext)
-			// intenta guardar los cambios que registra el contexto (en este caso, que se agregó un nuevo objeto ´Pin´)
-			try? dataController.viewContext.save()
-			
-			// test
-			print("✏️ se agrega un nuevo pin \(pin)")
-			print("🔭 los pines totales son \(pins)")
-			
-			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
-			// network request
-			FlickrClient.sharedInstance().getPhotosPath(lat: coordToAdd.latitude, lon: coordToAdd.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
-				
-				// optional binding
-					if let photos = photos {
-
-					// si se reciben fotos...
-					// almacena en la propiedad 'photos' todas las fotos recibidas
-						self.photos = photos
-
-						// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
-							let photosRandom: [FlickrImage] = photos.shuffled()
-
-							// sobre las fotos ordenadas aleatoriamente...
-							// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
-								if photosRandom.count > 21 {
-
-								// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
-								let extractFirstTwentyOne = photosRandom[0..<21]
-
-								// prepara un array de fotos para contener las primeras 21
-								var firstTwentyOne: [FlickrImage] = []
-
-								// convierte la porción extraída (21) en un objeto de tipo Array
-								firstTwentyOne = Array(extractFirstTwentyOne)
-
-								// asigna a la propiedad 'photos' las 21 fotos seleccionadas
-								self.photos = firstTwentyOne
-
-									} else { // si recibe menos de 21 fotos
-
-								// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
-								self.photos = photos
-
-						}
-
-								} else {
-
-							print(error ?? "empty error")
-
-						} // end optional binding
-
-			} // end closure
-
-		} else  {
-
-			// ...caso contrario, NO
-
-		} // end if-else
-
-		print("🔌 Las fotos actuales son \(photos.count)")
-
-
-	} // end func
 	
+	// cuando el usuario hace una tap largo sobre el mapa, se crea un pin...
+	@IBAction func addPinToMap(_ sender: UILongPressGestureRecognizer) {
+		
+				/* 4 tareas */
+		
+				/* 1- que aparezca efectivamente el pin sobre el sitio tapeado */
+		
+				// si NO está en 'modo edición' se pueden agregar pines
+				if !editMode {
+		
+				// las coordenadas del tapeo sobre el mapa
+					let gestureTouchLocation: CGPoint = sender.location(in: mapView) // la ubicación del tapeo sobre una vista
+		
+					// convierte las coordenadas de un punto sobre la vista de un mapa (x, y)-  CGPoint
+					// en unas coordenadas de mapa (latitud y longitud) - CLLocationCoordinate2D
+					let coordToAdd: CLLocationCoordinate2D = mapView.convert(gestureTouchLocation, toCoordinateFrom: mapView)
+		
+					// una determinada anotación (pin) sobre un punto del mapa
+					let annotation: MKPointAnnotation = MKPointAnnotation()
+		
+					// ese pin ubicado en las coordenadas del mapa
+					annotation.coordinate = coordToAdd // CLLocationCoordinate2D
+		
+					// agrego el pin correspondiente a esa coordenada en la vista del mapa
+					mapView.addAnnotation(annotation) // MKPointAnnotation
+		
+				// test
+					print("🔒 un pin ha sido puesto")
+					print("🙎🏾 : \(coordToAdd.latitude)")
+		
+					/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
+		
+					// crea un objeto pin
+					let pin  = Pin(latitude: coordToAdd.latitude, longitude: coordToAdd.longitude, context: dataController.viewContext)
+					// intenta guardar los cambios que registra el contexto (en este caso, que se agregó un nuevo objeto ´Pin´)
+					try? dataController.viewContext.save()
+		
+					// test
+					print("✏️ se agrega un nuevo pin \(pin)")
+					print("🔭 los pines totales son \(pins)")
+		
+					/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+					// network request
+					FlickrClient.sharedInstance().getPhotosPath(lat: coordToAdd.latitude, lon: coordToAdd.longitude) { (photos, error) in // recibe los valores desde 'FlickrClient' y los procesa acá (photos ó error)
+		
+						// optional binding
+							if let photos = photos {
+		
+							// si se reciben fotos...
+							// almacena en la propiedad 'photos' todas las fotos recibidas
+								self.photos = photos
+		
+								// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
+									let photosRandom: [FlickrImage] = photos.shuffled()
+		
+									// sobre las fotos ordenadas aleatoriamente...
+									// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
+										if photosRandom.count > 21 {
+		
+										// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
+										let extractFirstTwentyOne = photosRandom[0..<21]
+		
+										// prepara un array de fotos para contener las primeras 21
+										var firstTwentyOne: [FlickrImage] = []
+		
+										// convierte la porción extraída (21) en un objeto de tipo Array
+										firstTwentyOne = Array(extractFirstTwentyOne)
+		
+										// asigna a la propiedad 'photos' las 21 fotos seleccionadas
+										self.photos = firstTwentyOne
+		
+											} else { // si recibe menos de 21 fotos
+		
+										// sino almacenar las fotos recibidas (las menos de 21) en 'photos'
+										self.photos = photos
+		
+								}
+		
+										} else {
+		
+									print(error ?? "empty error")
+		
+								} // end optional binding
+		
+					} // end closure
+		
+				} else  {
+		
+					// ...caso contrario, NO
+		
+				} // end if-else
+		
+				print("🔌 Las fotos actuales son \(photos.count)")
+	}
+		
 	//*****************************************************************
 	// MARK: - Helpers
 	//*****************************************************************
 	
 	/// cuenta la cantidad de pins persistidos
 	var numberOfPins: Int { return pins.count }
-	
-	
-	// TODO: falta implementar este método
-	func tieneCambiosElContexto() {
-		
-		dataController.viewContext.hasChanges
-		
-		// TODO: ver tip de buena práctica ´hasChanges´ [https://classroom.udacity.com/nanodegrees/nd003/parts/e97f6879-7f09-42cf-81a2-8ee1a1e9958e/modules/307104883375460/lessons/a1aca629-8165-4eb6-9b9a-ed4ccd3c906d/concepts/263eb36c-3ad2-446a-800f-e6324f1b4a6d]
-		
-		
-	}
 	
 	//*****************************************************************
 	// MARK: - Navigation (Segue)
@@ -261,7 +245,7 @@ extension TravelLocationsMapViewController:  MKMapViewDelegate {
 		let coordSelect = view.annotation?.coordinate
 		let latitude = coordSelect?.latitude
 		let longitude = coordSelect?.longitude
-		print("📊\(coordSelect)")
+		print("📊\(String(describing: coordSelect))")
 		
 		// si NO esté en modo edición...
 		if !editMode {
@@ -293,18 +277,4 @@ extension TravelLocationsMapViewController:  MKMapViewDelegate {
 			print("un pin ha sido borrado")
 		}
 	}
-	
-	
 
-
-// test
-
-//	@IBAction func longPressPrueba(_ sender: Any) {
-//
-//		// las coordenadas del tapeo sobre el mapa
-//		let gestureTouchLocation: CGPoint = (sender as AnyObject).location(in: mapView) // la ubicación del tapeo sobre una vista
-//
-//		print("🔏 toque largo sobre el mapa \(gestureTouchLocation)")
-//
-//
-//	}
