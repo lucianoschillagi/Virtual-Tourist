@@ -8,8 +8,16 @@
 
 import Foundation
 
+/* Abstract:
+Agrega nueva funcionalidad a través de la implementación de dos protocolos.
+*/
+
+//*****************************************************************
+// MARK: - Mutable Collection - Shuffle
+//*****************************************************************
+
 extension MutableCollection {
-	/// Shuffles the contents of this collection.
+	/// baraja el contenido de una colección
 	mutating func shuffle() {
 		let c = count
 		guard c > 1 else { return }
@@ -22,8 +30,12 @@ extension MutableCollection {
 	}
 }
 
+//*****************************************************************
+// MARK: - Sequence - Shuffled
+//*****************************************************************
+
 extension Sequence {
-	/// Returns an array with the contents of this sequence, shuffled.
+	/// devuelve un array con el contenido de la secuencia, ya barajada
 	func shuffled() -> [Element] {
 		var result = Array(self)
 		result.shuffle()

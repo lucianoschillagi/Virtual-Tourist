@@ -9,6 +9,14 @@
 import Foundation
 import MapKit
 
+/* Abstract:
+Un objeto que adopta el protocolo 'MKAnnotation'.
+*/
+
+//*****************************************************************
+// MARK: - MKAnnotation Object
+//*****************************************************************
+
 class PinOnMap: NSObject, MKAnnotation {
 	
 	var coordinate: CLLocationCoordinate2D

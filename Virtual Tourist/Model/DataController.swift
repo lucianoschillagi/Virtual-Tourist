@@ -6,16 +6,26 @@
 //  Copyright © 2018 luko. All rights reserved.
 //
 
+/* Controller */
+
 import Foundation
 import CoreData
 
-// Core Data Stack
+/* Abstract:
+Una clase para encapsular las configuraciones de la pila y su funcionalidad.
+*/
+
+//*****************************************************************
+// MARK: - Core Data Stack
+//*****************************************************************
 
 // crea una clase para encapsular las configuraciones de la pila y su funcionalidad
 class DataController {
-    
+	
+		/// el contenedor persistente
     let persistentContainer: NSPersistentContainer
-    
+	
+		/// el contexto revisa si hay datos persistidos (en el contenedor persistente)
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
@@ -38,6 +48,10 @@ class DataController {
     }
 }
 
+//*****************************************************************
+// MARK: - Autosave
+//*****************************************************************
+
 extension DataController {
     
     func autoSaveViewContext(interval: TimeInterval = 30) {
@@ -51,7 +65,7 @@ extension DataController {
             return
         }
         
-        // si es que hay cambios en el contexto, guardar
+        // si es que hay cambios en el contexto, guardar..
         if viewContext.hasChanges {
             try? viewContext.save()
         }

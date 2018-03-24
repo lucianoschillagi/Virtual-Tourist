@@ -10,15 +10,6 @@
 
 import Foundation
 
-//	https://api.flickr.com/services/rest/?
-//	method=flickr.photos.search&
-//	api_key=cfc2e1656f2fe02c4c7ada0a635b9813&
-//	user_id=146417271%40N05&
-//	lat=40.741895&
-//	lon=-73.989308&
-//	format=json&
-//	nojsoncallback=1
-
 /* Abstract:
 Un objeto que contiene los datos constantes requeridos para confeccionar la solicitud web.
 */

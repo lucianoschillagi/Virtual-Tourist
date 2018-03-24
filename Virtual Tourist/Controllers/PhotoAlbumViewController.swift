@@ -210,7 +210,6 @@ class PhotoAlbumViewController: UIViewController {
 			collectionView.reloadData()
 		}
 	
-
 	} // end view did load
 	
 	// View Will Appear

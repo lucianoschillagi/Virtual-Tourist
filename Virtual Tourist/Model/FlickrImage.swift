@@ -26,7 +26,7 @@ struct FlickrImage {
 	// MARK: - Initializers
 	//*****************************************************************
 	
-	// construct a FlickrImage from a dictionary
+	// construye un FlickrImage desde un diccionario
 	init(dictionary: [String:AnyObject]) {
 		photoPath = dictionary["url_m"] as? String // FlickrClient.JSONResponseKeys.MediumURL
 	}
@@ -35,11 +35,12 @@ struct FlickrImage {
 	// MARK: - Results
 	//*****************************************************************
 	
+	// de los resultados de la solicitud devuelve un array que contiene las urls para construir las imagenes (las fotos)
 	static func photosPathFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
 		
 		var photosPath = [FlickrImage]()
 		
-		// iterate through array of dictionaries, each 'FlickrImage' is a dictionary
+		// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario
 		for result in results {
 			photosPath.append(FlickrImage(dictionary: result))
 		}
