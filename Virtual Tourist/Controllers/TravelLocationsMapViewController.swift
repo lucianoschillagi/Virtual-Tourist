@@ -141,75 +141,23 @@ class TravelLocationsMapViewController: UIViewController {
 
 			// Networking ----------------------------------------------------
 			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+			requestFlickrPhotosFromPin(coord: coordToAdd)
 			
-			// network request
-			FlickrClient.sharedInstance().getPhotosPath(lat: coordToAdd.latitude, lon: coordToAdd.longitude) { (photos, error) in
-
-				// comprueba si la solicitud de datos fue exitosa
-				if let photos = photos {
-					
-					// si se reciben fotos...
-					// almacena en la propiedad 'photos' todas las fotos recibidas
-					self.photos = photos
-					
-					//test
-					print("⚗️ \(photos.count)")
-					
-					// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
-					let photosRandom: [FlickrImage] = photos.shuffled()
-					
-					// sobre las fotos ordenadas aleatoriamente...
-					// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
-					if photosRandom.count > 21 {
-						
-						// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
-						let extractFirstTwentyOne = photosRandom[0..<21]
-						
-						// prepara un array de fotos para contener las primeras 21
-						var firstTwentyOne: [FlickrImage] = []
-						
-						// convierte la porción extraída (21) en un objeto de tipo Array
-						firstTwentyOne = Array(extractFirstTwentyOne)
-						
-						// asigna a la propiedad 'photos' las 21 fotos seleccionadas
-						self.photos = firstTwentyOne
-						print("primeras 21: \(firstTwentyOne.count)")
-						print("total de fotos obtenidas: \(photos.count)")
-
-					} else { // si recibe menos de 21 fotos
-						
-						// sino almacena las fotos recibidas (las menos de 21) en 'photos'
-						self.photos = photos
-						
-					}
-					
-				} else {
-					
-					print(error ?? "empty error")
-					
-				} // end optional binding
-				
-			} // end closure
-		
 		} else  {
 			
 			// edit-mode: TRUE
 			// NO se pueden agregar pines
 			
 		} // end if-else
-		
-		print("🔌 Las fotos actuales son \(photos.count)")
 	
 	} // end func
 	
 	
+	// CoreData ----------------------------------------------------
+	/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
+	
+	/// persiste la coordenada tapeada
 	func addPinToCoreData(coord: CLLocationCoordinate2D) {
-		
-		// CoreData ----------------------------------------------------
-		/* 2- que se persista la ubicación de ese pin (latitud y longitud) en core data */
-		
-//		// recibir las coordenadas del pin tapeado
-//		let coordinate = lastCoordinate
 		
 		// crea un objeto gestionado 'pin'
 		let pin  = Pin(latitude: coord.latitude, longitude: coord.longitude, context: dataController.viewContext)
@@ -222,13 +170,65 @@ class TravelLocationsMapViewController: UIViewController {
 		
 	}
 	
+	// Networking ----------------------------------------------------
+	/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
 	
-	
-	
-	
-	
-	
+	/// solicita a flickr las fotos asociadas a esa coordenada
+	func requestFlickrPhotosFromPin(coord: CLLocationCoordinate2D) {
 		
+		// network request
+		FlickrClient.sharedInstance().getPhotosPath(lat: coord.latitude, lon: coord.longitude) { (photos, error) in
+
+			// comprueba si la solicitud de datos fue exitosa
+			if let photos = photos {
+
+				// si se reciben fotos...
+				// almacena en la propiedad 'photos' todas las fotos recibidas
+				self.photos = photos
+
+				//test
+				print("⚗️ \(photos.count)")
+
+				// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
+				let photosRandom: [FlickrImage] = photos.shuffled()
+
+				// sobre las fotos ordenadas aleatoriamente...
+				// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
+				if photosRandom.count > 21 {
+
+					// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
+					let extractFirstTwentyOne = photosRandom[0..<21]
+
+					// prepara un array de fotos para contener las primeras 21
+					var firstTwentyOne: [FlickrImage] = []
+
+					// convierte la porción extraída (21) en un objeto de tipo Array
+					firstTwentyOne = Array(extractFirstTwentyOne)
+
+					// asigna a la propiedad 'photos' las 21 fotos seleccionadas
+					self.photos = firstTwentyOne
+					print("primeras 21: \(firstTwentyOne.count)")
+					print("total de fotos obtenidas: \(photos.count)")
+
+				} else { // si recibe menos de 21 fotos
+
+					// sino almacena las fotos recibidas (las menos de 21) en 'photos'
+					self.photos = photos
+
+				}
+
+			} else {
+
+				print(error ?? "empty error")
+
+			} // end optional binding
+
+		} // end closure
+		
+		print("las fotos recibidas de flickr son: \(photos.count)")
+
+	}
+	
 } // end class
 
 //*****************************************************************
