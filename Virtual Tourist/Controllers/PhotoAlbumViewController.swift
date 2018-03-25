@@ -332,7 +332,7 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 		// la ´dirección´ de la celda seleccionada
 		let cell = collectionView.cellForItem(at: indexPath)
 		
-		// Dispatch
+		// dispatch
 		DispatchQueue.main.async {
 			cell?.contentView.alpha = 0.4
 		}
@@ -347,10 +347,10 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 		// asigna a la propiedad 'selectedToDelete' los items seleccionados en la colección de vistas
 		selectedToDelete = selectedToDeleteFromIndexPath(collectionView.indexPathsForSelectedItems!)
 		
-		// la ´dirección´ de la celda seleccionada n
+		// la ´dirección´ de la celda seleccionada
 		let cell = collectionView.cellForItem(at: indexPath)
 		
-		// Dispatch
+		// dispatch
 		DispatchQueue.main.async {
 			cell?.contentView.alpha = 1.0
 		}
