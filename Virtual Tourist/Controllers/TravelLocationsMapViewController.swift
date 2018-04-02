@@ -76,11 +76,6 @@ class TravelLocationsMapViewController: UIViewController {
 		
 		// actualiza la vista de mapa agregando los pins persistidos
 		mapView.addAnnotations(pinsArray)
-		
-		// test
-		print("⚗️ Los pins persistidos actualmente son: \(pins.count)")
-		
-		print("Modo edición inicial: \(editMode)")
 
 	}
 	
@@ -99,9 +94,6 @@ class TravelLocationsMapViewController: UIViewController {
 		
 		deletePins.isHidden = !editing // si la vista 'tap pins to delete' está oculta el modo edición estará en false
 		editMode = editing // si el modo edición es habilitado, poner ´editMode´ a ´true´
-		
-		// test
-		print("El modo edición está en: \(editMode)")
 		
 }
 	
@@ -165,10 +157,6 @@ class TravelLocationsMapViewController: UIViewController {
 		// intenta guardar los cambios que registra el contexto (en este caso, que se agregó un nuevo objeto ´Pin´)
 		try? dataController.viewContext.save()
 		
-		// test
-		print("✏️ SE AGREGA UN NUEVO PIN \(pin)")
-		print("🔭 los pines totales son \(pins)")
-		
 	}
 
 	/* 3/3 Flickr (networking) */
@@ -176,45 +164,14 @@ class TravelLocationsMapViewController: UIViewController {
 	func requestFlickrPhotosFromPin(coord: CLLocationCoordinate2D) {
 		
 		// solicitud web
-		FlickrClient.sharedInstance().getPhotosPath(lat: coord.latitude, lon: coord.longitude) { (receivedPhotos, error) in
+		FlickrClient.sharedInstance().getPhotosPath(lat: coord.latitude, lon: coord.longitude) { (photos, error) in
 
 			// comprueba si la solicitud de datos fue exitosa
-			if let photos = receivedPhotos {
+			if let photos = photos {
 
 				// si se reciben fotos...
-				// almacena en la propiedad 'photos' todas las fotos recibidas
+				// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 				self.flickrPhotos = photos
-
-				//test
-				print("⚗️ flickr photos \(self.flickrPhotos.count)")
-
-				// baraja las fotos recibidas (y almacenadas) para reordenarlas aleatoriemente
-				let photosRandom: [FlickrImage] = photos.shuffled()
-
-				// sobre las fotos ordenadas aleatoriamente...
-				// si recibe más de 21 fotos ejecutar lo siguiente, sino (else) esto otro
-				if photosRandom.count > 21 {
-
-					// del array ya ordenado aletoriamente llenar otro array con sólo 21 fotos
-					let extractFirstTwentyOne = photosRandom[0..<21]
-
-					// prepara un array de fotos para contener las primeras 21
-					var firstTwentyOne: [FlickrImage] = []
-
-					// convierte la porción extraída (21) en un objeto de tipo Array
-					firstTwentyOne = Array(extractFirstTwentyOne)
-
-					// asigna a la propiedad 'photos' las 21 fotos seleccionadas
-					self.flickrPhotos = firstTwentyOne
-					print("primeras 21: \(firstTwentyOne.count)")
-					print("total de fotos obtenidas: \(photos.count)")
-
-				} else { // si recibe menos de 21 fotos
-
-					// sino almacena las fotos recibidas (las menos de 21) en 'photos'
-					self.flickrPhotos = photos
-
-				}
 
 			} else {
 
@@ -223,8 +180,6 @@ class TravelLocationsMapViewController: UIViewController {
 			} // end optional binding
 
 		} // end closure
-		
-		print("las fotos recibidas de flickr son: \(flickrPhotos.count)")
 
 	}
 	
@@ -303,7 +258,7 @@ override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 			// pasa la coordenada seleccionada
 			photoAlbumVC.coordinateSelected = coord
 			// pasa las fotos recibidas desde flickr
-			photoAlbumVC.photos = flickrPhotos
+			photoAlbumVC.flickrPhotos = flickrPhotos
 			// pasa el controlador de datos
 			photoAlbumVC.dataController = dataController
 		

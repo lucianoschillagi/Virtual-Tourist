@@ -53,9 +53,12 @@ class FlickrClient: NSObject {
 			FlickrClient.ParameterKeys.NoJSONCallback:FlickrClient.ParameterValues.DisableJSONCallback,
 			FlickrClient.ParameterKeys.SafeSearch: FlickrClient.ParameterValues.UseSafeSearch,
 			FlickrClient.ParameterKeys.Extras: FlickrClient.ParameterValues.MediumURL,
-			FlickrClient.ParameterKeys.Radius: FlickrClient.ParameterValues.SearchRangeKm
+			FlickrClient.ParameterKeys.Radius: FlickrClient.ParameterValues.SearchRangeKm,
+			FlickrClient.ParameterKeys.PerPage: FlickrClient.ParameterValues.PerPageAmount,
+			FlickrClient.ParameterKeys.Page: Int(arc4random_uniform(6))
+
 		]
-		
+
 		/* 2. Make the request 🚀 */
 		let _ = taskForGetMethod(methodParameters: methodParameters as [String : AnyObject]) { (results, error) in
 			

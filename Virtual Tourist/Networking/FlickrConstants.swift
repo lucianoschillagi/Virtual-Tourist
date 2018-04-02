@@ -47,8 +47,10 @@ extension FlickrClient {
 			static let SafeSearch = "safe_search"
 			static let Extras = "extras"
 			static let Radius = "radius"
-		
-	}
+			static let PerPage = "per_page"
+			static let Page = "page"
+
+		}
 		
 		//*****************************************************************
 		// MARK: - Flickr Parameter Values
@@ -63,7 +65,7 @@ extension FlickrClient {
 			static let MediumURL = "url_m"
 			static let UseSafeSearch = "1"
 			static let SearchRangeKm = 10
-			
+			static let PerPageAmount = 21
 		}
 		
 		//*****************************************************************
@@ -74,7 +76,6 @@ extension FlickrClient {
 			
 			static let Status = "stat"
 			static let Photos = "photos"
-			//static let Title = "title"
 			static let Photo = "photo"
 			static let MediumURL = "url_m"
 			
