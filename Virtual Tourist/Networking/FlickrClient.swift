@@ -27,7 +27,7 @@ class FlickrClient: NSObject {
 	
 	// modelo en 'FlickrImage'
 	var photos: [FlickrImage] = [FlickrImage]()
-	
+
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************

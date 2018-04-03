@@ -46,7 +46,7 @@ class TravelLocationsMapViewController: UIViewController {
 	var flickrPhotos: [FlickrImage] = [FlickrImage]()
 	
 	//*****************************************************************
-	// MARK: - View Life Cycle
+	// MARK: - Superview Life Cycle
 	//*****************************************************************
 	
 	override func viewDidLoad() {
@@ -172,6 +172,9 @@ class TravelLocationsMapViewController: UIViewController {
 				// si se reciben fotos...
 				// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 				self.flickrPhotos = photos
+				
+				
+				print("☎️\(self.flickrPhotos)")
 
 			} else {
 
@@ -181,7 +184,7 @@ class TravelLocationsMapViewController: UIViewController {
 
 		} // end closure
 
-	}
+	} // end func
 	
 } // end class
 

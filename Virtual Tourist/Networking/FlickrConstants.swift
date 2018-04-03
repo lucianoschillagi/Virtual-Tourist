@@ -66,6 +66,7 @@ extension FlickrClient {
 			static let UseSafeSearch = "1"
 			static let SearchRangeKm = 10
 			static let PerPageAmount = 21
+			
 		}
 		
 		//*****************************************************************

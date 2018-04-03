@@ -36,15 +36,11 @@ class PhotoAlbumViewController: UIViewController {
 	// model
 	// un array de fotos descargadas desde flickr
 	var flickrPhotos: [FlickrImage] = [FlickrImage]()
-	var coreDataPhotos: [Photo] = []
-	
-//	// collection view
-//	var maxNumberOfCells = 21
 	
 	// core data
 	var dataController: DataController! // inyecta el data controller en este vc
 	var pin: Pin! // el pin del cual son mostradas sus fotos
-	var savedPhotos: [Photo] = [] // las fotos persistidas
+	var coreDataPhotos: [Photo] = [] // las fotos persistidas
 	
 	// map view
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
@@ -70,7 +66,7 @@ class PhotoAlbumViewController: UIViewController {
 
 	
 	//*****************************************************************
-	// MARK: - View Life Cycle
+	// MARK: - Superview Life Cycle
 	//*****************************************************************
 	
 	// View Did Load
@@ -110,12 +106,16 @@ class PhotoAlbumViewController: UIViewController {
 			// si el resultado de la solicitud es exitoso
 			// lo guarda en el array de fotos
 			coreDataPhotos = result
-			// intenta guardar el contexto (para que los datos, las fotos asociadas, queden persistidas
+			// intenta guardar el contexto (para que los datos, las fotos asociadas, queden persistidas)
 			try? dataController.viewContext.save()
 			// y actualiza la interfaz
 			collectionView.reloadData()
 		}
-	
+		
+		// test
+		print("🤡\(coreDataPhotos.count)")
+		
+		
 	} // end view did load
 	
 	// View Will Appear
@@ -179,6 +179,9 @@ class PhotoAlbumViewController: UIViewController {
 					// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 					self.flickrPhotos = photos
 					
+					// You can also save your photos to Core Data here, and then meet all the requirements for this project! :)
+					
+					
 							// dispatch
 							performUIUpdatesOnMain {
 					
@@ -215,6 +218,7 @@ class PhotoAlbumViewController: UIViewController {
 		mapFragment.showAnnotations([annotation], animated: true)
 	}
 	
+	
 } // end vc
 
 //*****************************************************************
@@ -227,6 +231,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
 		return flickrPhotos.count
+
 	}
 	
 	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
@@ -234,7 +239,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 		
 		let photo = flickrPhotos[(indexPath as NSIndexPath).row] // LEE del Modelo!
 		
-		// get cell type
+		// obtiene la celda reusable
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
 		
 		// comprueba si hay fotos en el modelo
