@@ -7,10 +7,15 @@
 //
 //
 
+/* Model */
+
 import Foundation
 import CoreData
 
-//Pin Class
+/* Abstract:
+Una clase que representa el objeto ´Pin´, con un inicializador de conveniencia.
+*/
+
 public class Pin: NSManagedObject {
 	
 	convenience init(latitude: Double, longitude: Double, context: NSManagedObjectContext) {

@@ -7,9 +7,18 @@
 //
 //
 
+/* Model */
+
 import Foundation
 import CoreData
 
+/* Abstract:
+Extensión de la clase ´Pin´. Contiene sus propiedades, un método para buscar las instancias de este objeto y métodos accesorios.
+*/
+
+//*****************************************************************
+// MARK: - Pin extension
+//*****************************************************************
 
 extension Pin {
 
@@ -23,7 +32,10 @@ extension Pin {
 
 }
 
-// MARK: Generated accessors for photos
+//*****************************************************************
+// MARK: - Pin accesors
+//*****************************************************************
+
 extension Pin {
 
     @objc(addPhotosObject:)

@@ -7,9 +7,14 @@
 //
 //
 
+/* Model */
+
 import Foundation
 import CoreData
 
+/* Abstract:
+Una clase que representa el objeto ´Photo´, con un inicializador de conveniencia.
+*/
 
 public class Photo: NSManagedObject {
 	
@@ -19,7 +24,6 @@ public class Photo: NSManagedObject {
 			
 			self.init(entity: ent, insertInto: context)
 			self.imageURL = imageURL
-			
 			
 		} else {
 			

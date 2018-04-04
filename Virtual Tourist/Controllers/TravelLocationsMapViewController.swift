@@ -13,7 +13,7 @@ import MapKit
 import CoreData
 
 /* Abstract:
-Un objeto que representa un mapa donde el usuario puede marcar localizaciones a través de pins.
+Un objeto que representa un mapa donde el usuario puede marcar ubicaciones a través de pins.
 */
 
 class TravelLocationsMapViewController: UIViewController {
@@ -52,7 +52,7 @@ class TravelLocationsMapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// pone el botón edit-done
+		// Pone el botón edit-done
 		setEditDoneButton()
 		
 		// cuando la supervista se cargó...
@@ -67,14 +67,15 @@ class TravelLocationsMapViewController: UIViewController {
 		}
 		// itera el array pins
 				for pin in pins {
-					// los convierte en objetos que adoptan el protocolo 'MKAnnotation'
+					// y a las coordenadas de los pins persistidos..
 					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude , longitude: pin.longitude )
+					// las convierte en objetos que adoptan el protocolo 'MKAnnotation'
 					let pins = PinOnMap(coordinate: coordinate)
-					// y los agrega en el array de objetos preparados para mostrarse en una vista de mapa
+					// y los agrega al array de objetos preparados para mostrarse en una vista de mapa
 					pinsArray.append(pins)
 				}
 		
-		// actualiza la vista de mapa agregando los pins persistidos
+		// por último, actualiza la vista de mapa agregando los pins persistidos.
 		mapView.addAnnotations(pinsArray)
 
 	}
@@ -102,7 +103,7 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - IBActions
 	//*****************************************************************
 	
-	// cuando el usuario tapea sobre el mapa, se crea un pin y se realizan 4 tareas:
+	// Cuando el usuario tapea sobre el mapa, se crea un pin y se realizan 4 tareas:
 	
 	/* 1 - addPinToMap: aparece el pin sobre el sitio tapeado */
 	/* 2 - addPinToCoreData: se persiste la ubicación de ese pin (latitud y longitud) */
@@ -199,9 +200,7 @@ class TravelLocationsMapViewController: UIViewController {
 				let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext)
 				// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega un nuevo objeto ´Photo´)
 				try? self.dataController.viewContext.save()
-		
-				// test
-				print("🔋\(photoCoreData)")
+	
 		}
 	}
 	
@@ -228,9 +227,6 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
 			performSegue(withIdentifier: "PinPhotos", sender: coordSelect)
 			// deselecciona la anotación tapeada
 			mapView.deselectAnnotation(view.annotation, animated: false)
-			
-			// TODO: asignar las fotos persistidas asociadas al pin seleccionado
-			// al array de fotos (con intenciones de luego pasarlas al próximo vc)
 			
 		// edit-mode: TRUE, borra los pines tapeados, tanto de la vista como de core data
 		} else {

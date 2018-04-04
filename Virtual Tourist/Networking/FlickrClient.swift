@@ -25,7 +25,7 @@ class FlickrClient: NSObject {
 	
 	var session = URLSession.shared // shared session
 	
-	// modelo en 'FlickrImage'
+	// un array que contiene las fotos descargadas desde flickr
 	var photos: [FlickrImage] = [FlickrImage]()
 
 	//*****************************************************************
@@ -40,10 +40,10 @@ class FlickrClient: NSObject {
 	// MARK: - Networking
 	//*****************************************************************
 	
-	// obtiene las urls de las fotos
+	// obtiene los strings de las urls de las fotos
 	func getPhotosPath(lat: Double,lon: Double, _ completionHandlerForGetPhotosPath: @escaping (_ result: [FlickrImage]?, _ error: NSError?) -> Void) {
 		
-		/* 1. Set the parameters */
+		/* 1. Pone los parámetros de la solicitud web */
 		let methodParameters: [String : Any] = [
 			FlickrClient.ParameterKeys.Method: FlickrClient.ParameterValues.SearchMethod,
 			FlickrClient.ParameterKeys.ApiKey: FlickrClient.ParameterValues.ApiKey,
@@ -59,10 +59,10 @@ class FlickrClient: NSObject {
 
 		]
 
-		/* 2. Make the request 🚀 */
+		/* 2. Le pasa las parámetros puestos a ´taskForGetMethod´ */
 		let _ = taskForGetMethod(methodParameters: methodParameters as [String : AnyObject]) { (results, error) in
 			
-			/* 3. Send the desired value(s) to completion handler */
+			/* 3. Envía las valores deseados al completion handler */
 			if let error = error {
 				
 				completionHandlerForGetPhotosPath(nil, error)
@@ -87,93 +87,93 @@ class FlickrClient: NSObject {
 			
 	} // end method
 	
-
+	// configura y envía la solicitud web (la tarea)
 	func taskForGetMethod(methodParameters: [String : AnyObject],completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
 		
-		/* 1. Set the parameters */
+		/* 1. Almacena los parámetros puestos anteriormente */
 		let parametersReceived = methodParameters
 		
-		/* 2/3. Build the URL and configure the request */
+		/* 2/3. Construye las URL y configura la solicitud */
 		let request = NSMutableURLRequest(url: flickrURLsFromParameters(parametersReceived) )
 		
-		/* 4. Make the request 🚀 */
+		/* 4. La tarea a realizar con la solicitud ya configurada ✔︎ */
 		let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
 			
+			// envía un mensaje de error si la solicitud falló
 			func sendError(_ error: String) {
 				print(error)
 				let userInfo = [NSLocalizedDescriptionKey : error]
 				completionHandlerForGet(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
 			}
 			
-			/* GUARD: Was there an error? */
+			/* GUARD: Hay un error? */
 			guard (error == nil) else {
 				sendError("There was an error with your request: \(error!)")
 				return
 			}
 			
-			/* GUARD: Did we get a successful 2XX response? */
+			/* GUARD: Se obtuvo una respuesta 2XX ? */
 			guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
 				sendError("Your request returned a status code other than 2xx!")
 				return
 			}
 			
-			/* GUARD: Was there any data returned? */
+			/* GUARD: Hay datos devueltos? */
 			guard let data = data else {
 				sendError("No data was returned by the request!")
 				return
 			}
 			
-			/* 5/6. Parse the data and use the data (happens in completion handler) */
+			/* 5/6. Parsea los datos y usa esos datos (ocurre en el completion handler) */
 			self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGet)
 		}
 		
-		/* 7. Start the request */
+		/* 7. Inicia la solicitud 🚀 */
 		task.resume()
 		
 		return task
 	}
 	
+	/// realiza la tarea para obtener los datos de las imágenes (de las fotos)
 	func taskForGetImage(photoPath: String, completionHandlerForImage: @escaping (_ imageData: Data?, _ error: NSError?) -> Void) -> URLSessionTask {
 
-		/* 1. Set the parameters */
-		// There are none...
+		/* 1. Pone los parámetros */
+		// no hay nada...
 		
-		/* 2/3. Build the URL and configure the request */
-		let url = URL(string:photoPath)! // DE PRUEBA!!!!!
-		//let url = baseURL.appendingPathComponent(size).appendingPathComponent(filePath)
+		/* 2/3. Construye la URL y configura la solicitud con las urls */
+		let url = URL(string:photoPath)!
 		let request = URLRequest(url: url)
 		
-		/* 4. Make the request */
+		/* 4. La tarea a realizar con la solicitud ya configurada ✔︎ */
 		let task = session.dataTask(with: request) { (data, response, error) in
 			
+			// envía un mensaje de error si la solicitud falló
 			func sendError(_ error: String) {
 				print(error)
 				let userInfo = [NSLocalizedDescriptionKey : error]
 				completionHandlerForImage(nil, NSError(domain: "taskForGetMethod", code: 1, userInfo: userInfo))
 			}
 			
-			/* GUARD: Was there an error? */
+			/* GUARD: Hay un error? */
 			guard (error == nil) else {
 				sendError("There was an error with your request: \(error!)")
 				return
 			}
 			
-			/* GUARD: Did we get a successful 2XX response? */
+			/* GUARD: Se obtuvo una respuesta 2XX ? */
 			guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
 				sendError("Your request returned a status code other than 2xx!")
 				return
 			}
 			
-			/* GUARD: Was there any data returned? */
+			/* GUARD: Hay datos devueltos? */
 			guard let data = data else {
 				sendError("No data was returned by the request!")
 				return
 			}
 			
-			/* 5/6. Parse the data and use the data (happens in completion handler) */
+			/* 5/6. Parsea los datos y usa esos datos (ocurre en el completion handler) */
 			completionHandlerForImage(data, nil)
-			
-//			self.photo.imageData = data as NSData
 		}
 		
 		/* 7. Start the request */
@@ -187,17 +187,20 @@ class FlickrClient: NSObject {
 	// MARK: - Helpers
 	//*****************************************************************
 	
-	// given raw JSON, return a usable Foundation object
+	/// del objeto crudo JSON devuelve un objeto usable Foundation
 	private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
 		
+		// el resutado parseado
 		var parsedResult: AnyObject! = nil
+		// comprueba que no hay errores al deserializar el objeto json
 		do {
 			parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
 		} catch {
 			let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
 			completionHandlerForConvertData(nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
 		}
-
+		
+		// finalmente le pasa los datos parseados al completion handler
 		completionHandlerForConvertData(parsedResult, nil)
 	}
 	

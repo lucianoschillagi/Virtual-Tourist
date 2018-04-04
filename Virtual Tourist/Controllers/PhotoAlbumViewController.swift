@@ -15,8 +15,8 @@ import CoreData
 /* Abstract:
 Un objeto que contiene:
 -un fragmento de mapa con un zoom a la ubicación seleccionada
--una colección de vistas con imágenes relacionadas con esa ubicación
--un botón para actualizar la colección de imágenes
+-una colección de vistas con las fotos asociadas a ese pin-ubicación
+-un botón para actualizar la colección de fotos
 */
 
 class PhotoAlbumViewController: UIViewController {
@@ -34,7 +34,7 @@ class PhotoAlbumViewController: UIViewController {
 	//*****************************************************************
 	
 	// model
-	// un array de fotos descargadas desde flickr
+	// un array con las fotos descargadas desde flickr
 	var flickrPhotos: [FlickrImage] = [FlickrImage]()
 	
 	// core data
@@ -49,6 +49,7 @@ class PhotoAlbumViewController: UIViewController {
 	// collection view cell
 	let photoCell = PhotoCell()
 	
+	// el estado del botón ´new collection´ depende de si hay fotos seleccionadas o no
 	var selectedToDelete:[Int] = [] {
 		
 		didSet {
@@ -73,7 +74,7 @@ class PhotoAlbumViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// UI Elements ***************************************************
+		// New Collection Button ***************************************************
 		newCollectionButton.isHidden =  false
 		
 		// Map View ****************************************************
@@ -84,9 +85,7 @@ class PhotoAlbumViewController: UIViewController {
 		// el diseño de la colección de vista, en 3 columnas separadas por 20pts
 		let width = (view.frame.size.width - 20) / 3
 		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-		// el tamaño de cada item
-		layout.itemSize = CGSize(width: width, height: width)
-		
+		layout.itemSize = CGSize(width: width, height: width) // el tamaño de cada item
 		collectionView.isHidden = false
 		collectionView.allowsMultipleSelection = true
 		
@@ -97,9 +96,9 @@ class PhotoAlbumViewController: UIViewController {
 		// fetch request
 		let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
 		// predicate: las fotos asociadas al 'pin' actual
-//		let predicate = NSPredicate(format: "pin == %@", pin)
-//		// pone a la solicitud de búsqueda este predicado específico
-//		fetchRequest.predicate = predicate
+		let predicate = NSPredicate(format: "pin == %@", pin)
+		// pone a la solicitud de búsqueda este predicado específico
+		fetchRequest.predicate = predicate
 		
 		// resultado de la búsqueda
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
@@ -111,10 +110,6 @@ class PhotoAlbumViewController: UIViewController {
 			// y actualiza la interfaz
 			collectionView.reloadData()
 		}
-		
-		// test
-		print("🤡\(coreDataPhotos.count)")
-		
 		
 	} // end view did load
 	
@@ -137,7 +132,7 @@ class PhotoAlbumViewController: UIViewController {
 	// MARK: - IBActions
 	//*****************************************************************
 	
-	// Borra los items de la colección seleccionados
+	/// borra los items de la colección seleccionados
 	@IBAction func deleteSelected(_ sender: Any) {
 		
 		// comprueba si hay items seleccionados (array de elementos)
@@ -153,13 +148,14 @@ class PhotoAlbumViewController: UIViewController {
 				flickrPhotos.remove(at: item)
 			}
 			
-			// y borrarlos de los datos de la 'collection view'
+			// y los borra de los datos de la 'collection view'
 			collectionView.deleteItems(at: selected)
 			
 		}
 		
 	}
 	
+	/// si no hay fotos selecciondas realizar una solicitud web para obtener un nuevo grupo de fotos
 	@IBAction func newCollectionPhotos(_ sender: UIButton) {
 		
 		// si hay items seleccionados
@@ -178,10 +174,6 @@ class PhotoAlbumViewController: UIViewController {
 					// si se reciben fotos...
 					// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 					self.flickrPhotos = photos
-					
-					// TODO: You can also save your photos to Core Data here, and then meet all the requirements for this project! :)
-					
-					// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					
 							// dispatch
 							performUIUpdatesOnMain {
@@ -207,11 +199,13 @@ class PhotoAlbumViewController: UIViewController {
 	// MARK: - MapView
 	//*****************************************************************
 	
+	/// hace un zoom hacia el pin mostrado
 	func centerMapOnLocation(location: CLLocation) {
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,regionRadius, regionRadius)
 		mapFragment.setRegion(coordinateRegion, animated: true)
 	}
 	
+	/// agrega la anotación (pin) al fragmento del mapa
 	func addAnnotationToMap() {
 		let annotation = MKPointAnnotation()
 		annotation.coordinate = coordinateSelected
@@ -228,25 +222,26 @@ class PhotoAlbumViewController: UIViewController {
 
 extension PhotoAlbumViewController: UICollectionViewDataSource {
 	
-	// cantidad de celdas
+	/// la cantidad de items de la collección
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
 		return flickrPhotos.count
 
 	}
 	
-	// pregunta al objeto de datos por la celda que corresponde al elemento especificado en la vista de colección
+	// la celda para item especificado
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
-		let photo = flickrPhotos[(indexPath as NSIndexPath).row] // LEE del Modelo!
+		// pone las fotos descargadas de flickr en cada item de la 'collection view'
+		let photo = flickrPhotos[(indexPath as NSIndexPath).row]
 		
-		// obtiene la celda reusable
+		// obtiene la celda reusable (personalizada)
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
 		
 		// comprueba si hay fotos en el modelo
 		if let photoPath = photo.photoPath {
 			
-			// solicitud web para obtener los DATOS de las imágenes para convertirlas a imágenes
+			// realiza la solicitud web para obtener los DATOS de las imágenes para convertirlas en imágenes
 			let _ = FlickrClient.sharedInstance().taskForGetImage(photoPath: photoPath, completionHandlerForImage: { (imageData, error) in
 				
 				if let image = UIImage(data: imageData!) {
@@ -254,7 +249,9 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 					// dispatch
 					performUIUpdatesOnMain {
 						
+						// pone cada foto en una celda
 						cell.photoImageView.image = image
+						// y detiene el indicator de actividad
 						cell.activityIndicator.stopAnimating()
 						
 					}
@@ -272,18 +269,18 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
 		
 	} // end func
 	
-	// seleccionado para borrar desde los index paths de los items seleccionados
+	// devuelve un array con las direcciones de los items seleccionados
 	func selectedToDeleteFromIndexPath(_ indexPathArray: [IndexPath]) -> [Int] {
 		
 		// un array para almacenar los items seleccionados, por ahora vacío
 		var selected: [Int] = []
 		
-		// iterar cada indexPath (dirección del item seleccionado)
+		// itera cada indexPath (dirección del item seleccionado)
 		// del array de indexPath (indexPathArray)
 		for indexPath in indexPathArray {
-			// poner el el array 'selected' cada dirección del item seleccionado
+			// pone en el array 'selected' cada dirección del item seleccionado
 			selected.append(indexPath.item)
-			// el array ahora está llenado con los index path de los items seleccionados
+			// el array ahora está llenado con las 'direcciones' de los items seleccionados.
 		}
 		return selected
 	}

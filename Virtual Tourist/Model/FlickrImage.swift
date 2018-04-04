@@ -20,7 +20,7 @@ struct FlickrImage {
 	// MARK: - Properties 
 	//*****************************************************************
 	
-	let photoPath: String? // la url para construir la foto!
+	let photoPath: String? // la url para construir la foto 📷
 
 	//*****************************************************************
 	// MARK: - Initializers
@@ -40,9 +40,6 @@ struct FlickrImage {
 		
 		// guarda las fotos obtenidas en un array de 'FlickrImage'
 		var photosPath = [FlickrImage]()
-		// guarda las fotos obtenidas en el objeto del modelo 'Photo'
-		
-		
 		
 		// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario
 		for result in results {
@@ -51,7 +48,6 @@ struct FlickrImage {
 		
 		return photosPath
 	}
-	
 	
 	
 } // end struct

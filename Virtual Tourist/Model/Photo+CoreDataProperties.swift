@@ -7,9 +7,14 @@
 //
 //
 
+/* Model */
+
 import Foundation
 import CoreData
 
+/* Abstract:
+Extensión de la clase ´Photo´. Contiene sus propiedades, un método para buscar las instancias de este objeto.
+*/
 
 extension Photo {
 
