@@ -179,8 +179,9 @@ class PhotoAlbumViewController: UIViewController {
 					// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 					self.flickrPhotos = photos
 					
-					// You can also save your photos to Core Data here, and then meet all the requirements for this project! :)
+					// TODO: You can also save your photos to Core Data here, and then meet all the requirements for this project! :)
 					
+					// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					
 							// dispatch
 							performUIUpdatesOnMain {

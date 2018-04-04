@@ -83,11 +83,12 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - Edit-Done Button
 	//*****************************************************************
 	
+	/// pone el botón edit-done en el navegador
 	func setEditDoneButton() {
 		self.navigationItem.rightBarButtonItem = self.editButtonItem
 	}
 	
-	// establece si el controlador de vista muestra una vista editable
+	/// establece si el controlador de vista muestra una vista editable
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		
 		super.setEditing(editing, animated: animated)
@@ -101,13 +102,14 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - IBActions
 	//*****************************************************************
 	
-	// cuando el usuario hace una tap sobre el mapa, se crea un pin y se realizan 3 tareas:
+	// cuando el usuario tapea sobre el mapa, se crea un pin y se realizan 4 tareas:
 	
-	/* 1 - addPinToMap: que aparezca efectivamente el pin sobre el sitio tapeado */
-	/* 2 - addPinToCoreData: que se persista la ubicación de ese pin (latitud y longitud) en core data */
-	/* 3 - requestFlickrPhotosFromPin: que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+	/* 1 - addPinToMap: aparece el pin sobre el sitio tapeado */
+	/* 2 - addPinToCoreData: se persiste la ubicación de ese pin (latitud y longitud) */
+	/* 3 - requestFlickrPhotosFromPin: se efectúa la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+	/* 4 - persistPinPhotos: se persisten las fotos descargadas asociadas al pin */
 	
-	/* 1/3 Map View */
+	/* 1/4 Map View */
 	@IBAction func addPinToMap(_ sender: UITapGestureRecognizer) {
 		
 		// edit-mode: FALSE
@@ -138,6 +140,10 @@ class TravelLocationsMapViewController: UIViewController {
 			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
 			requestFlickrPhotosFromPin(coord: coordToAdd)
 			
+			// Core Data ----------------------------------------------------
+			/* 4 - que se persistan las fotos asocidas al pin recibidas */
+			persistPinPhotos()
+			
 		} else  {
 			
 			// edit-mode: TRUE
@@ -147,8 +153,7 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	} // end func
 	
-	
-	/* 2/3 Core Data */
+	/* 2/4 Core Data */
 	/// persiste la coordenada tapeada
 	func addPinToCoreData(coord: CLLocationCoordinate2D) {
 		
@@ -159,7 +164,7 @@ class TravelLocationsMapViewController: UIViewController {
 		
 	}
 
-	/* 3/3 Flickr (networking) */
+	/* 3/4 Flickr (networking) */
 	/// solicita a flickr las fotos asociadas a esa coordenada
 	func requestFlickrPhotosFromPin(coord: CLLocationCoordinate2D) {
 		
@@ -172,9 +177,6 @@ class TravelLocationsMapViewController: UIViewController {
 				// si se reciben fotos...
 				// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 				self.flickrPhotos = photos
-				
-				
-				print("☎️\(self.flickrPhotos)")
 
 			} else {
 
@@ -185,6 +187,23 @@ class TravelLocationsMapViewController: UIViewController {
 		} // end closure
 
 	} // end func
+	
+	/* 4/4 Core Data */
+	/// persiste las fotos asociadas al pin recibidas desde flickr
+	func persistPinPhotos() {
+			// itera el array de urls (photoPath) recibidas
+			for photo in self.flickrPhotos {
+				// crea una constante para acceder a la propiedad de FlickImage 'photoPath'
+				let photoPath = photo.photoPath
+				// crea una instancia de 'Photo' para CADA item del array de fotos recibidas [FlickrImage]
+				let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext)
+				// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega un nuevo objeto ´Photo´)
+				try? self.dataController.viewContext.save()
+		
+				// test
+				print("🔋\(photoCoreData)")
+		}
+	}
 	
 } // end class
 
@@ -237,7 +256,6 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
 			mapView.removeAnnotation(view.annotation!) 
 
 			}
-
 		}
 	}
 

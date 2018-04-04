@@ -20,6 +20,7 @@ public class Photo: NSManagedObject {
 			self.init(entity: ent, insertInto: context)
 			self.imageURL = imageURL
 			
+			
 		} else {
 			
 			fatalError("Unable To Find Entity Name!")
