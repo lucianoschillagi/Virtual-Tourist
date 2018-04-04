@@ -154,9 +154,14 @@ class TravelLocationsMapViewController: UIViewController {
 	func addPinToCoreData(coord: CLLocationCoordinate2D) {
 		
 		// crea un objeto gestionado 'pin'
-		let pin  = Pin(latitude: coord.latitude, longitude: coord.longitude, context: dataController.viewContext)
+		let pin = Pin(latitude: coord.latitude, longitude: coord.longitude, context: dataController.viewContext)
+		// agrega el pin (managed object) a un array que contiene todos los pins
+		pins.append(pin)
 		// intenta guardar los cambios que registra el contexto (en este caso, que se agregó un nuevo objeto ´Pin´)
 		try? dataController.viewContext.save()
+		
+		// test
+		print("🛡\(pins)")
 		
 	}
 

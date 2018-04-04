@@ -93,12 +93,12 @@ class PhotoAlbumViewController: UIViewController {
 		// TASK: solicita las fotos asociadas al pin tapeado y las intenta persistir
 		// para tenerlas disponibles para obtenerlas luego directamente (sin tener que hacer una solicitud web)
 		
-		// fetch request
+		// solicitud de búsqueda
 		let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-		// predicate: las fotos asociadas al 'pin' actual
-//		let predicate = NSPredicate(format: "pin == %@", pin)
-//		// pone a la solicitud de búsqueda este predicado específico
-//		fetchRequest.predicate = predicate
+		// predicate: filtrar ÚNICAMENTE las fotos asociadas al 'pin' actual
+		let predicate = NSPredicate(format: "pin == %@", pin)
+		// pone a la solicitud de búsqueda este predicado específico
+		fetchRequest.predicate = predicate
 		
 		// resultado de la búsqueda
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
@@ -187,7 +187,6 @@ class PhotoAlbumViewController: UIViewController {
 						print("😎\(photoCoreData)")
 						
 					}
-					
 					
 							// dispatch
 							performUIUpdatesOnMain {
