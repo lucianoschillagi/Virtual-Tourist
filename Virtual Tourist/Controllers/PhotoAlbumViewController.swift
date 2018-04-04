@@ -96,9 +96,9 @@ class PhotoAlbumViewController: UIViewController {
 		// fetch request
 		let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
 		// predicate: las fotos asociadas al 'pin' actual
-		let predicate = NSPredicate(format: "pin == %@", pin)
-		// pone a la solicitud de búsqueda este predicado específico
-		fetchRequest.predicate = predicate
+//		let predicate = NSPredicate(format: "pin == %@", pin)
+//		// pone a la solicitud de búsqueda este predicado específico
+//		fetchRequest.predicate = predicate
 		
 		// resultado de la búsqueda
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
@@ -168,12 +168,26 @@ class PhotoAlbumViewController: UIViewController {
 			// solicitud web
 			FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
 				
-				// comprueba si la solicitud de datos fue exitosa
+				// si la solicitud fue exitosa..
 				if let photos = photos {
-					
-					// si se reciben fotos...
+				
 					// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
 					self.flickrPhotos = photos
+					
+					// itera el array de urls (photoPath) recibidas
+					for photo in self.flickrPhotos {
+						// crea una constante para acceder a la propiedad de FlickImage 'photoPath'
+						let photoPath = photo.photoPath
+						// crea una instancia de 'Photo' para CADA item del array de fotos recibidas [FlickrImage]
+						let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext)
+						// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega un nuevo objeto ´Photo´)
+						try? self.dataController.viewContext.save()
+						
+						// test
+						print("😎\(photoCoreData)")
+						
+					}
+					
 					
 							// dispatch
 							performUIUpdatesOnMain {

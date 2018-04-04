@@ -108,9 +108,8 @@ class TravelLocationsMapViewController: UIViewController {
 	/* 1 - addPinToMap: aparece el pin sobre el sitio tapeado */
 	/* 2 - addPinToCoreData: se persiste la ubicación de ese pin (latitud y longitud) */
 	/* 3 - requestFlickrPhotosFromPin: se efectúa la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
-	/* 4 - persistPinPhotos: se persisten las fotos descargadas asociadas al pin */
 	
-	/* 1/4 Map View */
+	/* 1/3 Map View */
 	@IBAction func addPinToMap(_ sender: UITapGestureRecognizer) {
 		
 		// edit-mode: FALSE
@@ -141,10 +140,6 @@ class TravelLocationsMapViewController: UIViewController {
 			/* 3 - que se efectúe la solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
 			requestFlickrPhotosFromPin(coord: coordToAdd)
 			
-			// Core Data ----------------------------------------------------
-			/* 4 - que se persistan las fotos asocidas al pin recibidas */
-			persistPinPhotos()
-			
 		} else  {
 			
 			// edit-mode: TRUE
@@ -154,7 +149,7 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	} // end func
 	
-	/* 2/4 Core Data */
+	/* 2/3 Core Data */
 	/// persiste la coordenada tapeada
 	func addPinToCoreData(coord: CLLocationCoordinate2D) {
 		
@@ -165,7 +160,7 @@ class TravelLocationsMapViewController: UIViewController {
 		
 	}
 
-	/* 3/4 Flickr (networking) */
+	/* 3/3 Flickr (networking) */
 	/// solicita a flickr las fotos asociadas a esa coordenada
 	func requestFlickrPhotosFromPin(coord: CLLocationCoordinate2D) {
 		
@@ -188,21 +183,6 @@ class TravelLocationsMapViewController: UIViewController {
 		} // end closure
 
 	} // end func
-	
-	/* 4/4 Core Data */
-	/// persiste las fotos asociadas al pin recibidas desde flickr
-	func persistPinPhotos() {
-			// itera el array de urls (photoPath) recibidas
-			for photo in self.flickrPhotos {
-				// crea una constante para acceder a la propiedad de FlickImage 'photoPath'
-				let photoPath = photo.photoPath
-				// crea una instancia de 'Photo' para CADA item del array de fotos recibidas [FlickrImage]
-				let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext)
-				// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega un nuevo objeto ´Photo´)
-				try? self.dataController.viewContext.save()
-	
-		}
-	}
 	
 } // end class
 
