@@ -64,7 +64,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="deletePins" destination="yfy-zI-vq4" id="d0g-DX-swZ"/>
+                        <outlet property="deletePinsMessage" destination="yfy-zI-vq4" id="iAo-dn-uBf"/>
                         <outlet property="editButton" destination="Hbb-jg-mJ2" id="yah-rp-6DM"/>
                         <outlet property="mapView" destination="Cwy-kK-M2H" id="SEH-bV-R3J"/>
                         <segue destination="tgO-rm-beU" kind="show" identifier="PinPhotos" id="6R4-m8-pYI"/>

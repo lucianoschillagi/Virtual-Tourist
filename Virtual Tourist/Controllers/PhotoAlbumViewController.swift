@@ -16,7 +16,7 @@ import CoreData
 Un objeto que contiene:
 -un fragmento de mapa con un zoom a la ubicación seleccionada
 -una colección de vistas con las fotos asociadas a ese pin-ubicación
--un botón para actualizar la colección de fotos
+-un botón para obtener una nueva colección de fotos
 */
 
 class PhotoAlbumViewController: UIViewController {
@@ -39,13 +39,21 @@ class PhotoAlbumViewController: UIViewController {
 	
 	// core data
 	var dataController: DataController! // inyecta el data controller en este vc
-	var pin: Pin! // el pin del cual son mostradas sus fotos
+	
+//	// el pin tapeado y su ubicación
+//	var pinAndLocation: (Pin, CLLocationCoordinate2D)!
+
 	var coreDataPhotos: [Photo] = [] // las fotos persistidas
 	
 	// map view
-	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	let regionRadius: CLLocationDistance = 1000 // el radio mostrado a partir de un punto
 	
+	// el pin pasado por 'TravelLocationCV'
+	var pin: Pin! = nil
+	// y la coordenada de ese pin
+	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
+	
+
 	// collection view cell
 	let photoCell = PhotoCell()
 	
@@ -64,7 +72,6 @@ class PhotoAlbumViewController: UIViewController {
 			}
 		}
 	}
-
 	
 	//*****************************************************************
 	// MARK: - Superview Life Cycle
@@ -90,8 +97,6 @@ class PhotoAlbumViewController: UIViewController {
 		collectionView.allowsMultipleSelection = true
 		
 		// Core Data *********************************************
-		// TASK: solicita las fotos asociadas al pin tapeado y las intenta persistir
-		// para tenerlas disponibles para obtenerlas luego directamente (sin tener que hacer una solicitud web)
 		
 		// solicitud de búsqueda
 		let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
@@ -110,6 +115,7 @@ class PhotoAlbumViewController: UIViewController {
 			// y actualiza la interfaz
 			collectionView.reloadData()
 		}
+	
 		
 	} // end view did load
 	
@@ -124,6 +130,9 @@ class PhotoAlbumViewController: UIViewController {
 			self.collectionView.reloadData()
 			
 		}
+		
+//		// test
+//		print("🥊 \(pinAndLocation)")
 		
 	} // end viewWillAppear()
 	
@@ -180,17 +189,19 @@ class PhotoAlbumViewController: UIViewController {
 						let photoPath = photo.photoPath
 						// crea una instancia de 'Photo' para CADA item del array de fotos recibidas [FlickrImage]
 						let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext)
-						// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega un nuevo objeto ´Photo´)
+						// agrega la referencia del pin que 'agrupa' esas fotos
+						photoCoreData.pin = self.pin
+						// intenta GUARDAR los cambios que registra el contexto (en este caso, cada vez que se agrega un nuevo objeto ´Photo´)
 						try? self.dataController.viewContext.save()
 						
 						// test
 						print("😎\(photoCoreData)")
 						
-					}
+					} // end for-in loop
 					
 							// dispatch
 							performUIUpdatesOnMain {
-					
+								// y actualiza los datos de la 'collection view'
 								self.collectionView.reloadData()
 					
 							}
@@ -206,7 +217,7 @@ class PhotoAlbumViewController: UIViewController {
 		}
 		
 	}
-	
+
 	
 	//*****************************************************************
 	// MARK: - MapView
@@ -221,6 +232,7 @@ class PhotoAlbumViewController: UIViewController {
 	/// agrega la anotación (pin) al fragmento del mapa
 	func addAnnotationToMap() {
 		let annotation = MKPointAnnotation()
+//		annotation.coordinate = coordinateSelected
 		annotation.coordinate = coordinateSelected
 		mapFragment.addAnnotation(annotation)
 		mapFragment.showAnnotations([annotation], animated: true)
