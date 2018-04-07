@@ -22,16 +22,16 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - IBOutlets
 	//*****************************************************************
 	
+	@IBOutlet weak var editButton: UIBarButtonItem!
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var deletePinsMessage: UIView!
-	@IBOutlet weak var editButton: UIBarButtonItem!
 	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
-	// inyecta el controlador de datos
-	var dataController: DataController!
+	// core data
+	var dataController: DataController! // inyecta el controlador de datos (core data stack)
 	
 	// edit mode
 	var editMode: Bool = false
@@ -41,15 +41,16 @@ class TravelLocationsMapViewController: UIViewController {
 	var pins: [Pin] = []
 	
 	// los pins persistidos que se convierten en vistas de anotaciones del mapa
-	var pinsOnMap: [PinOnMap] = [] // esta clase adopta el protocolo 'MKAnnotation'
-	
-//	// el pin tapeado y su ubicación, en principio vacío
-//	var pinAndLocation: (Pin, CLLocationCoordinate2D)? = nil
+	var pinsOnMap: [PinOnMap] = []
 	
 	// el pin a pasar al 'PhotosAlbumVC'
 	var pinToPass: Pin? = nil
+	
 	// y la coordenada de ese pin
 	var pinCoordinate: CLLocationCoordinate2D? = nil
+	
+	//	// el pin tapeado y su ubicación, en principio vacío
+	//	var pinAndLocation: (Pin, CLLocationCoordinate2D)? = nil
 	
 	// PHOTOS ---------------------------------------------------------
 	// un array de fotos descargadas desde flickr
@@ -62,33 +63,48 @@ class TravelLocationsMapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Pone el botón edit-done
+		// cuando la supervista se cargó...
+		
+		// pone el botón edit-done
 		setEditDoneButton()
 		
-		// cuando la supervista se cargó...
-		// busca los objetos 'Pin' persistidos
-		let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest() 
+		// y busca si hay objetos 'Pin' persistidos
+		fetchRequestForPins()
 		
-		// comprueba los resultados de la solicitud de búsqueda
+	}
+	
+	//*****************************************************************
+	// MARK: - Core Data (fetch request)
+	//*****************************************************************
+	
+	/// busca si hay objetos 'Pin' persistidos
+	func fetchRequestForPins() {
+		
+		// hay objetos 'Pin' persistidos?
+		let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest() // 🔍
+	
+		// comprueba si hay resultados en la búsqueda..
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
 			
-			// asigna el resultado de la solicitud al array de pins
-			pins = result
+			// .. si es así, asigna el resultado de la solicitud al array de pins persistidos
+			pins = result // pins:[Pin] 🔌
 		}
-		// itera el array pins
-				for pin in pins {
-					// y a las coordenadas de los pins persistidos..
-					let coordinate = CLLocationCoordinate2D(latitude: pin.latitude , longitude: pin.longitude )
-					// las convierte en objetos que adoptan el protocolo 'MKAnnotation'
-					let pins = PinOnMap(coordinate: coordinate)
-					// y los agrega al array de objetos preparados para mostrarse en una vista de mapa
-					pinsOnMap.append(pins)
-				}
+		
+		// luego itera ese array pins
+		for pin in pins { //
+			// y a las coordenadas de los pins persistidos..
+			let coordinate = CLLocationCoordinate2D(latitude: pin.latitude , longitude: pin.longitude )
+			// las convierte en objetos que adoptan el protocolo 'MKAnnotation'
+			let pins = PinOnMap(coordinate: coordinate)
+			// y los agrega al array de objetos preparados para mostrarse en una vista de mapa
+			pinsOnMap.append(pins)
+		}
 		
 		// por último, actualiza la vista de mapa agregando los pins persistidos.
 		mapView.addAnnotations(pinsOnMap)
-
+		
 	}
+	
 	
 	//*****************************************************************
 	// MARK: - Edit-Done Button
