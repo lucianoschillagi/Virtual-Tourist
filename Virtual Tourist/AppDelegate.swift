@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	
-	// core data
+	// configura cual es el Modelo de esta aplicación
 	let dataController = DataController(modelName: "VirtualTourist")
 	
 	//*****************************************************************
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		dataController.load()
 		
 		// apenas arranca la aplicación...
-		/// inyecta el 'dataController' en el 'TravelLocationsMapViewController'
+		// inyecta el 'dataController' en el 'TravelLocationsMapViewController'
 		let navigationController = window?.rootViewController as! UINavigationController
 		let travelLocationsViewController = navigationController.topViewController as! TravelLocationsMapViewController
 		travelLocationsViewController.dataController = dataController
@@ -47,16 +47,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationDidEnterBackground(_ application: UIApplication) {
+		// cuando la aplicación entró en segundo plano se guarda el estado del contexto 💿
 		saveViewContext()
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
+		// cuando la aplicación está por morir guarda el estado del contexto 💿
 		saveViewContext()
 	}
 	
-	// save view context
+	//*****************************************************************
+	// MARK: - Core Data - Save View Context
+	//*****************************************************************
+	
+	// en este punto, si hay cambios en el modelo no guardados, los guarda
 	func saveViewContext() {
-		// intenta guardar el contexto
 		try? dataController.viewContext.save()
 	}
 	

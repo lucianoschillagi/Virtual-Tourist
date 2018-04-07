@@ -21,14 +21,15 @@ Extensión de la clase ´Pin´. Contiene sus propiedades, un método para buscar
 //*****************************************************************
 
 extension Pin {
-
+	
+		// busca si hay instancias persistidas del objeto 'Pin'
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Pin> {
         return NSFetchRequest<Pin>(entityName: "Pin")
     }
 
-    @NSManaged public var latitude: Double
-    @NSManaged public var longitude: Double
-    @NSManaged public var photos: NSSet?
+    @NSManaged public var latitude: Double // attribute
+    @NSManaged public var longitude: Double // attribute
+    @NSManaged public var photos: NSSet? // relationship
 
 }
 

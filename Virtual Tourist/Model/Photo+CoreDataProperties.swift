@@ -17,13 +17,14 @@ Extensión de la clase ´Photo´. Contiene sus propiedades, un método para busc
 */
 
 extension Photo {
-
+	
+		// busca si hay instancias persistidas del objeto 'Photo'
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Photo> {
         return NSFetchRequest<Photo>(entityName: "Photo")
     }
 
-    @NSManaged public var imageData: NSData?
-    @NSManaged public var imageURL: String?
-    @NSManaged public var pin: Pin?
+    @NSManaged public var imageData: NSData? // attribute
+    @NSManaged public var imageURL: String? // attribute
+    @NSManaged public var pin: Pin? // relationship
 
 }

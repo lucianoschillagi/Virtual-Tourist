@@ -28,7 +28,7 @@ struct FlickrImage {
 	
 	// construye un FlickrImage desde un diccionario
 	init(dictionary: [String:AnyObject]) {
-		photoPath = dictionary["url_m"] as? String // FlickrClient.JSONResponseKeys.MediumURL
+		photoPath = dictionary[FlickrClient.JSONResponseKeys.MediumURL] as? String
 	}
 	
 	//*****************************************************************
@@ -41,7 +41,7 @@ struct FlickrImage {
 		// guarda las fotos obtenidas en un array de 'FlickrImage'
 		var photosPath = [FlickrImage]()
 		
-		// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario
+		// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario (!)
 		for result in results {
 			photosPath.append(FlickrImage(dictionary: result))
 		}

@@ -42,7 +42,8 @@ class PhotoAlbumViewController: UIViewController {
 	
 //	// el pin tapeado y su ubicación
 //	var pinAndLocation: (Pin, CLLocationCoordinate2D)!
-
+	
+	// core data foto array
 	var coreDataPhotos: [Photo] = [] // las fotos persistidas
 	
 	// map view
@@ -53,7 +54,6 @@ class PhotoAlbumViewController: UIViewController {
 	// y la coordenada de ese pin
 	var coordinateSelected: CLLocationCoordinate2D! // la coordenada seleccionada
 	
-
 	// collection view cell
 	let photoCell = PhotoCell()
 	
@@ -181,7 +181,8 @@ class PhotoAlbumViewController: UIViewController {
 				if let photos = photos {
 				
 					// almacena en la propiedad 'photos' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
-					self.flickrPhotos = photos
+//					self.flickrPhotos = photos
+					self.coreDataPhotos = photos
 					
 					// itera el array de urls (photoPath) recibidas
 					for photo in self.flickrPhotos {

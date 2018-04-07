@@ -53,11 +53,9 @@ class DataController {
 //*****************************************************************
 
 extension DataController {
-    
+	
+		/// cada 30 segundos se fija si hay cambios en el contexto, y de ser así, los guarda
     func autoSaveViewContext(interval: TimeInterval = 30) {
-        
-        // test
-        print("autosaving")
         
         // guard
         guard interval > 0 else {
@@ -75,5 +73,8 @@ extension DataController {
             
             self.autoSaveViewContext(interval: interval)
         }
+			
+			// test
+			print("autosaving")
     }
 }

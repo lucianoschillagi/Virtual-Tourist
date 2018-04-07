@@ -25,7 +25,7 @@ class FlickrClient: NSObject {
 	
 	var session = URLSession.shared // shared session
 	
-	// un array que contiene las fotos descargadas desde flickr
+	// un array que contiene las fotos descargadas desde flickr [📷]
 	var photos: [FlickrImage] = [FlickrImage]()
 
 	//*****************************************************************
@@ -40,8 +40,17 @@ class FlickrClient: NSObject {
 	// MARK: - Networking
 	//*****************************************************************
 	
-	// obtiene los strings de las urls de las fotos
-	func getPhotosPath(lat: Double,lon: Double, _ completionHandlerForGetPhotosPath: @escaping (_ result: [FlickrImage]?, _ error: NSError?) -> Void) {
+	/**
+	Si la solicitud es exitosa obtiene un array de diccionarios [FlickrImage]
+	Cada valor del diccionario del array contiene una url para construir una foto
+	Cada una de estas fotos está ASOCIADA al pin tapeado 👈
+	
+	- parameter lat: la latitud de la coordenada tapeada por el usuario.
+	- parameter lon: la longitud de la coordenada tapeada por el usuario.
+	- parameter completionHandlerForGetPhotosPath: maneja el resultado de la solicitud, si es exitosa lo almacena, sino muestra un error.
+	*/
+	
+	func getPhotosPath(lat: Double, lon: Double, _ completionHandlerForGetPhotosPath: @escaping (_ result: [FlickrImage]?, _ error: NSError?) -> Void) {
 		
 		/* 1. Pone los parámetros de la solicitud web */
 		let methodParameters: [String : Any] = [
@@ -62,7 +71,7 @@ class FlickrClient: NSObject {
 		/* 2. Le pasa las parámetros puestos a ´taskForGetMethod´ */
 		let _ = taskForGetMethod(methodParameters: methodParameters as [String : AnyObject]) { (results, error) in
 			
-			/* 3. Envía las valores deseados al completion handler */
+			/* 3. Envía las valores extraídos al completion handler. En este caso el valor deseado es 'un array de urls de fotos'. Representado por [FlickrImage] */
 			if let error = error {
 				
 				completionHandlerForGetPhotosPath(nil, error)
@@ -72,8 +81,8 @@ class FlickrClient: NSObject {
 				if let photos = results?[FlickrClient.JSONResponseKeys.Photos] as? [String:AnyObject],
 					 let photo = photos [FlickrClient.JSONResponseKeys.Photo] as? [[String:AnyObject]] {
 					
-					let flickrImages = FlickrImage.photosPathFromResults(photo) // llena el objeto 'FlickrImage' con un array de diccionarios
-					completionHandlerForGetPhotosPath(flickrImages, nil)
+					let flickrImages = FlickrImage.photosPathFromResults(photo)
+					completionHandlerForGetPhotosPath(flickrImages, nil) // llena el objeto 'FlickrImage' con un array de diccionarios 👈
 					
 				} else {
 					
@@ -85,9 +94,15 @@ class FlickrClient: NSObject {
 
 		}
 			
-	} // end method
+	}
 	
-	// configura y envía la solicitud web (la tarea)
+	/**
+	Realiza una solicitud ´GET´ con los datos correspondientes a la tarea.
+	
+	- parameter methodParameters: recibe los parámetros de la solicitud (declarados en ´getPhotosPath´)
+	- parameter completionHandlerForGet: maneja el resultado de la solicitud, si es exitosa lo almacena, sino muestra un error.
+	*/
+	
 	func taskForGetMethod(methodParameters: [String : AnyObject],completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
 		
 		/* 1. Almacena los parámetros puestos anteriormente */
@@ -134,7 +149,13 @@ class FlickrClient: NSObject {
 		return task
 	}
 	
-	/// realiza la tarea para obtener los datos de las imágenes (de las fotos)
+	/**
+	Realiza una solicitud ´GET´ para obtener, medienta las urls, los DATOS de las imágenes.
+	
+	- parameter photoPath: la url para obtener los datos de la imagen.
+	- parameter completionHandlerForImage: maneja el resultado de la solicitud, si obtiene los datos de la imagen los almacena, sino muestra un error.
+	*/
+	
 	func taskForGetImage(photoPath: String, completionHandlerForImage: @escaping (_ imageData: Data?, _ error: NSError?) -> Void) -> URLSessionTask {
 
 		/* 1. Pone los parámetros */
@@ -176,7 +197,7 @@ class FlickrClient: NSObject {
 			completionHandlerForImage(data, nil)
 		}
 		
-		/* 7. Start the request */
+		/* 7. Inicia la solicitud 🚀 */
 		task.resume()
 		
 		return task
@@ -187,7 +208,13 @@ class FlickrClient: NSObject {
 	// MARK: - Helpers
 	//*****************************************************************
 	
-	/// del objeto crudo JSON devuelve un objeto usable Foundation
+	/**
+	Del objeto crudo JSON recibido devuelve un objeto usable Foundation.
+	
+	- parameter data: los datos recibidos.
+	- parameter completionHandlerForConvertData: maneja el resultado del proceso de deserialización, si el resultado es exitoso (si los datos son convertidos a un objeto ´Foundation´), los almacena, sino muestra un error.
+	*/
+	
 	private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
 		
 		// el resutado parseado
@@ -200,11 +227,18 @@ class FlickrClient: NSObject {
 			completionHandlerForConvertData(nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
 		}
 		
-		// finalmente le pasa los datos parseados al completion handler
+		// finalmente le pasa los datos convertidos a objetos ´Foundation´ al completion handler
 		completionHandlerForConvertData(parsedResult, nil)
 	}
 	
-	// crea una URL con los parámetros necesarios para obtener los datos buscados
+	/**
+	Crea una URL con los parámetros necesarios para obtener los datos buscados.
+	
+	- parameter parameters: los parámetros de la solicitud.
+	
+	- returns: la URL lista para ser usada.
+	*/
+	
 	 private func flickrURLsFromParameters(_ parameters: [String:AnyObject]) -> URL {
 
 		var components = URLComponents()
