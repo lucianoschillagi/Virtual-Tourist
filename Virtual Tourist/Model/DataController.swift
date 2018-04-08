@@ -19,7 +19,7 @@ Una clase para encapsular las configuraciones de la pila y su funcionalidad.
 // MARK: - Core Data Stack
 //*****************************************************************
 
-// crea una clase para encapsular las configuraciones de la pila y su funcionalidad
+// task: crear una clase para encapsular las configuraciones de la pila y su funcionalidad
 class DataController {
 	
 		/// el contenedor persistente
@@ -49,12 +49,12 @@ class DataController {
 }
 
 //*****************************************************************
-// MARK: - Autosave
+// MARK: - Core Data - Autosave
 //*****************************************************************
 
 extension DataController {
 	
-		/// cada 30 segundos se fija si hay cambios en el contexto, y de ser así, los guarda
+	/// task: cada 30 segundos observar si hay cambios en el contexto, y de ser así, guardarlos
     func autoSaveViewContext(interval: TimeInterval = 30) {
         
         // guard

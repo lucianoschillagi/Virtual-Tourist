@@ -18,6 +18,8 @@ Una clase que representa el objeto ´Photo´, con un inicializador de convenienc
 
 public class Photo: NSManagedObject {
 	
+	// task: crear un inicializador para generar las instancias de 'Photo'
+	// este inicializador tomará como dato la url de la imagen
 	convenience init(imageURL: String?, context: NSManagedObjectContext) {
 		
 		if let ent = NSEntityDescription.entity(forEntityName: "Photo", in: context) {

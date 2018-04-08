@@ -18,6 +18,8 @@ Una clase que representa el objeto ´Pin´, con un inicializador de conveniencia
 
 public class Pin: NSManagedObject {
 	
+	// task: crear un inicializador para generar las instancias de 'Pin'
+	// este inicializador tomará los datos de las coordenadas del pin puesto
 	convenience init(latitude: Double, longitude: Double, context: NSManagedObjectContext) {
 		
 		if let ent = NSEntityDescription.entity(forEntityName: "Pin", in: context) {

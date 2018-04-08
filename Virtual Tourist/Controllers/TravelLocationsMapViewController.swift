@@ -58,6 +58,7 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - Superview Life Cycle
 	//*****************************************************************
 	
+	// task: ejectuar las instrucciones de su cuerpo cuando la vista se haya cargado
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -75,7 +76,7 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - Core Data (fetch request)
 	//*****************************************************************
 	
-	/// busca si hay objetos 'Pin' persistidos
+	/// task: buscar si hay objetos 'Pin' persistidos
 	func fetchRequestForPins() {
 		
 		// hay objetos 'Pin' persistidos?
@@ -108,7 +109,7 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - Edit-Done Button
 	//*****************************************************************
 	
-	/// pone el botón edit-done en el navegador
+	/// task: poner el botón edit-done en la barra de navegación
 	func setEditDoneButton() {
 		self.navigationItem.rightBarButtonItem = self.editButtonItem
 	}
@@ -129,11 +130,12 @@ class TravelLocationsMapViewController: UIViewController {
 	// MARK: - IBActions
 	//*****************************************************************
 	
-	// Cuando el usuario tapea sobre el mapa, se crea un pin y se realizan 3 tareas:
+	// task: cuando el usuario haga tap sobre el mapa
+	// realizar estas 3 tareas:
 	
-	/* 1 - addPinToMap: aparece el pin sobre el sitio tapeado */
-	/* 2 - addPinToCoreData: se persiste la ubicación de ese pin (latitud y longitud) */
-	/* 3 - requestFlickrPhotosFromPin: se efectúa una solicitud web a Flickr para obtener las fotos asociadas a la ubicación (pin) */
+	/* 1 - addPinToMap: poner un pin sobre el sitio tapeado */
+	/* 2 - addPinToCoreData: persistir la ubicación de ese pin (latitud y longitud) */
+	/* 3 - requestFlickrPhotosFromPin: efectuar una solicitud web a Flickr para obtener las fotos asociadas a esa ubicación (pin) */
 	
 	/* 1/3 Map View */
 	@IBAction func addPinToMap(_ sender: UITapGestureRecognizer) {
@@ -235,8 +237,9 @@ class TravelLocationsMapViewController: UIViewController {
 
 extension TravelLocationsMapViewController: MKMapViewDelegate {
 	
-	// si la pantalla está en modo edición y se tapea sobre un pin, ese pin se borra
-	// si la pantalla NO está en modo edición y se tapea sobre un pin, navega hacia la siguiente pantalla
+	// task:
+	// si la pantalla está en modo edición y se tapea sobre un pin, borrar ese pin
+	// si la pantalla NO está en modo edición y se tapea sobre un pin, navegar hacia la siguiente pantalla
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) { 
 		
 		// la coordenada de ese pin
@@ -306,40 +309,40 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
 
 extension TravelLocationsMapViewController {
 
-// notifica al vc que se va a realizar una transición
-override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-	
-	if segue.identifier == "PinPhotos" {
+	// task: enviar a 'PhotoAlbumViewController' una serie de datos
+	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 		
-			// el destino de la transición, el 'PhotosAlbumViewController'
-			let photoAlbumVC = segue.destination as! PhotoAlbumViewController
-		
-			// el remitente será una coordenada (pin) puesto sobre el mapa
-			let coord = sender as! CLLocationCoordinate2D
-		
-		
-			// le pasa a 'PhotoAlbumViewController' los siguientes datos: ///////////////////////////////
-		
-			/*
-			1- el controlador de datos (core data)
-			2- el pin coincidente
-			3- la coordenada de ese pin
-			4- las fotos recibidas desde flickr 'flickrPhotos:[FlickrImage]'
-			*/
-		
-			// el controlador de datos
-			photoAlbumVC.dataController = dataController
-		
-			// el pin coincidente..
-			photoAlbumVC.pin = pinToPass
-		
-			// ..y su coordenada
-			photoAlbumVC.coordinateSelected = coord
-		
-			// y pasa las fotos recibidas desde flickr
-			photoAlbumVC.flickrPhotos = flickrPhotos
-		
-		///////////////////////////////////////////////////////////////////////////////////////////////
+		if segue.identifier == "PinPhotos" {
+			
+				// el destino de la transición, el 'PhotosAlbumViewController'
+				let photoAlbumVC = segue.destination as! PhotoAlbumViewController
+			
+				// el remitente será una coordenada (pin) puesto sobre el mapa
+				let coord = sender as! CLLocationCoordinate2D
+			
+			
+				// le pasa a 'PhotoAlbumViewController' los siguientes datos: ///////////////////////////////
+			
+				/*
+				1- el controlador de datos (core data)
+				2- el pin coincidente
+				3- la coordenada de ese pin
+				4- las fotos recibidas desde flickr 'flickrPhotos:[FlickrImage]'
+				*/
+			
+				// el controlador de datos
+				photoAlbumVC.dataController = dataController
+			
+				// el pin coincidente..
+				photoAlbumVC.pin = pinToPass
+			
+				// ..y su coordenada
+				photoAlbumVC.coordinateSelected = coord
+			
+				// y pasa las fotos recibidas desde flickr
+				photoAlbumVC.flickrPhotos = flickrPhotos
+			
+			///////////////////////////////////////////////////////////////////////////////////////////////
 		
 		
 		} // end if
