@@ -25,8 +25,8 @@ class FlickrClient: NSObject {
 	
 	var session = URLSession.shared // shared session
 	
-	// un array que contiene las fotos descargadas desde flickr [📷]
-	var photos: [FlickrImage] = [FlickrImage]()
+	// un array que almacena las urls de las fotos descargadas desde flickr [📷]
+	var photosPath: [FlickrImage] = [FlickrImage]()
 
 	//*****************************************************************
 	// MARK: - Initializers

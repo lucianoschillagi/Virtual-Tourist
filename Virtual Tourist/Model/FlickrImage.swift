@@ -41,12 +41,12 @@ struct FlickrImage {
 		// guarda las fotos obtenidas en un array de 'FlickrImage'
 		var photosPath = [FlickrImage]()
 		
-		// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario (!)
+		// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario 👈
 		for result in results {
 			photosPath.append(FlickrImage(dictionary: result))
 		}
 		
-		return photosPath
+		return photosPath // [photoPath: https://farm5.staticflickr.com/4377/35538507233_1e1e1cfc06.jpg]
 	}
 	
 	
