@@ -45,7 +45,7 @@ class PhotoAlbumViewController: UIViewController {
 	
 	// PHOTOS ---------------------------------------------------------
 	// un array de fotos descargadas desde flickr (no persitidas)
-	var flickrPhotos: [FlickrImage] = [FlickrImage]() // TODO: luego borrar?
+	var flickrPhotos: [FlickrImage] = [FlickrImage]()
 	
 	// un array de las fotos asociadas al pin persistidas!
 	var coreDataPhotos: [Photo] = [] // las fotos persistidas
@@ -80,7 +80,7 @@ class PhotoAlbumViewController: UIViewController {
 	// MARK: - Superview Life Cycle
 	//*****************************************************************
 	
-	// task: cuando la vista esté por aparecer, actualizar los el modelo que toma la ´collectionView´
+	// task: cuando la vista esté por aparecer, actualizar los datos del modelo 'inyectados' en la ´collectionView'
 	override func viewWillAppear(_ animated: Bool) {
 		
 		super.viewWillAppear(animated)
@@ -88,13 +88,14 @@ class PhotoAlbumViewController: UIViewController {
 		// dispatch
 		performUIUpdatesOnMain {
 			
-			self.collectionView.reloadData() // ACTUALIZA EL MODELO
+			// MARK: se actualiza del modelo!
+			self.collectionView.reloadData()
 			
 		}
 		
 	}
 	
-	// task: cuando la vista se haya cargado, realizar las siguientes instrucciones:
+	// task: una vez que la vista se ha cargado, realizar las siguientes instrucciones:
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -115,27 +116,11 @@ class PhotoAlbumViewController: UIViewController {
 	}
 	
 	//*****************************************************************
-	// MARK: - Collection View Layout
-	//*****************************************************************
-	
-	// task: darle un diseño personalizado a la 'collectionView'
-	func collectionViewLayout() {
-		
-		// el diseño de la colección de vista, en 3 columnas separadas por 20pts
-		let width = (view.frame.size.width - 20) / 3
-		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-		layout.itemSize = CGSize(width: width, height: width) // el tamaño de cada item
-		
-		collectionView.isHidden = false
-		collectionView.allowsMultipleSelection = true
-		
-	}
-	
-	//*****************************************************************
 	// MARK: - Core Data (fetch request)
 	//*****************************************************************
 	
 	/// task: buscar si hay objetos 'Photo' persistidos
+	// y si los hay, almacenarlos en el array 'coreDataPhotos: [Photo]'
 	func fetchRequestForPhotos() {
 		
 		// hay objetos 'Photo' persistidos? 🔍
@@ -147,27 +132,111 @@ class PhotoAlbumViewController: UIViewController {
 		// pone a la solicitud de búsqueda este predicado específico
 		fetchRequest.predicate = predicate
 		
-		// resultado de la búsqueda
+		// el resultado de la búsqueda
 		if let result = try? dataController.viewContext.fetch(fetchRequest) {
 			
-			// si el resultado de la solicitud es exitoso
-			// lo guarda en el array de fotos
-			coreDataPhotos = result // coreDataPhotos: [Photo] 🔌
+					// si el resultado de la solicitud es exitoso
+					// lo guarda en el array de fotos
+					coreDataPhotos = result // coreDataPhotos: [Photo] 🔌
 			
-			// intenta guardar el contexto (para que los datos, las fotos asociadas, queden persistidas)
-			try? dataController.viewContext.save() // 💿
+					// intenta guardar el contexto (para que los datos, las fotos asociadas, queden persistidas)
+					try? dataController.viewContext.save() // 💿
 			
-			// y actualiza la interfaz con los datos...
+					// y actualiza la interfaz con los datos...
 			
-			// dispatch
-			performUIUpdatesOnMain {
-				
-				self.collectionView.reloadData() // ACTUALIZA EL MODELO
-				
+					// dispatch
+					performUIUpdatesOnMain {
+						
+						// comprueba los resultados de la solicitud
+						// si el array 'coreDataPhotos' está vacío..
+						if self.coreDataPhotos.count == 0 {
+							
+							// ..entonces realizar la solicitud web
+							// Flickr Client 👈 ///////////////////////////////////////////////////////////////////////////////////////
+							
+							/// task: obtener un nuevo set de fotos asociadas a un pin determinado y guardarlas
+							self.requestFlickrPhotosFromPin()
+
+						} // end if
+						
+						// si hay fotos persistidas actualizar con ellas el 'collection view'
+						self.collectionView.reloadData() // ACTUALIZA EL MODELO
 			}
 		}
-		
 	}
+	
+	//*****************************************************************
+	// MARK: - Networking (Photos for Pin)
+	//*****************************************************************
+	
+	func requestFlickrPhotosFromPin() {
+		
+		// Flickr Client 👈 ///////////////////////////////////////////////////////////////////////////////////////
+		
+		/// task: obtener un nuevo set de fotos asociadas a un pin determinado y guardarlas
+		FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
+			
+			// si la solicitud fue exitosa..
+			if let photos = photos {
+				
+				// almacena en la propiedad 'flickrPhotos: [FlickrImage]' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
+				self.flickrPhotos = photos
+				
+				// itera el array de urls (photoPath) recibidas
+				// [FlickrImage]
+				for photo in self.flickrPhotos {
+					
+					// crea una constante para acceder a la propiedad de 'FlickImage.photoPath'
+					let photoPath = photo.photoPath
+					
+					
+					
+					
+					
+					// Core Data CREATES and SAVE photos ////////////////////////////////////////////////////////////
+					
+					// 'FlickImage.photoPath' -> 'Photo.imageURL'
+					
+					// crea una instancia de 'Photo' para CADA item del array de fotos recibidas [FlickrImage]
+					let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext) // 👏
+					
+					// agrega la referencia del pin que 'agrupa' esas fotos
+					photoCoreData.pin = self.pin
+					
+					// puebla [Photo] con las 'imageURL' iteradas de 'FlickImage.photoPath' // 👏
+					self.coreDataPhotos.append(photoCoreData)
+					
+					// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega una nueva instancia de 'Photo')
+					try? self.dataController.viewContext.save() // 💿
+					
+					// test
+					print("😆\(self.coreDataPhotos)")
+					
+					////////////////////////////////////////////////////////////////////////////////////////////////
+					
+					
+				} // end for-in loop
+				
+				
+				// dispatch
+				performUIUpdatesOnMain {
+					
+					// y actualiza los datos de la 'collection view'
+					self.collectionView.reloadData()
+					
+					
+				}
+				
+			} else {
+				
+				print(error ?? "empty error")
+				
+			}
+			
+		}
+		
+	} // end 'requestFlickrPhotosFromPin' method
+	
 	
 	//*****************************************************************
 	// MARK: - IBActions
@@ -186,7 +255,7 @@ class PhotoAlbumViewController: UIViewController {
 			for item in items {
 				
 				// borra los items seleccionados del array de photos (que son objetos gestionados)
-				coreDataPhotos.remove(at: item) // TODO: volver !!!!!!!!!!!!!!!
+				coreDataPhotos.remove(at: item)
 			}
 			
 			// y los borra de los datos de la 'collection view'
@@ -223,76 +292,15 @@ class PhotoAlbumViewController: UIViewController {
 	
 		} else {
 			
+			// si no hay items seleccionados realizar una solicitud web para obtener una nueva colección de fotos..
+			
 			// Flickr Client 👈 ///////////////////////////////////////////////////////////////////////////////////////
 			
 			/// task: obtener un nuevo set de fotos asociadas a un pin determinado y guardarlas
-			FlickrClient.sharedInstance().getPhotosPath(lat: coordinateSelected.latitude, lon: coordinateSelected.longitude) { (photos, error) in
-				
-				// si la solicitud fue exitosa..
-				if let photos = photos {
-				
-					// almacena en la propiedad 'flickrPhotos: [FlickrImage]' todas las fotos recibidas (hay un límite para recibir no más de 21 fotos)
-					self.flickrPhotos = photos
-					
-					// itera el array de urls (photoPath) recibidas
-					// [FlickrImage]
-					for photo in self.flickrPhotos {
-						
-							// crea una constante para acceder a la propiedad de 'FlickImage.photoPath'
-							let photoPath = photo.photoPath
-						
-						
-						
-						
-
-							// Core Data CREATES and SAVE photos ////////////////////////////////////////////////////////////
-						
-							// 'FlickImage.photoPath' -> 'Photo.imageURL'
-						
-							// crea una instancia de 'Photo' para CADA item del array de fotos recibidas [FlickrImage]
-							let photoCoreData = Photo(imageURL: photoPath, context: self.dataController.viewContext) // 👏
-						
-							// agrega la referencia del pin que 'agrupa' esas fotos
-							photoCoreData.pin = self.pin
-						
-							// puebla [Photo] con las 'imageURL' iteradas de 'FlickImage.photoPath' // 👏
-							self.coreDataPhotos.append(photoCoreData)
-						
-							// intenta guardar los cambios que registra el contexto (en este caso, cada vez que se agrega una nueva instancia de 'Photo')
-							try? self.dataController.viewContext.save() // 💿
-						
-							// test
-							print("😆\(self.coreDataPhotos)")
-						
-							////////////////////////////////////////////////////////////////////////////////////////////////
-						
-						
-						
-						
-						
-						
-					} // end for-in loop
-					
-							// dispatch
-							performUIUpdatesOnMain {
-								
-								// y actualiza los datos de la 'collection view'
-								self.collectionView.reloadData()
-					
-							}
-			
-				} else {
-					
-					print(error ?? "empty error")
-					
-				}
-				
-			}
+			requestFlickrPhotosFromPin()
 			
 		}
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 	}
 	
 	//*****************************************************************
@@ -438,4 +446,26 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
 	}
 	
 } // end ext
+
+
+//*****************************************************************
+// MARK: - Collection View Layout
+//*****************************************************************
+
+extension PhotoAlbumViewController {
+	
+	// task: darle un diseño personalizado a la 'collectionView'
+	func collectionViewLayout() {
+		
+		// el diseño de la colección de vista, en 3 columnas separadas por 20pts
+		let width = (view.frame.size.width - 20) / 3
+		let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+		layout.itemSize = CGSize(width: width, height: width) // el tamaño de cada item
+		
+		collectionView.isHidden = false
+		collectionView.allowsMultipleSelection = true
+		
+	}
+	
+}
 

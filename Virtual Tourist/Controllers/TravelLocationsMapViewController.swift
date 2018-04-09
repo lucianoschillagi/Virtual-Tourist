@@ -177,12 +177,16 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	} // end func
 	
+	//*****************************************************************
+	// MARK: - Core Data (creates and save Pin)
+	//*****************************************************************
+	
 	/* 2/3 Core Data */
 	/// persiste la coordenada tapeada
 	func addPinToCoreData(coord: CLLocationCoordinate2D) {
 		
 		
-		// Core Data CREATES pin ///////////////////////////////
+		// Core Data CREATES and SAVE pin ///////////////////////////////
 		
 		// crea un objeto gestionado 'pin' para almacenar la coordenada tapeada
 		let pin = Pin(latitude: coord.latitude, longitude: coord.longitude, context: dataController.viewContext)
@@ -198,6 +202,10 @@ class TravelLocationsMapViewController: UIViewController {
 		
 	}
 
+	//*****************************************************************
+	// MARK: - Networking (Photos for Pin)
+	//*****************************************************************
+	
 	/* 3/3 Flickr (networking) */
 	/// solicita a flickr las fotos asociadas a esa coordenada
 	func requestFlickrPhotosFromPin(coord: CLLocationCoordinate2D) {
