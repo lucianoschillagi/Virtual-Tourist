@@ -48,7 +48,6 @@ struct FlickrImage {
 		
 		return photosPath
 		
-		// [photoPath: https://farm5.staticflickr.com/4377/35538507233_1e1e1cfc06.jpg]
 	}
 	
 	
