@@ -21,6 +21,8 @@
 		A6856F9E203B65C80029E991 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6856F9D203B65C80029E991 /* PhotoCell.swift */; };
 		A68F2CF61FD773EF005D4342 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = A68F2CF51FD773EF005D4342 /* Contents.json */; };
 		A69FCEA01FEA082E006327C5 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */; };
+		A6A5806E207AF039007BE202 /* PhotoAlbumViewController_CollectionViewMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A5806D207AF039007BE202 /* PhotoAlbumViewController_CollectionViewMethods.swift */; };
+		A6A58070207B1541007BE202 /* TravelLocationsViewController_MapViewMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A5806F207B1541007BE202 /* TravelLocationsViewController_MapViewMethods.swift */; };
 		A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */; };
 		A6BAA4301FEB467800160AF7 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */; };
 		A6C47BA7205F731A003F7FD8 /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C47BA6205F731A003F7FD8 /* Pin+CoreDataProperties.swift */; };
@@ -52,6 +54,8 @@
 		A6856F9D203B65C80029E991 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		A68F2CF51FD773EF005D4342 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		A69FCE9F1FEA082E006327C5 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GCDBlackBox.swift; path = "Virtual Tourist/GCDBlackBox.swift"; sourceTree = SOURCE_ROOT; };
+		A6A5806D207AF039007BE202 /* PhotoAlbumViewController_CollectionViewMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController_CollectionViewMethods.swift; sourceTree = "<group>"; };
+		A6A5806F207B1541007BE202 /* TravelLocationsViewController_MapViewMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsViewController_MapViewMethods.swift; sourceTree = "<group>"; };
 		A6BAA42D1FEB454A00160AF7 /* FlickrImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImage.swift; sourceTree = "<group>"; };
 		A6BAA42F1FEB467800160AF7 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		A6C47BA6205F731A003F7FD8 /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -108,7 +112,9 @@
 			isa = PBXGroup;
 			children = (
 				A661D9321FD771FB004CF5B8 /* TravelLocationsMapViewController.swift */,
+				A6A5806F207B1541007BE202 /* TravelLocationsViewController_MapViewMethods.swift */,
 				A67B842C201FBA2B004ED38E /* PhotoAlbumViewController.swift */,
+				A6A5806D207AF039007BE202 /* PhotoAlbumViewController_CollectionViewMethods.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -319,10 +325,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6E701972059B963000DCC93 /* Photo+CoreDataProperties.swift in Sources */,
+				A6A58070207B1541007BE202 /* TravelLocationsViewController_MapViewMethods.swift in Sources */,
 				A65EC8111FD9A27D0034B379 /* FlickrConstants.swift in Sources */,
 				A6E701962059B963000DCC93 /* Photo+CoreDataClass.swift in Sources */,
 				A661D9331FD771FB004CF5B8 /* TravelLocationsMapViewController.swift in Sources */,
 				A6BAA42E1FEB454A00160AF7 /* FlickrImage.swift in Sources */,
+				A6A5806E207AF039007BE202 /* PhotoAlbumViewController_CollectionViewMethods.swift in Sources */,
 				A6E701982059B963000DCC93 /* Pin+CoreDataClass.swift in Sources */,
 				A661D9311FD771FB004CF5B8 /* AppDelegate.swift in Sources */,
 				A676C1D62051946100568652 /* PinOnMap.swift in Sources */,

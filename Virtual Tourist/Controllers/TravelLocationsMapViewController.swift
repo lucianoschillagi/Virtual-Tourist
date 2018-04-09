@@ -55,7 +55,7 @@ class TravelLocationsMapViewController: UIViewController {
 	var flickrPhotos: [FlickrImage] = [FlickrImage]()
 	
 	//*****************************************************************
-	// MARK: - Superview Life Cycle
+	// MARK: - Life Cycle
 	//*****************************************************************
 	
 	// task: ejectuar las instrucciones de su cuerpo cuando la vista se haya cargado
@@ -139,6 +139,9 @@ class TravelLocationsMapViewController: UIViewController {
 	
 	/* 1/3 Map View */
 	@IBAction func addPinToMap(_ sender: UITapGestureRecognizer) {
+		
+		// test
+		print("se agrega un nuevo pin")
 		
 		// Pin on map ----------------------------------------------------
 		/* 1 - addPinToMap: aparece el pin sobre el sitio tapeado */
@@ -239,122 +242,52 @@ class TravelLocationsMapViewController: UIViewController {
 	
 } // end class
 
-//*****************************************************************
-// MARK: - Map View Methods
-//*****************************************************************
-
-extension TravelLocationsMapViewController: MKMapViewDelegate {
-	
-	// task:
-	// si la pantalla está en modo edición y se tapea sobre un pin, borrar ese pin
-	// si la pantalla NO está en modo edición y se tapea sobre un pin, navegar hacia la siguiente pantalla
-	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) { 
-		
-		// la coordenada de ese pin
-		let coordSelect = view.annotation?.coordinate
-		let latitude = coordSelect?.latitude
-		let longitude = coordSelect?.longitude
-		
-		// edit-mode: FALSE, navega hacia el próximo vc desde el pin tapeado
-		if !editMode {
-			
-			// itera el array de pines persistidos con intenciones de pasarle
-			// la ubicación del pin tapeado al ´PhotosAlbumVC´
-			for pin in pins {
-				
-				// busca el pin con la ubicación coincidente
-				if pin.latitude == latitude && pin.longitude == longitude {
-					
-					// almacena el pin correcto (coincidente) en la propiedad 'pinToPass'..
-					self.pinToPass = pin
-					// y su coordenada en 'pinCoordinate'
-					self.pinCoordinate = coordSelect
-					
-				}
-				
-			} // end for-in loop
-			
-			// navega desde el pin tapeado al siguiente vc
-			performSegue(withIdentifier: "PinPhotos", sender: coordSelect)
-			// deselecciona la anotación tapeada
-			mapView.deselectAnnotation(view.annotation, animated: false)
-			
-		// edit-mode: TRUE, borra los pines tapeados, tanto de la vista como de core data
-		} else {
-			
-			// itera el array de pines persistidos con intenciones de BORRAR el pin tapeado
-			for pin in pins {
-				
-				// si las coordenadas del pin persistido coinciden con la coordenada seleccionada
-				if pin.latitude == latitude && pin.longitude == longitude {
-					
-					// asigna el pin a borrar con el pin coincidente
-					let pinToDelete = pin
-					
-					
-					// Core Data DELETE ///////////////////////////////
-					
-					// informa al contexto que borre ese pin
-					dataController.viewContext.delete(pinToDelete)
-					// e intenta guardar el estado actual del contexto
-					try? dataController.viewContext.save() // 💿
-					
-				}
-			
-			} // end for-in
-			
-			// borra del mapa el pin tapeado
-			mapView.removeAnnotation(view.annotation!) 
-
-			}
-		}
-
-} // end class
 
 //*****************************************************************
 // MARK: - Navigation (Segue)
 //*****************************************************************
 
 extension TravelLocationsMapViewController {
-
+	
 	// task: enviar a 'PhotoAlbumViewController' una serie de datos
 	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 		
 		if segue.identifier == "PinPhotos" {
 			
-				// el destino de la transición, el 'PhotosAlbumViewController'
-				let photoAlbumVC = segue.destination as! PhotoAlbumViewController
+			// el destino de la transición, el 'PhotosAlbumViewController'
+			let photoAlbumVC = segue.destination as! PhotoAlbumViewController
 			
-				// el remitente será una coordenada (pin) puesto sobre el mapa
-				let coord = sender as! CLLocationCoordinate2D
+			// el remitente será una coordenada (pin) puesto sobre el mapa
+			let coord = sender as! CLLocationCoordinate2D
 			
 			
-				// le pasa a 'PhotoAlbumViewController' los siguientes datos: ///////////////////////////////
+			// le pasa a 'PhotoAlbumViewController' los siguientes datos: ///////////////////////////////
 			
-				/*
-				1- el controlador de datos (core data)
-				2- el pin coincidente
-				3- la coordenada de ese pin
-				4- las fotos recibidas desde flickr 'flickrPhotos:[FlickrImage]'
-				*/
+			/*
+			1- el controlador de datos (core data)
+			2- el pin coincidente
+			3- la coordenada de ese pin
+			4- las fotos recibidas desde flickr 'flickrPhotos:[FlickrImage]'
+			*/
 			
-				// el controlador de datos
-				photoAlbumVC.dataController = dataController
+			// el controlador de datos
+			photoAlbumVC.dataController = dataController
 			
-				// el pin coincidente..
-				photoAlbumVC.pin = pinToPass
+			// el pin coincidente..
+			photoAlbumVC.pin = pinToPass
 			
-				// ..y su coordenada
-				photoAlbumVC.coordinateSelected = coord
+			// ..y su coordenada
+			photoAlbumVC.coordinateSelected = coord
 			
-				// y pasa las fotos recibidas desde flickr
-				photoAlbumVC.flickrPhotos = flickrPhotos
+			// y pasa las fotos recibidas desde flickr
+			photoAlbumVC.flickrPhotos = flickrPhotos
 			
 			///////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
+			
+			
 		} // end if
-	
+		
 	} // end func
-
+	
 } // end ext
+
